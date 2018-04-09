@@ -6,7 +6,7 @@ public interface MobService {
 
 	/*observators*/
 	
-	public Environment getEnv();
+	public EnvironmentService getEnv();
 	
 	public int getCol();
 	
@@ -24,7 +24,7 @@ public interface MobService {
 	 * @post Face(init(E,x,y,D)) = D
 	 * @post Envi(init(E,x,y,D)) = E
 	 */
-	public void init(int x, int y, Dir d);
+	public void init(Environment e, int x, int y, Dir d);
 	
 	
 	/*operators*/
@@ -46,9 +46,9 @@ public interface MobService {
 	/*invariants*/
 	
 	/**
-	 * 0 <= Col(M) < Environment::Width(Envi(M))
-	 * 0 <= Row(M) < Environment::Height(Envi(M))
-	 * Environment::CellNature(Envi(M),Col(M),Row(M)) not in {WLL, DNC, DWC}
+	 * @inv 0 <= Col(M) < Environment::Width(Envi(M))
+	 * @inv 0 <= Row(M) < Environment::Height(Envi(M))
+	 * @inv Environment::CellNature(Envi(M),Col(M),Row(M)) not in {WLL, DNC, DWC}
 	 */
 	
 }

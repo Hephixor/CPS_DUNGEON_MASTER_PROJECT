@@ -32,7 +32,7 @@ public class MobDecorator implements MobService {
 	}
 
 	@Override
-	public void init(int x, int y, Dir d) {
+	public void init(Environment e, int x, int y, Dir d) {
 		delegate.init(x, y, d);
 	}
 
