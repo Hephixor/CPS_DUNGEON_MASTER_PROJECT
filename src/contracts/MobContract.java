@@ -1,9 +1,12 @@
 package contracts;
 
+import java.util.Arrays;
+
 import decorators.MobDecorator;
 import errors.InvariantError;
 import errors.PostconditionError;
 import errors.PreconditionError;
+import services.EnvironmentService;
 import services.MobService;
 import utils.Cell;
 import utils.Dir;
@@ -27,14 +30,13 @@ public class MobContract extends MobDecorator{
 		if( !(0<=getRow() && getRow()<getEnv().getHeight()) )
 			throw new InvariantError("@inv 0 <= Row(M) < Environment::Height(Envi(M))");
 		
-		if( !(getEnv().getCellNature(getCol(), getRow()) != Cell.WLL && 
-				getEnv().getCellNature(getCol(), getRow()) != Cell.DNC && 
-				getEnv().getCellNature(getCol(), getRow()) != Cell.DWC) )
+		Cell o = getEnv().getCellNature(getCol(), getRow());
+		if( !(Arrays.asList(Cell.WLL, Cell.DNC, Cell.DWC).contains(o)) )
 			throw new InvariantError("@inv Environment::CellNature(Envi(M),Col(M),Row(M)) not in {WLL, DNC, DWC}");
 	}
 
 	@Override
-	public Environment getEnv() {
+	public EnvironmentService getEnv() {
 		return super.getEnv();
 	}
 	
@@ -61,11 +63,9 @@ public class MobContract extends MobDecorator{
 	 * @post Envi(init(E,x,y,D)) = E
 	 */
 	@Override
-	public void init(Environment e, int x, int y, Dir d) {
-		// TODO Auto-generated method stub
-		
+	public void init(EnvironmentService e, int x, int y, Dir d) {
 		//pre
-		if( !(0<=x && x<) )
+		if( !(0<=x && x<e.getWidth() && 0<=y && y<e.getHeight()) )
 			throw new PreconditionError("@pre 0 <= x < Environment::Width(E) and 0 <= y < Environment::Height(E)");
 		
 		//inv pre
@@ -74,22 +74,22 @@ public class MobContract extends MobDecorator{
 		//capture
 		
 		//run
-		super.init(x, y, d);
+		super.init(e, x, y, d);
 		
 		//inv post
 		checkInvariant();
 		
 		//post
-		if( !() )
+		if( !(getCol()==x) )
 			throw new PostconditionError("@post Col(init(E,x,y,D)) = x");
 		
-		if( !() )
+		if( !(getRow()==y) )
 			throw new PostconditionError("@post Row(init(E,x,y,D)) = y");
 		
-		if( !() )
+		if( !(getFace()==d) )
 			throw new PostconditionError(" @post Face(init(E,x,y,D)) = D");
 		
-		if( !() )
+		if( !(getEnv()==e) )
 			throw new PostconditionError("@post Envi(init(E,x,y,D)) = E");
 	}
 
@@ -128,8 +128,4 @@ public class MobContract extends MobDecorator{
 		// TODO Auto-generated method stub
 		super.strafeR();
 	}
-
-	
-
-
 }

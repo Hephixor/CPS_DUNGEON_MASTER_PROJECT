@@ -24,7 +24,7 @@ public interface MobService {
 	 * @post Face(init(E,x,y,D)) = D
 	 * @post Envi(init(E,x,y,D)) = E
 	 */
-	public void init(Environment e, int x, int y, Dir d);
+	public void init(EnvironmentService e, int x, int y, Dir d);
 	
 	
 	/*operators*/

@@ -1,6 +1,6 @@
 package decorators;
 
-import services.Environment;
+import services.EnvironmentService;
 import services.MobService;
 import utils.Dir;
 
@@ -12,7 +12,7 @@ public class MobDecorator implements MobService {
 	}
 	
 	@Override
-	public Environment getEnv() {
+	public EnvironmentService getEnv() {
 		return delegate.getEnv();
 	}
 
@@ -32,8 +32,8 @@ public class MobDecorator implements MobService {
 	}
 
 	@Override
-	public void init(Environment e, int x, int y, Dir d) {
-		delegate.init(x, y, d);
+	public void init(EnvironmentService e, int x, int y, Dir d) {
+		delegate.init(e, x, y, d);
 	}
 
 	@Override
