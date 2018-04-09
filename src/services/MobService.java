@@ -18,11 +18,11 @@ public interface MobService {
 	/*constructors*/
 	
 	/**
-	 * pre: s 0 <= x < Environment::Width(E) and 0 <= y < Environment::Height(E)
-	 * post: Col(init(E,x,y,D)) = x
-	 * post: Row(init(E,x,y,D)) = y
-	 * post: Face(init(E,x,y,D)) = D
-	 * post: Envi(init(E,x,y,D)) = E
+	 * @pre s 0 <= x < Environment::Width(E) and 0 <= y < Environment::Height(E)
+	 * @post Col(init(E,x,y,D)) = x
+	 * @post Row(init(E,x,y,D)) = y
+	 * @post Face(init(E,x,y,D)) = D
+	 * @post Envi(init(E,x,y,D)) = E
 	 */
 	public void init(int x, int y, Dir d);
 	

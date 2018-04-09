@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" additionalparam=" -tag pre:cm:&quot;Preconditions: &quot; -tag post:cm:&quot;Postconditions: &quot;" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="contracts,services,decorators,errors,impl,utils" source="1.8" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>
