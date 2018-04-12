@@ -1,7 +1,7 @@
 package decorators;
 
 import services.EnvironmentService;
-import utils.Option;
+import services.MobService;
 
 public class EnvironmentDecorator extends MapDecorator implements EnvironmentService {
 	private final EnvironmentService delegate = null;
@@ -15,7 +15,7 @@ public class EnvironmentDecorator extends MapDecorator implements EnvironmentSer
 	}
 
 	@Override
-	public Option CellContent(int x, int y) {
+	public MobService CellContent(int x, int y) {
 		return delegate.CellContent(x, y);
 	}
 

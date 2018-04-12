@@ -6,70 +6,64 @@ import utils.Dir;
 
 public class MobImpl implements MobService{
 
+	int x;
+	int y;
+	int hp;
+	Dir orientation;
+	EnvironmentService env;
+	
 	@Override
 	public EnvironmentService getEnv() {
-		// TODO Auto-generated method stub
-		return null;
+		return env;
 	}
 
 	@Override
 	public int getCol() {
-		// TODO Auto-generated method stub
-		return 0;
+		return x;
 	}
 
 	@Override
 	public int getRow() {
-		// TODO Auto-generated method stub
-		return 0;
+		return y;
 	}
 
 	@Override
 	public Dir getFace() {
-		// TODO Auto-generated method stub
-		return null;
+		return orientation;
 	}
 
 	@Override
 	public void init(EnvironmentService e, int x, int y, Dir d) {
-		// TODO Auto-generated method stub
+		env=e;
+		this.x=x;
+		this.y=y;
+		orientation=d;
+		hp=1; // ??
 		
 	}
 
 	@Override
 	public void forward() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void backward() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void turnL() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void turnR() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void strafeL() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void strafeR() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -69,7 +69,7 @@ public class MobContract extends MobDecorator{
 			throw new PreconditionError("@pre 0 <= x < Environment::Width(E) and 0 <= y < Environment::Height(E)");
 		
 		//inv pre
-		checkInvariant();
+//		checkInvariant();
 		
 		//capture
 		
@@ -77,7 +77,7 @@ public class MobContract extends MobDecorator{
 		super.init(e, x, y, d);
 		
 		//inv post
-		checkInvariant();
+//		checkInvariant();
 		
 		//post
 		if( !(getCol()==x) )

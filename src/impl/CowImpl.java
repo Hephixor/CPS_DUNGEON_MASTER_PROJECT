@@ -1,4 +1,4 @@
-package decorators;
+package impl;
 
 import services.CowService;
 import services.EntityService;
@@ -6,89 +6,95 @@ import services.EnvironmentService;
 import utils.Dir;
 
 public class CowImpl implements CowService{
-
-	@Override
-	public int getHP() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public EntityService step() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public EnvironmentService getEnv() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getCol() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getRow() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Dir getFace() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void init(EnvironmentService e, int x, int y, Dir d) {
-		// TODO Auto-generated method stub
+	private 
+	int hp;
+	int x;
+	int y;
+	Dir orientation;
+	EnvironmentService env;
+	
+	public CowImpl() {
 		
 	}
 
 	@Override
+	public int getHP() {
+		return hp;
+	}
+
+	@Override
+	public EntityService step() {
+		return step();
+	}
+
+	@Override
+	public EnvironmentService getEnv() {
+		return getEnv();
+	}
+
+	@Override
+	public int getCol() {
+		return y;
+	}
+
+	@Override
+	public int getRow() {
+		return x;
+	}
+
+	@Override
+	public Dir getFace() {
+		return this.orientation;
+	}
+
+	@Override
+	public void init(EnvironmentService e, int x, int y, Dir d) {
+		env = e;
+		this.x = x;
+		this.y = y;
+		orientation = d;
+		hp = 3;
+	}
+
+	@Override
 	public void forward() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void backward() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void turnL() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void turnR() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void strafeL() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void strafeR() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void init(EnvironmentService env, int x, int y, Dir d, int hp) {
-		// TODO Auto-generated method stub
-		
+		this.env = env ;
+		this.x = x;
+		this.y = y;
+		orientation = d;
+		this.hp = hp;
 	}
 
 }

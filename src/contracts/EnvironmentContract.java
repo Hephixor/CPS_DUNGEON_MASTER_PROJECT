@@ -3,7 +3,6 @@ package contracts;
 import decorators.EnvironmentDecorator;
 import errors.PreconditionError;
 import services.EnvironmentService;
-import utils.Option;
 
 public class EnvironmentContract extends EnvironmentDecorator{
 
@@ -22,8 +21,8 @@ public class EnvironmentContract extends EnvironmentDecorator{
 	 */
 	public EnvironmentService closeDoor(int x, int y) {
 		//pre
-		if(CellContent(x,y)!=Option.NO) {
-			throw new PreconditionError("Target cell is not NO");
+		if(CellContent(x,y)!=null) {
+			throw new PreconditionError("Can't close door on a mob");
 		}
 		
 		//CheckInvariants
@@ -38,9 +37,4 @@ public class EnvironmentContract extends EnvironmentDecorator{
 		
 		return this;
 	}
-
-	
-
-	
-
 }
