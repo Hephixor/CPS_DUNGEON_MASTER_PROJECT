@@ -1,16 +1,25 @@
-package decorators;
+package impl;
 
-import services.CowService;
 import services.EntityService;
 import services.EnvironmentService;
+import services.MobService;
+import services.PlayerService;
+import utils.Cell;
+import utils.Command;
 import utils.Dir;
 
-public class CowImpl implements CowService{
+public class PlayerImpl implements PlayerService{
 
 	@Override
 	public int getHP() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void init(EnvironmentService env, int x, int y, Dir d, int hp) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -86,9 +95,27 @@ public class CowImpl implements CowService{
 	}
 
 	@Override
-	public void init(EnvironmentService env, int x, int y, Dir d, int hp) {
+	public Command Lastcom() {
 		// TODO Auto-generated method stub
-		
+		return null;
+	}
+
+	@Override
+	public MobService Content(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Cell Nature(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean Viewable(int x, int y) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

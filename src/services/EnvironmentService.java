@@ -1,11 +1,9 @@
 package services;
 
-import utils.Option;
-
 public interface EnvironmentService extends MapService {
 
 	/* Observators */
-	public Option CellContent(int x, int y);
+	public MobService CellContent(int x, int y);
 	
 	/**
 	 * pre CloseDoor(M,x,y) requires CellContent(M,x,y) = No
