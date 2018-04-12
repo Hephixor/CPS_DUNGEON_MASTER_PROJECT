@@ -6,13 +6,15 @@ import contracts.EngineContract;
 import contracts.EnvironmentContract;
 import contracts.MobContract;
 import contracts.PlayerContract;
+import services.EnvironmentService;
+import services.MobService;
 import utils.Dir;
 
 public class DungeonMaster {
 
 	public static void main(String[] args) {
 		
-		//initialisation d'une partie avec une carte de taille 10x10, 1 joueur, 2 monstres et 3 vaches
+		//initialisation d'une partie avec une carte vide de taille 10x10, 1 joueur, 2 monstres et 3 vaches
 		
 		int heigth = 10;
 		int width = 10;
@@ -27,7 +29,12 @@ public class DungeonMaster {
 		EngineContract enginec = new EngineContract(engine);
 		PlayerContract playerc = new PlayerContract(player);
 		MobContract[] mobsc = new MobContract[2];
+		mobsc[0] = new MobContract(new MobImpl());
+		mobsc[1] = new MobContract(new MobImpl());
 		CowContract[] cowsc = new CowContract[3];
+		cowsc[0] = new CowContract(new CowImpl());
+		cowsc[1] = new CowContract(new CowImpl());
+		cowsc[2] = new CowContract(new CowImpl());
 		
 		mapc.init(width, heigth);
 		envc.init(width,heigth);
@@ -38,6 +45,10 @@ public class DungeonMaster {
 		cowsc[0].init(envc, 2, 2, Dir.E, 4);
 		cowsc[1].init(envc, 3, 3, Dir.S, 4);
 		cowsc[2].init(envc, 4, 4, Dir.W, 4);
+		
+		System.out.println("Hello welcome to dungeon master"); 
+		System.out.println("you're playing on a " + mapc.getHeight()+" x " + mapc.getWidth() + " map with");
+		System.out.println(mobsc.length+" mobs and "+cowsc.length+" cows.");
 		
 		
 	}

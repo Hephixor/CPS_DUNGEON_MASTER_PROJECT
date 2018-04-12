@@ -75,26 +75,26 @@ public class CowImpl implements CowService{
 
 	@Override
 	public void turnR() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void strafeL() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void strafeR() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void init(EnvironmentService env, int x, int y, Dir d, int hp) {
-		// TODO Auto-generated method stub
-		
+		this.env = env ;
+		this.x = x;
+		this.y = y;
+		orientation = d;
+		this.hp = hp;
 	}
 
 }

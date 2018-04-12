@@ -6,58 +6,57 @@ import utils.Cell;
 
 public class EditMapImpl implements EditMapService{
 
+	int h;
+	int w;
+	Cell[][] cells;
+	
 	@Override
 	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return h;
 	}
 
 	@Override
 	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return w;
 	}
 
 	@Override
 	public Cell getCellNature(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return cells[x][y];
 	}
 
 	@Override
 	public void init(int w, int h) {
-		// TODO Auto-generated method stub
+		this.w=w;
+		this.h=h;
 		
+		//Mettre des cells
 	}
 
 	@Override
 	public MapService openDoor(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
 	public MapService closeDoor(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
 	public boolean isReachable(int px, int py, int ox, int oy) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isReady() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public EditMapService setNature(int x, int y, Cell c) {
-		// TODO Auto-generated method stub
-		return null;
+		cells[x][y]=c;
+		return this;
 	}
 
 }

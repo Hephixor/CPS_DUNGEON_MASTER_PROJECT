@@ -6,45 +6,43 @@ import services.EnvironmentService;
 
 public class EngineImpl implements EngineService{
 
+	EnvironmentService env;
+	EntityService[] ents;
+	
+	
 	@Override
 	public EnvironmentService envi() {
-		// TODO Auto-generated method stub
-		return null;
+		return env;
 	}
 
 	@Override
 	public EntityService[] entities() {
-		// TODO Auto-generated method stub
-		return null;
+		return ents;
 	}
 
 	@Override
 	public EntityService getEntity(int idx) {
-		// TODO Auto-generated method stub
-		return null;
+		return ents[idx];
 	}
 
 	@Override
 	public void init(EnvironmentService env) {
-		// TODO Auto-generated method stub
-		
+		this.env = env;
+		//parametrer le nombre d'entities
 	}
 
 	@Override
 	public EngineService removeEntity(int idx) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public EngineService addEntity(EntityService ent) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public EngineService step() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

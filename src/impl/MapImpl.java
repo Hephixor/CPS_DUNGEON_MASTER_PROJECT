@@ -4,40 +4,40 @@ import services.MapService;
 import utils.Cell;
 
 public class MapImpl implements MapService {
-
+	int h;
+	int w;
+	Cell[][] cells;
+	
 	@Override
 	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return h;
 	}
 
 	@Override
 	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return w;
 	}
 
 	@Override
 	public Cell getCellNature(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return cells[x][y];
 	}
 
 	@Override
 	public void init(int w, int h) {
-		// TODO Auto-generated method stub
+		this.h=h;
+		this.w=h;
+				//Initialiser les cases;
 		
 	}
 
 	@Override
 	public MapService openDoor(int x, int y) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public MapService closeDoor(int x, int y) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
