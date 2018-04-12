@@ -95,8 +95,43 @@ public class MobContract extends MobDecorator{
 
 	@Override
 	public void forward() {
-		// TODO Auto-generated method stub
+		//TODO 
+		//pre
+		
+		//inv pre
+		checkInvariant();
+		
+		//capture
+		Dir face_atpre = getFace();
+		
+		//run
 		super.forward();
+		
+		//inv post
+		checkInvariant();
+		
+		//post
+		switch(face_atpre) {
+		
+			case N :
+				if(getRow()+1 < getEnv().
+						Arrays.asList(Cell.EMP, Cell.DWO).contains(getEnv().getCellNature(getCol(), getRow()+1)
+						) {
+					
+				}else {
+					
+				}
+				break;
+				
+			case E : 
+				break;
+				
+			case S :
+				break;
+				
+			case W : 
+				break;
+		}
 	}
 
 	@Override
