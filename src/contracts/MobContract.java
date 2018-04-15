@@ -8,6 +8,7 @@ import errors.PostconditionError;
 import errors.PreconditionError;
 import services.EnvironmentService;
 import services.MobService;
+import sun.security.action.GetBooleanAction;
 import utils.Cell;
 import utils.Dir;
 
@@ -103,6 +104,20 @@ public class MobContract extends MobDecorator{
 		
 		//capture
 		Dir face_atpre = getFace();
+		int row_atpre = getRow();
+		int col_atpre = getCol();
+		
+		int envHeight = getEnv().getHeight();
+		int envWidth = getEnv().getWidth();
+		
+		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
+		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
+		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
+		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
 		
 		//run
 		super.forward();
@@ -114,23 +129,53 @@ public class MobContract extends MobDecorator{
 		switch(face_atpre) {
 		
 			case N :
-				if(getRow()+1 < getEnv().
-						Arrays.asList(Cell.EMP, Cell.DWO).contains(getEnv().getCellNature(getCol(), getRow()+1)
-						) {
-					
+				if(row_atpre+1 < envHeight
+				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatN)
+				&& cellcontN == null) {
+					if(!( getRow()==row_atpre+1 && getCol()==col_atpre ))
+						throw new PostconditionError("Moved forward North incorrectly.");
 				}else {
-					
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("Moved forward North incorrectly.");
 				}
 				break;
 				
 			case E : 
+				if(col_atpre+1 < envWidth
+				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatE)
+				&& cellcontE == null) {
+					if(!( getRow()==row_atpre && getCol()==col_atpre+1 ))
+						throw new PostconditionError("Moved forward East incorrectly.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("Moved forward East incorrectly.");
+				}
 				break;
-				
+					
 			case S :
+				if(row_atpre-1 >= 0
+				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatS)
+				&& cellcontS == null) {
+					if(!( getRow()==row_atpre-1 && getCol()==col_atpre ))
+						throw new PostconditionError("Moved forward South incorrectly.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("Moved forward South incorrectly.");
+				}
 				break;
 				
 			case W : 
+				if(col_atpre-1 >= 0
+				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatW)
+				&& cellcontW == null) {
+					if(!( getRow()==row_atpre && getCol()==col_atpre-1 ))
+						throw new PostconditionError("Moved forward South incorrectly.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("Moved forward South incorrectly.");
+				}
 				break;
+							
 		}
 	}
 

@@ -40,55 +40,105 @@ public interface MobService {
 	/**
 	 * @post Face(M)=N =>
 	 * 			Environment::CellNature(Envi(M),Col(M),Row(M)+1) in {EMP, DWO}
-	 * 			and Row(M)+1 < Environment::Width(Envi(M))
+	 * 			and Row(M)+1 < Environment::Height(Envi(M))
 	 * 			and Environment::CellContent(Envi(M),Col(M),Row(M)+1) = No
 	 * 			=> Row(Forward(M)) = Row(M) + 1
 	 *			   and Col(Forward(M)) = Col(M)
 	 * @post Face(M)=N =>
 	 * 			Environment::CellNature(Envi(M),Col(M),Row(M)+1) not in {EMP, DWO}
-	 * 			or Row(M)+1 >= Environment::Width(Envi(M))
+	 * 			or Row(M)+1 >= Environment::Height(Envi(M))
 	 * 			or Environment::CellContent(Envi(M),Col(M),Row(M)+1) != No
 	 * 			=> Row(Forward(M)) = Row(M)
 	 * 			   and Col(Forward(M)) = Col(M)
 	 * @post Face(M)=E =>
 	 * 			Environment::CellNature(Envi(M),Col(M)+1,Row(M)) in {EMP, DNO}
-	 * 			and Col(M)+1 < Environment::Height(Envi(M))
+	 * 			and Col(M)+1 < Environment::Width(Envi(M))
 	 * 			and Environment::CellContent(Envi(M),Col(M)+1,Row(M)) = No
 	 * 			=> Row(Forward(M)) = Row(M)
 	 * 			   and Col(Forward(M)) = Col(M) + 1
 	 * @post Face(M)=E =>
 	 * 			Environment::CellNature(Envi(M),Col(M)+1,Row(M)) not in {EMP, DNO}
-	 * 			or Row(M) >= Environment::Width(Envi(M))
+	 * 			or Col(M) >= Environment::Width(Envi(M))
 	 * 			or Environment::CellContent(Envi(M),Col(M)+1,Row(M)) != No
 	 * 			=> Row(Forward(M)) = Row(M)
 	 * 			   and Col(Forward(M)) = Col(M)
 	 * @post Face(M)=S =>
 	 * 			Environment::CellNature(Envi(M),Col(M),Row(M)-1) in {EMP, DWO}
-	 * 			and Col(M)-1>= 0
-	 * 			and Environment::CellContent(Envi(M),Col(M),Row(M)+1) = No
+	 * 			and Row(M)-1>= 0
+	 * 			and Environment::CellContent(Envi(M),Col(M),Row(M)-1) = No
 	 * 			=> Row(Forward(M)) = Row(M) - 1
 	 * 			   and Col(Forward(M)) = Col(M)
 	 * @post Face(M)=S =>
 	 * 			Environment::CellNature(Envi(M),Col(M),Row(M)-1) not in {EMP, DWO}
-	 * 			or Col(M)-1 < 0
+	 * 			or Row(M)-1 < 0
 	 * 			or Environment::CellContent(Envi(M),Col(M),Row(M)-1) != No
 	 * 			=> Row(Forward(M)) = Row(M)
 	 * 			   and Col(Forward(M)) = Col(M)
 	 * @post Face(M)=W =>
 	 * 			Environment::CellNature(Envi(M),Col(M)-1,Row(M)) in {EMP, DNO}
-	 * 			and Row(M)-1 >= 0
+	 * 			and Col(M)-1 >= 0
 	 * 			and Environment::CellContent(Envi(M),Col(M)-1,Row(M)) = No
 	 * 			=> Row(Forward(M)) = Row(M)
 	 * 			   and Col(Forward(M)) = Col(M) - 1
 	 * @post Face(M)=W =>
 	 * 			Environment::CellNature(Envi(M),Col(M)-1,Row(M)) not in {EMP, DNO}
-	 * 			or Row(M)-1 < 0
-	 * 			or Environment::CellContent(Envi(M),Col(M),Row(M)-1) != No
+	 * 			or Col(M)-1 < 0
+	 * 			or Environment::CellContent(Envi(M),Col(M)-1,Row(M)) != No
 	 * 			=> Row(Forward(M)) = Row(M)
 	 * 			   and Col(Forward(M)) = Col(M)
 	 */
 	public void forward();
 	
+	/**
+	 * @post Face(M)=N =>
+	 * 			Environment::CellNature(Envi(M),Col(M),Row(M)+1) in {EMP, DWO}
+	 * 			and Row(M)+1 < Environment::Height(Envi(M))
+	 * 			and Environment::CellContent(Envi(M),Col(M),Row(M)+1) = No
+	 * 			=> Row(Forward(M)) = Row(M) + 1
+	 *			   and Col(Forward(M)) = Col(M)
+	 * @post Face(M)=N =>
+	 * 			Environment::CellNature(Envi(M),Col(M),Row(M)+1) not in {EMP, DWO}
+	 * 			or Row(M)+1 >= Environment::Height(Envi(M))
+	 * 			or Environment::CellContent(Envi(M),Col(M),Row(M)+1) != No
+	 * 			=> Row(Forward(M)) = Row(M)
+	 * 			   and Col(Forward(M)) = Col(M)
+	 * @post Face(M)=E =>
+	 * 			Environment::CellNature(Envi(M),Col(M)+1,Row(M)) in {EMP, DNO}
+	 * 			and Col(M)+1 < Environment::Width(Envi(M))
+	 * 			and Environment::CellContent(Envi(M),Col(M)+1,Row(M)) = No
+	 * 			=> Row(Forward(M)) = Row(M)
+	 * 			   and Col(Forward(M)) = Col(M) + 1
+	 * @post Face(M)=E =>
+	 * 			Environment::CellNature(Envi(M),Col(M)+1,Row(M)) not in {EMP, DNO}
+	 * 			or Col(M) >= Environment::Width(Envi(M))
+	 * 			or Environment::CellContent(Envi(M),Col(M)+1,Row(M)) != No
+	 * 			=> Row(Forward(M)) = Row(M)
+	 * 			   and Col(Forward(M)) = Col(M)
+	 * @post Face(M)=S =>
+	 * 			Environment::CellNature(Envi(M),Col(M),Row(M)-1) in {EMP, DWO}
+	 * 			and Row(M)-1>= 0
+	 * 			and Environment::CellContent(Envi(M),Col(M),Row(M)-1) = No
+	 * 			=> Row(Forward(M)) = Row(M) - 1
+	 * 			   and Col(Forward(M)) = Col(M)
+	 * @post Face(M)=S =>
+	 * 			Environment::CellNature(Envi(M),Col(M),Row(M)-1) not in {EMP, DWO}
+	 * 			or Row(M)-1 < 0
+	 * 			or Environment::CellContent(Envi(M),Col(M),Row(M)-1) != No
+	 * 			=> Row(Forward(M)) = Row(M)
+	 * 			   and Col(Forward(M)) = Col(M)
+	 * @post Face(M)=W =>
+	 * 			Environment::CellNature(Envi(M),Col(M)-1,Row(M)) in {EMP, DNO}
+	 * 			and Col(M)-1 >= 0
+	 * 			and Environment::CellContent(Envi(M),Col(M)-1,Row(M)) = No
+	 * 			=> Row(Forward(M)) = Row(M)
+	 * 			   and Col(Forward(M)) = Col(M) - 1
+	 * @post Face(M)=W =>
+	 * 			Environment::CellNature(Envi(M),Col(M)-1,Row(M)) not in {EMP, DNO}
+	 * 			or Col(M)-1 < 0
+	 * 			or Environment::CellContent(Envi(M),Col(M)-1,Row(M)) != No
+	 * 			=> Row(Forward(M)) = Row(M)
+	 * 			   and Col(Forward(M)) = Col(M)
+	 */
 	public void backward();
 	
 	public void turnL();
