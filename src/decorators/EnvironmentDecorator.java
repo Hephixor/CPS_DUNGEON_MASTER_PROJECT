@@ -15,8 +15,8 @@ public class EnvironmentDecorator extends MapDecorator implements EnvironmentSer
 	}
 
 	@Override
-	public MobService CellContent(int x, int y) {
-		return delegate.CellContent(x, y);
+	public MobService getCellContent(int x, int y) {
+		return delegate.getCellContent(x, y);
 	}
 
 

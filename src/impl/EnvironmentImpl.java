@@ -39,7 +39,7 @@ public class EnvironmentImpl implements EnvironmentService{
 	}
 
 	@Override
-	public MobService CellContent(int x, int y) {
+	public MobService getCellContent(int x, int y) {
 		return null;
 	}
 

@@ -33,7 +33,7 @@ public class PlayerContract extends PlayerDecorator {
 		 */
 		switch(d) {
 		case N :
-			if(Content(x, y)!=this.getEnv().CellContent(this.getCol()+x, this.getRow()+y)) {
+			if(Content(x, y)!=this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y)) {
 				throw new InvariantError("Cell Content in fov error");
 			}
 
@@ -43,7 +43,7 @@ public class PlayerContract extends PlayerDecorator {
 			break;
 
 		case S :
-			if(Content(x, y)!=this.getEnv().CellContent(this.getCol()-x, this.getRow()-y)) {
+			if(Content(x, y)!=this.getEnv().getCellContent(this.getCol()-x, this.getRow()-y)) {
 				throw new InvariantError("Cell Content in fov error");
 			}
 
@@ -53,7 +53,7 @@ public class PlayerContract extends PlayerDecorator {
 			break;
 
 		case E :
-			if(Content(x, y)!=this.getEnv().CellContent(this.getCol()+y, this.getRow()-x)) {
+			if(Content(x, y)!=this.getEnv().getCellContent(this.getCol()+y, this.getRow()-x)) {
 				throw new InvariantError("Cell Content in fov error");
 			}
 
@@ -63,7 +63,7 @@ public class PlayerContract extends PlayerDecorator {
 			break;
 
 		case W :
-			if(Content(x, y)!=this.getEnv().CellContent(this.getCol()-y, this.getRow()+x)) {
+			if(Content(x, y)!=this.getEnv().getCellContent(this.getCol()-y, this.getRow()+x)) {
 				throw new InvariantError("Cell Content in fov error");
 			}
 

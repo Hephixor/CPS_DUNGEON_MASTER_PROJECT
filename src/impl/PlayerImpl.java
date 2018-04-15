@@ -97,7 +97,7 @@ public class PlayerImpl implements PlayerService{
 	@Override
 	public MobService Content(int x, int y) {
 		
-		return env.CellContent(x, y);
+		return env.getCellContent(x, y);
 	}
 
 	@Override

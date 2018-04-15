@@ -8,7 +8,6 @@ import errors.PostconditionError;
 import errors.PreconditionError;
 import services.EnvironmentService;
 import services.MobService;
-import sun.security.action.GetBooleanAction;
 import utils.Cell;
 import utils.Dir;
 
@@ -106,13 +105,13 @@ public class MobContract extends MobDecorator{
 		 * a l'Est, au Sud, a l'Ouest.
 		 */
 		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
-		MobService cellcontN = getEnv().CellContent(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
 		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
-		MobService cellcontE = getEnv().CellContent(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
 		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
-		MobService cellcontS = getEnv().CellContent(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
 		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
-		MobService cellcontW = getEnv().CellContent(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
 		
 		//run
 		super.forward();
@@ -193,13 +192,13 @@ public class MobContract extends MobDecorator{
 		 * a l'Est, au Sud, a l'Ouest.
 		 */
 		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
-		MobService cellcontN = getEnv().CellContent(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
 		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
-		MobService cellcontE = getEnv().CellContent(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
 		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
-		MobService cellcontS = getEnv().CellContent(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
 		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
-		MobService cellcontW = getEnv().CellContent(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
 		
 		//run
 		super.backward();
@@ -280,13 +279,13 @@ public class MobContract extends MobDecorator{
 		 * a l'Est, au Sud, a l'Ouest.
 		 */
 		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
-		MobService cellcontN = getEnv().CellContent(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
 		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
-		MobService cellcontE = getEnv().CellContent(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
 		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
-		MobService cellcontS = getEnv().CellContent(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
 		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
-		MobService cellcontW = getEnv().CellContent(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
 		
 		//run
 		super.strafeL();
@@ -367,13 +366,13 @@ public class MobContract extends MobDecorator{
 		 * a l'Est, au Sud, a l'Ouest.
 		 */
 		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
-		MobService cellcontN = getEnv().CellContent(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
 		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
-		MobService cellcontE = getEnv().CellContent(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
 		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
-		MobService cellcontS = getEnv().CellContent(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
 		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
-		MobService cellcontW = getEnv().CellContent(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
 		
 		//run
 		super.strafeR();

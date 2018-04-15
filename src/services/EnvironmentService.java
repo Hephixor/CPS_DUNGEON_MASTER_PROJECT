@@ -3,7 +3,7 @@ package services;
 public interface EnvironmentService extends MapService {
 
 	/* Observators */
-	public MobService CellContent(int x, int y);
+	public MobService getCellContent(int x, int y);
 	
 	/**
 	 * pre CloseDoor(M,x,y) requires CellContent(M,x,y) = No

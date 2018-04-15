@@ -21,7 +21,7 @@ public class EnvironmentContract extends EnvironmentDecorator{
 	 */
 	public EnvironmentService closeDoor(int x, int y) {
 		//pre
-		if(CellContent(x,y)!=null) {
+		if(getCellContent(x,y)!=null) {
 			throw new PreconditionError("Can't close door on a mob");
 		}
 		
