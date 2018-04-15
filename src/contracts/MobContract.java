@@ -56,13 +56,6 @@ public class MobContract extends MobDecorator{
 		return super.getFace();
 	}
 
-	/**
-	 * @pre 0 <= x < Environment::Width(E) and 0 <= y < Environment::Height(E)
-	 * @post Col(init(E,x,y,D)) = x
-	 * @post Row(init(E,x,y,D)) = y
-	 * @post Face(init(E,x,y,D)) = D
-	 * @post Envi(init(E,x,y,D)) = E
-	 */
 	@Override
 	public void init(EnvironmentService e, int x, int y, Dir d) {
 		//pre
@@ -95,8 +88,7 @@ public class MobContract extends MobDecorator{
 	}
 
 	@Override
-	public void forward() {
-		//TODO 
+	public void forward() { 
 		//pre
 		
 		//inv pre
@@ -110,14 +102,17 @@ public class MobContract extends MobDecorator{
 		int envHeight = getEnv().getHeight();
 		int envWidth = getEnv().getWidth();
 		
+		/*ci-dessous, les cases_atpre au Nord de la case_atpre du Mob,
+		 * a l'Est, au Sud, a l'Ouest.
+		 */
 		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
-		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().CellContent(col_atpre, row_atpre+1);
 		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
-		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().CellContent(col_atpre+1, row_atpre);
 		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
-		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().CellContent(col_atpre, row_atpre-1);
 		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
-		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().CellContent(col_atpre-1, row_atpre);
 		
 		//run
 		super.forward();
@@ -133,10 +128,10 @@ public class MobContract extends MobDecorator{
 				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatN)
 				&& cellcontN == null) {
 					if(!( getRow()==row_atpre+1 && getCol()==col_atpre ))
-						throw new PostconditionError("Moved forward North incorrectly.");
+						throw new PostconditionError("incorrectly Moved Forward while looking at North.");
 				}else {
 					if(!( getRow()==row_atpre && getCol()==col_atpre ))
-						throw new PostconditionError("Moved forward North incorrectly.");
+						throw new PostconditionError("incorrectly Moved Forward while looking at North.");
 				}
 				break;
 				
@@ -145,10 +140,10 @@ public class MobContract extends MobDecorator{
 				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatE)
 				&& cellcontE == null) {
 					if(!( getRow()==row_atpre && getCol()==col_atpre+1 ))
-						throw new PostconditionError("Moved forward East incorrectly.");
+						throw new PostconditionError("incorrectly Moved Forward while looking at East.");
 				}else {
 					if(!( getRow()==row_atpre && getCol()==col_atpre ))
-						throw new PostconditionError("Moved forward East incorrectly.");
+						throw new PostconditionError("incorrectly Moved Forward while looking at East.");
 				}
 				break;
 					
@@ -157,10 +152,10 @@ public class MobContract extends MobDecorator{
 				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatS)
 				&& cellcontS == null) {
 					if(!( getRow()==row_atpre-1 && getCol()==col_atpre ))
-						throw new PostconditionError("Moved forward South incorrectly.");
+						throw new PostconditionError("incorrectly Moved Forward while looking at South.");
 				}else {
 					if(!( getRow()==row_atpre && getCol()==col_atpre ))
-						throw new PostconditionError("Moved forward South incorrectly.");
+						throw new PostconditionError("incorrectly Moved Forward while looking at South.");
 				}
 				break;
 				
@@ -169,10 +164,10 @@ public class MobContract extends MobDecorator{
 				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatW)
 				&& cellcontW == null) {
 					if(!( getRow()==row_atpre && getCol()==col_atpre-1 ))
-						throw new PostconditionError("Moved forward South incorrectly.");
+						throw new PostconditionError("incorrectly Moved Forward while looking at West.");
 				}else {
 					if(!( getRow()==row_atpre && getCol()==col_atpre ))
-						throw new PostconditionError("Moved forward South incorrectly.");
+						throw new PostconditionError("incorrectly Moved Forward while looking at West.");
 				}
 				break;
 							
@@ -181,31 +176,337 @@ public class MobContract extends MobDecorator{
 
 	@Override
 	public void backward() {
-		// TODO Auto-generated method stub
+		//pre
+
+		//inv pre
+		checkInvariant();
+		
+		//capture
+		Dir face_atpre = getFace();
+		int row_atpre = getRow();
+		int col_atpre = getCol();
+		
+		int envHeight = getEnv().getHeight();
+		int envWidth = getEnv().getWidth();
+		
+		/*ci-dessous, les cases_atpre au Nord de la case_atpre du Mob,
+		 * a l'Est, au Sud, a l'Ouest.
+		 */
+		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().CellContent(col_atpre, row_atpre+1);
+		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().CellContent(col_atpre+1, row_atpre);
+		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().CellContent(col_atpre, row_atpre-1);
+		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().CellContent(col_atpre-1, row_atpre);
+		
+		//run
 		super.backward();
-	}
-
-	@Override
-	public void turnL() {
-		// TODO Auto-generated method stub
-		super.turnL();
-	}
-
-	@Override
-	public void turnR() {
-		// TODO Auto-generated method stub
-		super.turnR();
+		
+		//inv post
+		checkInvariant();
+		
+		//post
+		switch(face_atpre) {
+		
+			case S :
+				if(row_atpre+1 < envHeight
+				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatN)
+				&& cellcontN == null) {
+					if(!( getRow()==row_atpre+1 && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Moved Backward while looking at South.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Moved Backward while looking at South.");
+				}
+				break;
+				
+			case W : 
+				if(col_atpre+1 < envWidth
+				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatE)
+				&& cellcontE == null) {
+					if(!( getRow()==row_atpre && getCol()==col_atpre+1 ))
+						throw new PostconditionError("incorrectly Moved Backward while looking at West.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Moved Backward while looking at West.");
+				}
+				break;
+					
+			case N :
+				if(row_atpre-1 >= 0
+				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatS)
+				&& cellcontS == null) {
+					if(!( getRow()==row_atpre-1 && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Moved Backward while looking at North.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Moved Backward while looking at North.");
+				}
+				break;
+				
+			case E : 
+				if(col_atpre-1 >= 0
+				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatW)
+				&& cellcontW == null) {
+					if(!( getRow()==row_atpre && getCol()==col_atpre-1 ))
+						throw new PostconditionError("incorrectly Moved Backward while looking at East.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Moved Backward while looking at East.");
+				}
+				break;
+							
+		}
 	}
 
 	@Override
 	public void strafeL() {
-		// TODO Auto-generated method stub
+		//pre
+
+		//inv pre
+		checkInvariant();
+		
+		//capture
+		Dir face_atpre = getFace();
+		int row_atpre = getRow();
+		int col_atpre = getCol();
+		
+		int envHeight = getEnv().getHeight();
+		int envWidth = getEnv().getWidth();
+		
+		/*ci-dessous, les cases_atpre au Nord de la case_atpre du Mob,
+		 * a l'Est, au Sud, a l'Ouest.
+		 */
+		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().CellContent(col_atpre, row_atpre+1);
+		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().CellContent(col_atpre+1, row_atpre);
+		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().CellContent(col_atpre, row_atpre-1);
+		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().CellContent(col_atpre-1, row_atpre);
+		
+		//run
 		super.strafeL();
+		
+		//inv post
+		checkInvariant();
+		
+		//post
+		switch(face_atpre) {
+		
+			case E :
+				if(row_atpre+1 < envHeight
+				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatN)
+				&& cellcontN == null) {
+					if(!( getRow()==row_atpre+1 && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Left while looking at East.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Left while looking at East.");
+				}
+				break;
+				
+			case S : 
+				if(col_atpre+1 < envWidth
+				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatE)
+				&& cellcontE == null) {
+					if(!( getRow()==row_atpre && getCol()==col_atpre+1 ))
+						throw new PostconditionError("incorrectly Strafed Left while looking at South.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Left while looking at South.");
+				}
+				break;
+					
+			case W :
+				if(row_atpre-1 >= 0
+				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatS)
+				&& cellcontS == null) {
+					if(!( getRow()==row_atpre-1 && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Left while looking at West.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Left while looking at West.");
+				}
+				break;
+				
+			case N : 
+				if(col_atpre-1 >= 0
+				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatW)
+				&& cellcontW == null) {
+					if(!( getRow()==row_atpre && getCol()==col_atpre-1 ))
+						throw new PostconditionError("incorrectly Strafed Left while looking at North.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Left while looking at North.");
+				}
+				break;
+							
+		}
 	}
 
 	@Override
 	public void strafeR() {
-		// TODO Auto-generated method stub
+		//pre
+
+		//inv pre
+		checkInvariant();
+		
+		//capture
+		Dir face_atpre = getFace();
+		int row_atpre = getRow();
+		int col_atpre = getCol();
+		
+		int envHeight = getEnv().getHeight();
+		int envWidth = getEnv().getWidth();
+		
+		/*ci-dessous, les cases_atpre au Nord de la case_atpre du Mob,
+		 * a l'Est, au Sud, a l'Ouest.
+		 */
+		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().CellContent(col_atpre, row_atpre+1);
+		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().CellContent(col_atpre+1, row_atpre);
+		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().CellContent(col_atpre, row_atpre-1);
+		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().CellContent(col_atpre-1, row_atpre);
+		
+		//run
 		super.strafeR();
+		
+		//inv post
+		checkInvariant();
+		
+		//post
+		switch(face_atpre) {
+		
+			case W :
+				if(row_atpre+1 < envHeight
+				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatN)
+				&& cellcontN == null) {
+					if(!( getRow()==row_atpre+1 && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Right while looking at West.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Right while looking at West.");
+				}
+				break;
+				
+			case N : 
+				if(col_atpre+1 < envWidth
+				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatE)
+				&& cellcontE == null) {
+					if(!( getRow()==row_atpre && getCol()==col_atpre+1 ))
+						throw new PostconditionError("incorrectly Strafed Right while looking at North.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Right while looking at North.");
+				}
+				break;
+					
+			case E :
+				if(row_atpre-1 >= 0
+				&& Arrays.asList(Cell.EMP, Cell.DWO).contains(cellnatS)
+				&& cellcontS == null) {
+					if(!( getRow()==row_atpre-1 && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Right while looking at East.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Right while looking at East.");
+				}
+				break;
+				
+			case S : 
+				if(col_atpre-1 >= 0
+				&& Arrays.asList(Cell.EMP, Cell.DNO).contains(cellnatW)
+				&& cellcontW == null) {
+					if(!( getRow()==row_atpre && getCol()==col_atpre-1 ))
+						throw new PostconditionError("incorrectly Strafed Right while looking at South.");
+				}else {
+					if(!( getRow()==row_atpre && getCol()==col_atpre ))
+						throw new PostconditionError("incorrectly Strafed Right while looking at South.");
+				}
+				break;
+							
+		}
 	}
+	
+	@Override
+	public void turnL() {
+		//pre
+		
+		//inv pre
+		checkInvariant();
+		
+		//capture
+		Dir face_atpre = getFace();
+		
+		//run
+		super.turnL();
+		
+		//inv post
+		checkInvariant();
+		
+		//post
+		switch(face_atpre) {
+			case N :
+				if(!( getFace()==Dir.W ))
+					throw new PostconditionError("incorrectly Turned Left while looking at North.");
+				break;
+			case W :
+				if(!( getFace()==Dir.S ))
+					throw new PostconditionError("incorrectly Turned Left while looking at West.");
+				break;
+			case S :
+				if(!( getFace()==Dir.E ))
+					throw new PostconditionError("incorrectly Turned Left while looking at South.");
+				break;
+			case E :
+				if(!( getFace()==Dir.N ))
+					throw new PostconditionError("incorrectly Turned Left while looking at East.");
+				break;
+		}
+	}
+
+	@Override
+	public void turnR() {
+		//pre
+
+		//inv pre
+		checkInvariant();
+		
+		//capture
+		Dir face_atpre = getFace();
+		
+		//run
+		super.turnR();
+		
+		//inv post
+		checkInvariant();
+		
+		//post
+		switch(face_atpre) {
+			case N :
+				if(!( getFace()==Dir.E ))
+					throw new PostconditionError("incorrectly Turned Rigth while looking at North.");
+				break;
+			case W :
+				if(!( getFace()==Dir.N ))
+					throw new PostconditionError("incorrectly Turned Rigth while looking at West.");
+				break;
+			case S :
+				if(!( getFace()==Dir.W ))
+					throw new PostconditionError("incorrectly Turned Rigth while looking at South.");
+				break;
+			case E :
+				if(!( getFace()==Dir.S ))
+					throw new PostconditionError("incorrectly Turned Rigth while looking at East.");
+				break;
+		}
+	}
+
 }
