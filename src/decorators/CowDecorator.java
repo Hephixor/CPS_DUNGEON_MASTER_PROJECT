@@ -1,7 +1,6 @@
 package decorators;
 
 import services.CowService;
-import services.EntityService;
 import services.EnvironmentService;
 import utils.Dir;
 
@@ -23,8 +22,8 @@ public class CowDecorator implements CowService{
 	}
 
 	@Override
-	public EntityService step() {
-		return delegate.step();
+	public void step() {
+		delegate.step();
 	}
 
 	@Override

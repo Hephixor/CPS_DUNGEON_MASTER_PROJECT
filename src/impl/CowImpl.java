@@ -1,7 +1,6 @@
 package impl;
 
 import services.CowService;
-import services.EntityService;
 import services.EnvironmentService;
 import utils.Dir;
 
@@ -23,8 +22,12 @@ public class CowImpl implements CowService{
 	}
 
 	@Override
-	public EntityService step() {
-		return step();
+	public void step() {
+		/*TODO  ca appelle quelle méthode step() ? super ? cow.step() doit faire
+		 * aleatoirement une des 6 commandes possibles d'un mob (forward backward
+		 * turnL turnR strafeL strafeR
+		 */
+		step();
 	}
 
 	@Override

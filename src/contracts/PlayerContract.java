@@ -146,7 +146,7 @@ public class PlayerContract extends PlayerDecorator {
 	}
 
 	@Override
-	public PlayerService step() {
+	public void step() {
 		//pre
 
 		CheckInvariants();
@@ -329,10 +329,6 @@ public class PlayerContract extends PlayerDecorator {
 			break;
 
 		}
-		
-		return this;
-
-
 	}
 
 	@Override

@@ -84,8 +84,8 @@ public class EntityDecorator implements EntityService{
 	}
 
 	@Override
-	public EntityService step() {
-		return delegate.step();
+	public void step() {
+		delegate.step();
 	}
 
 

@@ -8,11 +8,14 @@ public interface EntityService extends MobService{
 	public int getHP();
 	
 	/* Constructors */
+	
 	/**
-	 * pre init(E,x,y,D,h) requires h > 0
+	 * @pre hp > 0
+	 * @post Hp(init(E,x,y,D,hp)) = hp
 	 */
 	public void init(EnvironmentService env, int x, int y, Dir d, int hp);
 	
 	/* Operators */
-	public EntityService step();
+	
+	public void step();
 }

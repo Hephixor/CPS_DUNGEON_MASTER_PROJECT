@@ -18,32 +18,28 @@ public class EntityContract extends EntityDecorator{
 	}
 	
 	/* Observators */
+	
 	@Override
 	public int getHP() {
-		//pre
-		
-		//checkInt
-		checkInvariants();
-		
 		return super.getHP();
-		
-
 	}
 	
 	/* Constructors */
-	/**
-	 * pre init(E,x,y,D,h) requires h > 0
-	 */
+	
+	@Override
 	public void init(EnvironmentService env, int x, int y, Dir d, int hp) {
 		//pre
 		if(! (hp > 0) ) {
 			throw new PreconditionError("HP must be at least 1.");
 		}
 		
+		//inv pre
 		checkInvariants();
 		
+		//run
 		super.init(env, x, y, d, hp);
 		
+		//inv post
 		checkInvariants();
 		
 		//post
@@ -55,18 +51,19 @@ public class EntityContract extends EntityDecorator{
 	}
 	
 	/* Operators */
-	public EntityService step() {
+	public void step() {
 		//pre
 		
+		//inv pre
 		checkInvariants();
 		
+		//run
 		super.step();
 	
+		//inv post
 		checkInvariants();
 		
 		//post
-		
-		return this;
 	}
 
 }

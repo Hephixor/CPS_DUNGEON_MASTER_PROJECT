@@ -1,6 +1,5 @@
 package impl;
 
-import services.EntityService;
 import services.EnvironmentService;
 import services.MobService;
 import services.PlayerService;
@@ -31,8 +30,8 @@ public class PlayerImpl implements PlayerService{
 	}
 
 	@Override
-	public EntityService step() {
-		return null;
+	public void step() {
+		//TODO
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import decorators.CowDecorator;
 import errors.PostconditionError;
 import errors.PreconditionError;
 import services.CowService;
-import services.EntityService;
 import services.EnvironmentService;
 import utils.Dir;
 
@@ -32,7 +31,7 @@ public class CowContract extends CowDecorator{
 	}
 	
 	@Override
-	public EntityService step() {
+	public void step() {
 		//pre
 		
 		checkInvariants();
@@ -55,9 +54,6 @@ public class CowContract extends CowDecorator{
 		if(!(row_atpre - 1 <= super.getRow()) || !(row_atpre +1 >= super.getRow())) {
 			throw new PostconditionError("Error while moving row");
 		}
-		
-		return this;
-		
 	}
 
 }

@@ -1,6 +1,5 @@
 package decorators;
 
-import services.EntityService;
 import services.EnvironmentService;
 import services.MobService;
 import services.PlayerService;
@@ -28,8 +27,8 @@ public class PlayerDecorator implements PlayerService{
 	}
 
 	@Override
-	public EntityService step() {
-		return delegate.step();
+	public void step() {
+		delegate.step();
 	}
 
 	@Override
