@@ -25,10 +25,9 @@ public class MapImpl implements MapService {
 
 	@Override
 	public void init(int w, int h) {
-		this.h=h;
-		this.w=h;
-				//Initialiser les cases;
-		
+		cells = new Cell[h][w];
+		this.h = cells.length;
+		this.w = cells[0].length;
 	}
 
 	@Override
