@@ -25,9 +25,10 @@ public class CowContract extends CowDecorator{
 			throw new PreconditionError("Error illegal hp value for CowService init");
 		}
 		
-		checkInvariants();
-		
+		//run
 		super.init(env, x, y, d, hp);
+		
+		//inv post
 	}
 	
 	@Override
