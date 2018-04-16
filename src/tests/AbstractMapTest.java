@@ -7,6 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import errors.InvariantError;
+import errors.PostconditionError;
+import errors.PreconditionError;
 import services.MapService;
 
 public abstract class AbstractMapTest {
@@ -34,8 +37,11 @@ public abstract class AbstractMapTest {
 		this.toString();
 	}
 	
+	/* ========== COUVERTURE PRECONDITIONS ========== */
+	
 	@Test
 	public void testInitPositif(){
+		//init
 		int w = 14;
 		int h = 36;
 		
@@ -44,12 +50,54 @@ public abstract class AbstractMapTest {
 			map.init(w, h);
 			
 			//oracle
-			assertTrue( map.getHeight() == h);
-			assertTrue( map.getWidth() == w);
+			assertTrue("map.getHeight() != h", map.getHeight() == h);
+			assertTrue("map.getWidth() != w", map.getWidth() == w);
 		}
-		catch(Error e){
-			e.printStackTrace();
-			fail("Pre init");
+		catch(AssertionError e){
+			//probleme contrat/spec
+			fail(e.toString());
 		}
+	}
+	
+	@Test
+	public void testInitNegatif(){
+		//init
+		int w = 0;
+		int h = 36;
+		
+		try {
+			//run
+			map.init(w, h);
+			
+			//oracle
+			fail("testInitNegatif");
+		}
+		catch(AssertionError e){
+			//probleme contrat/spec
+			fail(e.toString());	
+		}catch(PreconditionError e) {
+			//bon deroulement
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testOpenDoorPositif() {
+		//TODO
+	}
+	
+	@Test
+	public void testOpenDoorNegatif() {
+		//TODO
+	}
+	
+	@Test
+	public void testCloseDoorPositif() {
+		//TODO
+	}
+	
+	@Test
+	public void testCloseDoorNegatif() {
+		//TODO
 	}
 }
