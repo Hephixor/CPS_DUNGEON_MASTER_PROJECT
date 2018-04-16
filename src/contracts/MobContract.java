@@ -36,41 +36,16 @@ public class MobContract extends MobDecorator{
 	}
 
 	@Override
-	public EnvironmentService getEnv() {
-		return super.getEnv();
-	}
-	
-	@Override
-	public int getCol() {
-		return super.getCol();
-	}
-
-	@Override
-	public int getRow() {
-		return super.getRow();
-	}
-
-	@Override
-	public Dir getFace() {
-		return super.getFace();
-	}
-
-	@Override
 	public void init(EnvironmentService e, int x, int y, Dir d) {
 		//pre
 		if( !(0<=x && x<e.getWidth() && 0<=y && y<e.getHeight()) )
 			throw new PreconditionError("@pre 0 <= x < Environment::Width(E) and 0 <= y < Environment::Height(E)");
 		
-		//inv pre
-//		checkInvariant();
-		
-		//capture
-		
 		//run
 		super.init(e, x, y, d);
 		
 		//inv post
-//		checkInvariant();
+		checkInvariant();
 		
 		//post
 		if( !(getCol()==x) )

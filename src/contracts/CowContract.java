@@ -16,9 +16,7 @@ public class CowContract extends CowDecorator{
 	public void checkInvariants() {
 		
 	}
-	/**
-	 * pre init(E,x,y,D,h) requires 4 ≥ h ≥ 3
-	 */
+	
 	public void init(EnvironmentService env, int x, int y, Dir d, int hp) {
 		//pre
 		if(hp>4 || hp <3) {
@@ -29,30 +27,36 @@ public class CowContract extends CowDecorator{
 		super.init(env, x, y, d, hp);
 		
 		//inv post
+		checkInvariants();
 	}
 	
 	@Override
 	public void step() {
 		//pre
 		
+		//inv pre
 		checkInvariants();
 		
 		//capture
-		int col_atpre = super.getCol();
-		int row_atpre = super.getRow();
+		int col_atpre = getCol();
+		int row_atpre = getRow();
 		
+		//run
 		super.step();
 		
+		//inv post
 		checkInvariants();
 		
+		//post
+		
 		//post Col(M) - 1 ≤ Col(step(M)) ≤ Col(M) + 1
-		if(!(col_atpre - 1 <= super.getCol()) || !(col_atpre +1 >= super.getCol())) {
+		if(!(col_atpre - 1 <= getCol()) || !(col_atpre +1 >= getCol())) {
 			throw new PostconditionError("Error while moving column");
 		}
 		
 	
 		//post Row(M) - 1 ≤ Row(step(M)) ≤ Row(M) + 1
-		if(!(row_atpre - 1 <= super.getRow()) || !(row_atpre +1 >= super.getRow())) {
+		if(!(row_atpre - 1 <= getRow()) || !(row_atpre +1 >= getRow())) {
 			throw new PostconditionError("Error while moving row");
 		}
 	}

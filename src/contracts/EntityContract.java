@@ -17,13 +17,6 @@ public class EntityContract extends EntityDecorator{
 		
 	}
 	
-	/* Observators */
-	
-	@Override
-	public int getHP() {
-		return super.getHP();
-	}
-	
 	/* Constructors */
 	
 	@Override
@@ -44,13 +37,14 @@ public class EntityContract extends EntityDecorator{
 		
 		//post
 		//Hp(init(E,x,y,D,h)) = h
-		if(super.getHP()!=hp) {
+		if(getHP()!=hp) {
 			throw new PostconditionError("Erro while initializing HP");
-		}
-		
+		}	
 	}
 	
 	/* Operators */
+	
+	@Override
 	public void step() {
 		//pre
 		

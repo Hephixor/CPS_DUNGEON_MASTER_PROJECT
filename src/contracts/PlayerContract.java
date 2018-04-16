@@ -33,41 +33,41 @@ public class PlayerContract extends PlayerDecorator {
 		 */
 		switch(d) {
 		case N :
-			if(Content(x, y)!=this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y)) {
+			if(getContent(x, y)!=this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y)) {
 				throw new InvariantError("Cell Content in fov error");
 			}
 
-			if(Nature(x,y)!=this.getEnv().getCellNature(this.getCol()+x,this.getRow()+y)) {
+			if(getNature(x,y)!=this.getEnv().getCellNature(this.getCol()+x,this.getRow()+y)) {
 				throw new InvariantError("Cell nature in fov error");
 			}
 			break;
 
 		case S :
-			if(Content(x, y)!=this.getEnv().getCellContent(this.getCol()-x, this.getRow()-y)) {
+			if(getContent(x, y)!=this.getEnv().getCellContent(this.getCol()-x, this.getRow()-y)) {
 				throw new InvariantError("Cell Content in fov error");
 			}
 
-			if(Nature(x,y)!=this.getEnv().getCellNature(this.getCol()-x,this.getRow()-y)) {
+			if(getNature(x,y)!=this.getEnv().getCellNature(this.getCol()-x,this.getRow()-y)) {
 				throw new InvariantError("Cell nature in fov error");
 			}
 			break;
 
 		case E :
-			if(Content(x, y)!=this.getEnv().getCellContent(this.getCol()+y, this.getRow()-x)) {
+			if(getContent(x, y)!=this.getEnv().getCellContent(this.getCol()+y, this.getRow()-x)) {
 				throw new InvariantError("Cell Content in fov error");
 			}
 
-			if(Nature(x,y)!=this.getEnv().getCellNature(this.getCol()+y,this.getRow()-x)) {
+			if(getNature(x,y)!=this.getEnv().getCellNature(this.getCol()+y,this.getRow()-x)) {
 				throw new InvariantError("Cell nature in fov error");
 			}
 			break;
 
 		case W :
-			if(Content(x, y)!=this.getEnv().getCellContent(this.getCol()-y, this.getRow()+x)) {
+			if(getContent(x, y)!=this.getEnv().getCellContent(this.getCol()-y, this.getRow()+x)) {
 				throw new InvariantError("Cell Content in fov error");
 			}
 
-			if(Nature(x,y)!=this.getEnv().getCellNature(this.getCol()-y,this.getRow()+x)) {
+			if(getNature(x,y)!=this.getEnv().getCellNature(this.getCol()-y,this.getRow()+x)) {
 				throw new InvariantError("Cell nature in fov error");
 			}
 			break;
@@ -80,7 +80,7 @@ public class PlayerContract extends PlayerDecorator {
 		 */
 		for(int xi =-1;xi<1;xi++) {
 			for(int yi=-1; yi < 1 ; yi++) {
-				if(Viewable(xi,yi)) {
+				if(getViewable(xi,yi)) {
 					throw new InvariantError("FOV error you can't see this cell");
 				}
 			}
@@ -95,50 +95,50 @@ public class PlayerContract extends PlayerDecorator {
 		 * Viewable(P,1,3) = Nature(P,1,2) ∈/ {WALL, DWC, DNC } and Viewable(P,1,2)
 		 */
 
-		if(Viewable(-1,2)) {
-			if(Nature(-1,1)==Cell.WLL || Nature(-1,1)==Cell.DWC || Nature(-1,1)==Cell.DNC) {
+		if(getViewable(-1,2)) {
+			if(getNature(-1,1)==Cell.WLL || getNature(-1,1)==Cell.DWC || getNature(-1,1)==Cell.DNC) {
 				throw new InvariantError("Error can't see this Cell");
 			}
 		}
 
-		if(Viewable(0,2)) {
-			if(Nature(0,1)==Cell.WLL || Nature(0,1)==Cell.DWC || Nature(0,1)==Cell.DNC) {
+		if(getViewable(0,2)) {
+			if(getNature(0,1)==Cell.WLL || getNature(0,1)==Cell.DWC || getNature(0,1)==Cell.DNC) {
 				throw new InvariantError("Error can't see this Cell");
 			}
 		}
 
-		if(Viewable(1,2)) {
-			if(Nature(1,1)==Cell.WLL || Nature(1,1)==Cell.DWC || Nature(1,1)==Cell.DNC) {
+		if(getViewable(1,2)) {
+			if(getNature(1,1)==Cell.WLL || getNature(1,1)==Cell.DWC || getNature(1,1)==Cell.DNC) {
 				throw new InvariantError("Error can't see this Cell");
 			}
 		}
 
-		if(Viewable(-1,3)) {
-			if(Nature(-1,2)==Cell.WLL || Nature(-1,2)==Cell.DWC || Nature(-1,2)==Cell.DNC) {
+		if(getViewable(-1,3)) {
+			if(getNature(-1,2)==Cell.WLL || getNature(-1,2)==Cell.DWC || getNature(-1,2)==Cell.DNC) {
 				throw new InvariantError("Error can't see this Cell");
 			}
 
-			if(!Viewable(-1,2)) {
-				throw new InvariantError("Error can't see this Cell");
-			}
-		}
-
-		if(Viewable(0,3)) {
-			if(Nature(0,2)==Cell.WLL || Nature(0,2)==Cell.DWC || Nature(0,2)==Cell.DNC) {
-				throw new InvariantError("Error can't see this Cell");
-			}
-
-			if(!Viewable(0,2)) {
+			if(!getViewable(-1,2)) {
 				throw new InvariantError("Error can't see this Cell");
 			}
 		}
 
-		if(Viewable(1,3)) {
-			if(Nature(1,2)==Cell.WLL || Nature(1,2)==Cell.DWC || Nature(1,2)==Cell.DNC) {
+		if(getViewable(0,3)) {
+			if(getNature(0,2)==Cell.WLL || getNature(0,2)==Cell.DWC || getNature(0,2)==Cell.DNC) {
 				throw new InvariantError("Error can't see this Cell");
 			}
 
-			if(!Viewable(1,2)) {
+			if(!getViewable(0,2)) {
+				throw new InvariantError("Error can't see this Cell");
+			}
+		}
+
+		if(getViewable(1,3)) {
+			if(getNature(1,2)==Cell.WLL || getNature(1,2)==Cell.DWC || getNature(1,2)==Cell.DNC) {
+				throw new InvariantError("Error can't see this Cell");
+			}
+
+			if(!getViewable(1,2)) {
 				throw new InvariantError("Error can't see this Cell");
 			}
 		}
@@ -149,27 +149,22 @@ public class PlayerContract extends PlayerDecorator {
 	public void step() {
 		//pre
 
-		CheckInvariants();
-
-		super.step();
-
+		//inv pre
 		CheckInvariants();
 
 		//capture
 		Dir currDir = getFace();
 		int posx = getCol();
 		int posy = getRow();
+		
+		//run
+		super.step();
+
+		//inv post
+		CheckInvariants();
 
 		//post
-		/**
-		 * LastCom(P)=FF implies step(P) = Forward(P)
-		 * LastCom(P)=BB implies step(P) = Backward(P)
-		 * LastCom(P)=LL implies step(P) = StrafeLeft(P)
-		 * LastCom(P)=RR implies step(P) = StrafeRight(P)
-		 * LastCom(P)=TL implies step(P) = TurnLeft(P)
-		 * LastCom(P)=TR implies step(P) = TurnRight(P)
-		 */
-		switch(Lastcom()) {
+		switch(getLastCom()) {
 		case FF:
 			switch(getFace()) {
 			case N:
@@ -330,53 +325,48 @@ public class PlayerContract extends PlayerDecorator {
 
 		}
 	}
-
-	@Override
-	public Command Lastcom() {
-		//pre
-		
-		CheckInvariants();
-		
-		return super.Lastcom();
-	}
-
-	//pre Content(P,x,y) requires x ∈ {-1,0,1}and y ∈ {-1,+3}
-	@Override
-	public MobService Content(int x, int y) {
-		//pre
-		if(x!=-1 || x != 0 || x!=1) {
-			throw new PreconditionError("Error invalid x coordinates");
-		}
-		if(y!=-1 || y != 0 || y!=1) {
-			throw new PreconditionError("Error invalid y coordinates");
-		}
-		
-		CheckInvariants();
-		
-		return super.Content(x, y);
-	}
-
-	//pre Nature(P,x,y) requires x ∈ {-1,0,1}and y ∈ {-1,+3}
-	@Override
-	public Cell Nature(int x, int y) {
-		if(x!=-1 || x != 0 || x!=1) {
-			throw new PreconditionError("Error invalid x coordinates");
-		}
-		if(y!=-1 || y != 0 || y!=1) {
-			throw new PreconditionError("Error invalid y coordinates");
-		}
-		
-		CheckInvariants();
-		
-		return super.Nature(x, y);
-		
-	}
-
 	
-	//pre Viewable(P,x,y) requires x ∈ {0, width(M)}and y ∈ {0,heigth(M)}
 	@Override
-	public boolean Viewable(int x, int y) {
+	public MobService getContent(int x, int y) {
 		//pre
+		//pre Content(P,x,y) requires x ∈ {-1,0,1}and y ∈ {-1,+3}
+		if(x!=-1 || x != 0 || x!=1) {
+			throw new PreconditionError("Error invalid x coordinates");
+		}
+		if(y!=-1 || y != 0 || y!=1) {
+			throw new PreconditionError("Error invalid y coordinates");
+		}
+		
+		//inv pre
+		CheckInvariants();
+		
+		//run
+		return super.getContent(x, y);
+	}
+
+	@Override
+	public Cell getNature(int x, int y) {
+		//pre 
+		//Nature(P,x,y) requires x ∈ {-1,0,1}and y ∈ {-1,+3}
+		if(x!=-1 || x != 0 || x!=1) {
+			throw new PreconditionError("Error invalid x coordinates");
+		}
+		if(y!=-1 || y != 0 || y!=1) {
+			throw new PreconditionError("Error invalid y coordinates");
+		}
+		
+		//inv pre
+		CheckInvariants();
+		
+		//run
+		return super.getNature(x, y);
+		
+	}
+
+	@Override
+	public boolean getViewable(int x, int y) {
+		//pre
+		//pre Viewable(P,x,y) requires x ∈ {0, width(M)}and y ∈ {0,heigth(M)}
 		if(x<0 || x > getEnv().getWidth()) {
 			throw new PreconditionError("Error invalid x coordinates");
 		}
@@ -385,9 +375,11 @@ public class PlayerContract extends PlayerDecorator {
 			throw new PreconditionError("Error invalid y coordinates");
 		}
 		
+		//inv pre
 		CheckInvariants();
 		
-		return super.Viewable(x, y);
+		//run
+		return super.getViewable(x, y);
 	}
 
 }

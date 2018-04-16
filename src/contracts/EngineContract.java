@@ -43,58 +43,27 @@ public class EngineContract extends EngineDecorator{
 				throw new InvariantError("Entities in env mismatch");
 			}
 		}
-		
-		
 	}
-	
-	@Override
-	public EnvironmentService envi() {
-		//pre
-		
-		checkInvariants();
-		
-		return super.envi();
-			
-		
-		
-	}
-	
-	@Override
-	public EntityService[] entities() {
-		//pre
-		//checkInv
-		checkInvariants();
-		
-		return super.entities();
-	}
-
-	@Override
-	public EntityService getEntity(int idx) {
-		//pre
-		//checkInv
-		checkInvariants();
-		return super.getEntity(idx);
-	}
-
 
 	@Override
 	public void init(EnvironmentService env) {
+		//pre
+		
+		//run
 		super.init(env);
+		
+		//inv post
+		checkInvariants();
 	}
 	
-	
-	/**
-	 * pre removeEntity(E,i) requires 0 ≤ i < size(Entities(E))
-	 */
 	@Override
 	public EngineService removeEntity(int idx) {
 		//pre
-		//pourquoi 0 ≤ i < size et non 0 ≤ i ≤ size ?
 		if(idx<0 || idx >= entities().length) {
 			throw new PreconditionError("Invalide entity index");
 		}
 		
-		//check invariants
+		//inv
 		checkInvariants();
 		
 		//capture
@@ -110,8 +79,10 @@ public class EngineContract extends EngineDecorator{
 			ents_atpre_aidx[i]=getEntity(i);
 		}
 		
+		//run
 		super.removeEntity(idx);
 		
+		//inv post
 		checkInvariants();
 		
 		//post
@@ -143,7 +114,7 @@ public class EngineContract extends EngineDecorator{
 	public EngineService addEntity(EntityService ent) {
 		//pre
 		
-		//checkInv
+		//inv pre
 		checkInvariants();
 		
 		//capture
@@ -154,12 +125,14 @@ public class EngineContract extends EngineDecorator{
 			ents_atpre_aidx[i]=getEntity(i);
 		}
 		
+		//run
 		super.addEntity(ent);
 		
-		//checkInv
+		//inv post
 		checkInvariants();
 		
 		//post
+		
 		//size(Entities(addEntity(E,e))) = size(Entities(E)) + 1
 		if(entities().length!=size_atpre + 1) {
 			throw new PostconditionError("Error adding new entity");
@@ -180,9 +153,6 @@ public class EngineContract extends EngineDecorator{
 		return this;
 	}
 
-	/**
-	 * pre step() requires forall i in [0;size(Entities(E))-1], Entity::Hp(getEntity(E,i))>0
-	 */
 	@Override
 	public EngineService step() {
 		//pre
@@ -192,10 +162,13 @@ public class EngineContract extends EngineDecorator{
 			}
 		}
 		
+		//inv pre
 		checkInvariants();
 		
+		//run
 		super.step();
 		
+		//inv post
 		checkInvariants();
 		
 		//post

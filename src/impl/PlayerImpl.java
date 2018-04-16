@@ -89,24 +89,24 @@ public class PlayerImpl implements PlayerService{
 	}
 
 	@Override
-	public Command Lastcom() {
+	public Command getLastCom() {
 		return null;
 	}
 
 	@Override
-	public MobService Content(int x, int y) {
+	public MobService getContent(int x, int y) {
 		
 		return env.getCellContent(x, y);
 	}
 
 	@Override
-	public Cell Nature(int x, int y) {
+	public Cell getNature(int x, int y) {
 		return env.getCellNature(x, y);
 	}
 
 	@Override
-	public boolean Viewable(int x, int y) {
-		return this.Viewable(x, y);
+	public boolean getViewable(int x, int y) {
+		return this.getViewable(x, y);
 	}
 
 }

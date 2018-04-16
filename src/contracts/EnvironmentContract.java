@@ -12,28 +12,27 @@ public class EnvironmentContract extends EnvironmentDecorator{
 	
 	
 	//include et non refine donc on n'hérite pas des invariants de MapService, il faut refaire des tests.
-	public void checkInvariant() {
-		//void
+	public void checkInvariants() {
+
 	}
 	
-	/**
-	 * pre CloseDoor(M,x,y) requires CellContent(M,x,y) = No
-	 */
+	@Override
 	public EnvironmentService closeDoor(int x, int y) {
 		//pre
 		if(getCellContent(x,y)!=null) {
 			throw new PreconditionError("Can't close door on a mob");
 		}
 		
-		//CheckInvariants
+		//inv pre
+		checkInvariants();
 		
-		checkInvariant();
-		
+		//run
 		super.closeDoor(x, y);
 		
-		checkInvariant();
+		//inv post
+		checkInvariants();
 		
-		//Post
+		//post
 		
 		return this;
 	}

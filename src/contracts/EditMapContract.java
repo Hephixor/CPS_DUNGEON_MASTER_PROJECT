@@ -38,32 +38,24 @@ public class EditMapContract extends EditMapDecorator{
 //			
 	}
 	
-	public boolean isReady() {
-		//pre 
-		
-		checkInvariants();
-		
-		return super.isReady();
-	}
-	/**
-	 * pre SetNature(M,x,y) requires 0 ≤ x < Width(M) and 0 ≤ y < Height(M)
-	 */
 	public EditMapService setNature(int x, int y, Cell c) {
 		//pre
-		if(!(x>=0 && x<super.getWidth())|| !(y>=0 && y<super.getHeight())) {
+		if(!(x>=0 && x<getWidth())|| !(y>=0 && y<getHeight())) {
 			throw new PreconditionError("Error illegal coordinates");
 		}
 		
+		//inv pre
 		checkInvariants();
 		
 		//capture
 		
-		
+		//run
 		super.setNature(x, y, c);
 		
+		//inv post
 		checkInvariants();
 		
-		//Post
+		//post
 		//CellNature(SetNature(M,x,y,Na),x,y) = Na
 		if(getCellNature(x, y)!=c) {
 			throw new PostconditionError("Error while setting cell nature");

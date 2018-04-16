@@ -6,9 +6,6 @@ import decorators.MapDecorator;
 import errors.PostconditionError;
 import errors.PreconditionError;
 
-
-
-
 public class MapContract extends MapDecorator {
 
 	public MapContract(MapService delegate) {
@@ -16,17 +13,7 @@ public class MapContract extends MapDecorator {
 	}
 	
 	public void checkInvariant() {
-		return;
-	}
 
-	@Override
-	public int getHeight() {
-		return super.getHeight();
-	}
-
-	@Override
-	public int getWidth() {
-		return super.getWidth();
 	}
 
 	@Override
@@ -41,51 +28,42 @@ public class MapContract extends MapDecorator {
 
 	@Override
 	public void init(int w, int h) {
-		// pre: 0 < w and 0 < h
+		//pre
 		if( !( 0<w && 0<h) )
 			throw new PreconditionError("Map height and width should be greater than 0.");
 		
-		// inv@pre
+		//inv pre
 		checkInvariant();
 		
-		// run
+		//run
 		super.init(w,h);
 		
-		// inv@post
+		//inv post
 		checkInvariant();
 		
-		// post: Height(init(w,h)) = h
+		//post
+		
+		//Height(init(w,h)) = h
 		if( !(getHeight()==h) )
 			throw new PostconditionError("Could not set map height properly.");
 		
-		// post: Width(init(w,h)) = w
+		//Width(init(w,h)) = w
 		if( !(getWidth()==w) )
 			throw new PostconditionError("Could not set map width properly.");
 	}
 
-	
-	/**
-	 * pre: CellNature(M,x,y) in {DNC, DWC}
-	 * post:	CellNature(M,x,y) = DWC implies CellNature(OpenDoor(M,x,y),x,y) = DWO
-	 * post:	CellNature(M,x,y) = DNC implies CellNature(OpenDoor(M,x,y),x,y) = DNO
-	 * post:	forall u in [0; Width(M)-1] 
-	 *				forall v in [0; Height(M)-1] 
-	 *					(u != x or v != y) implies CellNature(OpenDoor(M,x,y),u,v) = CellNature(M,u,v)
-	 */
 	@Override
 	public MapService openDoor(int x, int y) {
-		
-		//Pre
+		//pre
 		if(!(getCellNature(x,y)== Cell.DWC || getCellNature(x, y)==Cell.DNC))
 			throw new PreconditionError("Target cell is not a closed door.");
 		
-		//check invariants
+		//inv pre
 		checkInvariant();
 		
-		//Capture
+		//capture
 		Cell cell_atpre = getCellNature(getHeight()-1, getWidth()-1);
 		
-
 		Cell cellb_atpre = null;
 		if((x-1)>=0 && (y-1)>=0) {
 		cellb_atpre = getCellNature(x-1, y-1);
@@ -94,13 +72,13 @@ public class MapContract extends MapDecorator {
 		cellb_atpre= getCellNature(x+1, y+1);	
 		}
 		
-		//Call
+		//run
 		super.openDoor(x, y);
 		
-		//Check Invariant
+		//inv post
 		checkInvariant();
 		
-		//Post
+		//post
 		if(!(getCellNature(x,y)== Cell.DWO || getCellNature(x, y)==Cell.DNO))
 			throw new PostconditionError("Target cell didn't open correctly.");
 		
@@ -123,28 +101,18 @@ public class MapContract extends MapDecorator {
 		
 	}
 
-	
-	/**
-	 * pre: CellNature(M,x,y) in {DNO, DWO}
-	 * post:	CellNature(M,x,y) = DWO implies CellNature(closeDoor(M,x,y),x,y) = DWC
-	 * post:	CellNature(M,x,y) = DNO implies CellNature(closeDoor(M,x,y),x,y) = DNC
-	 * post:	forall u in [0; Width(M)-1] 
-	 *				forall v in [0; Height(M)-1] 
-	 *					(u != x or v != y) implies CellNature(closeDoor(M,x,y),u,v) = CellNature(M,u,v)
-	 */
 	@Override
 	public MapService closeDoor(int x, int y) {
-		//Pre
+		//pre
 		if(!(getCellNature(x,y)== Cell.DWO || getCellNature(x, y)==Cell.DNO))
 			throw new PreconditionError("Target cell is not an opened door.");
 		
-		//check invariants
+		//inv pre
 		checkInvariant();
 		
-		//Capture
+		//capture
 		Cell cell_atpre = getCellNature(getHeight()-1, getWidth()-1);
 		
-
 		Cell cellb_atpre = null;
 		if((x-1)>=0 && (y-1)>=0) {
 		cellb_atpre = getCellNature(x-1, y-1);
@@ -153,13 +121,13 @@ public class MapContract extends MapDecorator {
 		cellb_atpre= getCellNature(x+1, y+1);	
 		}
 		
-		//Call
+		//run
 		super.closeDoor(x, y);
 		
-		//Check Invariant
+		//inv post
 		checkInvariant();
 		
-		//Post
+		//post
 		if(!(getCellNature(x,y)== Cell.DWC || getCellNature(x, y)==Cell.DNC))
 			throw new PostconditionError("Target cell didn't close correctly.");
 		

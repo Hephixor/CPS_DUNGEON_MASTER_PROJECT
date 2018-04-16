@@ -87,23 +87,23 @@ public class PlayerDecorator implements PlayerService{
 	}
 
 	@Override
-	public Command Lastcom() {
-		return delegate.Lastcom();
+	public Command getLastCom() {
+		return delegate.getLastCom();
 	}
 
 	@Override
-	public MobService Content(int x, int y) {
-		return delegate.Content(x, y);
+	public MobService getContent(int x, int y) {
+		return delegate.getContent(x, y);
 	}
 
 	@Override
-	public Cell Nature(int x, int y) {
-		return delegate.Nature(x, y);
+	public Cell getNature(int x, int y) {
+		return delegate.getNature(x, y);
 	}
 
 	@Override
-	public boolean Viewable(int x, int y) {
-		return delegate.Viewable(x, y);
+	public boolean getViewable(int x, int y) {
+		return delegate.getViewable(x, y);
 	}
 
 }
