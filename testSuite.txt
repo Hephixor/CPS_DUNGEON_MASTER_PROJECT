@@ -1,0 +1,21 @@
+Testsuite: tests.testSuite
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0,016 sec
+
+Testcase: initializationError took 0,001 sec
+	Caused an ERROR
+Test class should have exactly one public constructor
+java.lang.Exception: Test class should have exactly one public constructor
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+Testcase: initializationError took 0 sec
+	Caused an ERROR
+Class tests.testSuite should be public
+java.lang.Exception: Class tests.testSuite should be public
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+Testcase: initializationError took 0 sec
+	Caused an ERROR
+Method test() should be public
+java.lang.Exception: Method test() should be public
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
