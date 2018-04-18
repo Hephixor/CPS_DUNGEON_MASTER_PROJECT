@@ -7,8 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import errors.InvariantError;
-import errors.PostconditionError;
 import errors.PreconditionError;
 import services.MapService;
 
