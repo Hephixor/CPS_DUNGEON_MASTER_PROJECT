@@ -3,6 +3,7 @@ package impl;
 import services.EditMapService;
 import services.MapService;
 import utils.Cell;
+import utils.Pathfinder;
 
 public class EditMapImpl implements EditMapService{
 
@@ -45,7 +46,8 @@ public class EditMapImpl implements EditMapService{
 
 	@Override
 	public boolean isReachable(int px, int py, int ox, int oy) {
-		return true;
+		Pathfinder pf = new Pathfinder();
+		return pf.pathExists(cells, 3 ,4 ,0 ,1);
 	}
 
 	@Override

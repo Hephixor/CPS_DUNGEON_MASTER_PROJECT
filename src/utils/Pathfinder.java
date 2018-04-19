@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pathfinder{
-  
+  Cell[][] map ;
+  List<Node> path;
     public boolean pathExists(Cell[][] map, int xi, int yi, int xo, int yo) {
-
+    	this.map = map;
     	
     	List<Node> queue = new ArrayList<Node>();
         queue.add(new Node(xi,yi));
@@ -15,11 +16,15 @@ public class Pathfinder{
         int cpt = 0;
         while(!queue.isEmpty()) {
         	
-        	System.out.print("Node "+cpt++);
-        	System.out.print(" ["+ queue.get(0).x);
-        	System.out.println(","+queue.get(0).y+"]");
-        	
+//        	System.out.print("Node "+cpt++);
+//        	System.out.print(" ["+ queue.get(0).x);
+//        	System.out.print(","+queue.get(0).y+"] type : ");
+//        	
             Node current = queue.remove(0);
+            path.add(current);
+//            System.out.print("Current "+cpt++);
+//        	System.out.print(" ["+ current.x);
+//        	System.out.println(","+current.y+"]");
             
             if(current.x == xo && current.y == yo) {
                 pathExists = true;
@@ -30,6 +35,12 @@ public class Pathfinder{
             
             List<Node> neighbors = getNeighbors(map, current);
             queue.addAll(neighbors);
+            for (Node node : neighbors) {
+				map[node.x][node.y]=Cell.WLL;
+			}
+          //  printMap();
+            
+            
         }
         
         return pathExists;
@@ -58,17 +69,30 @@ public class Pathfinder{
     }
     
     public static boolean isValidPoint(Cell[][] map, int x, int y) {
-        return !(x < 0 || x >= map.length || y < 0 || y >= map.length) && (map[x][y] != Cell.WLL);
+    	boolean valid = !(x < 0 || x >= map.length || y < 0 || y >= map.length) && (map[x][y] != Cell.WLL);
+        if(valid){
+      //  	System.out.println(" type : " + map[x][y].toString());
+        	return true;
+        }
+        else {
+       // System.out.println(" invalid");
+        return false;
+        }
     }
-}
-
-class Node{
-    int x;
-    int y;
     
-    Node(int x, int y) {
-        this.x = x;
-        this.y = y;
+    private void printMap() {
+    	for(int i = 0 ; i < map.length; i++) {
+        	for(int j = 0 ; j < map.length; j++) {
+        		System.out.print(map[i][j].toString() + " ");
+        	}
+        	System.out.println();
+        }
+        System.out.println();
+        System.out.println();
+    }
+    
+    public List<Node> getPath(){
+    	return path;
     }
 }
 

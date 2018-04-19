@@ -1,5 +1,7 @@
 package contracts;
 
+import java.util.Random;
+
 import decorators.EditMapDecorator;
 import errors.InvariantError;
 import errors.PostconditionError;
@@ -33,16 +35,24 @@ public class EditMapContract extends EditMapDecorator{
 	 */
 
 	public void checkInvariants() {
+		
+		
 		//isReachable
-
+		Random rand = new Random();
+		int randxi = rand.nextInt(getWidth());
+		int randyi = rand.nextInt(getHeight());
+		int randxo = rand.nextInt(getWidth());
+		int randyo = rand.nextInt(getHeight());
 		/*
 		 * isReachable(M,x1,y1,x2,y2) = exists P in Array[int,int], P[0] = (x1,y1) and P[size(P)-1] = (x2,y2)
 		 * 		and forall i in [1;size(P)-1], (P[i-1]=(u,v) and P[i]=(s,t)) implies (u−s) 2 + (v−t) 2 = 1
 		 * 		and forall i in [1;size(P)-2], P[i-1]=(u,v) implies CellNature(M,u,v) != WLL
 		 * 
 		 */
-
-		//Parcours du chemin
+		
+		if(isReachable(randxi, randyi, randxo, randyo)) {
+			
+		}
 
 
 		//isReady

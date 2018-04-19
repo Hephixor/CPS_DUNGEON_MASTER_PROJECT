@@ -60,8 +60,8 @@ public class DungeonMaster {
 	    Cell[][] map = {
 	            {Cell.WLL, Cell.OUT, Cell.WLL, Cell.WLL, Cell.WLL},
 	            {Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.IN},
+	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.IN},
 	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL}
 	        };
 		
@@ -78,9 +78,9 @@ public class DungeonMaster {
 	        System.out.println("Chemin dans map");
 	        System.out.println(p ? "YES" : "NO");
 	        
-	        boolean pb = pf.pathExists(mapbug,3 ,4 ,0 ,1);
-	        System.out.println("Chemin dans mapbug");
-	        System.out.println(pb ? "YES" : "NO");
+//	        boolean pb = pf.pathExists(mapbug,3 ,4 ,0 ,1);
+//	        System.out.println("Chemin dans mapbug");
+//	        System.out.println(pb ? "YES" : "NO");
 
 
 }
