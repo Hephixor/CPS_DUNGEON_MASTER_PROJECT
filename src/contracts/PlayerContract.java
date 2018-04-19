@@ -164,6 +164,7 @@ public class PlayerContract extends PlayerDecorator {
 		CheckInvariants();
 
 		//post
+		//TODO cas 1 er tour aps de lastcom ? 
 		switch(getLastCom()) {
 		case FF:
 			switch(getFace()) {

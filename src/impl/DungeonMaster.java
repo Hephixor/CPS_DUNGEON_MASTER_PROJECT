@@ -1,17 +1,10 @@
 package impl;
 
-import java.util.Scanner;
+import java.util.List;
 
-import contracts.CowContract;
-import contracts.EditMapContract;
-import contracts.EngineContract;
-import contracts.EnvironmentContract;
-import contracts.MobContract;
-import contracts.PlayerContract;
-import services.EnvironmentService;
-import services.MobService;
+import tests.Vinc2;
 import utils.Cell;
-import utils.Dir;
+import utils.Node;
 import utils.Pathfinder;
 
 public class DungeonMaster {
@@ -58,25 +51,62 @@ public class DungeonMaster {
 		Pathfinder pf = new Pathfinder();
 		
 	    Cell[][] map = {
-	            {Cell.WLL, Cell.OUT, Cell.WLL, Cell.WLL, Cell.WLL},
-	            {Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.IN},
-	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL}
-	        };
+	            {Cell.WLL, Cell.OUT, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL},
+	            {Cell.EMP, Cell.EMP, Cell.EMP, Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL},
+	            {Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.IN},
+	            {Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL},
+	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL}
+	            };
 		
-	    Cell[][] mapbug = {
-	            {Cell.WLL, Cell.OUT, Cell.WLL, Cell.WLL, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.IN},
-	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL}
-	        };
+//	    Cell[][] mapbug = {
+//	            {Cell.WLL, Cell.OUT, Cell.WLL, Cell.WLL, Cell.WLL},
+//	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.WLL},
+//	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.WLL},
+//	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.IN},
+//	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL}
+//	        };
 	    
 
-	        boolean p = pf.pathExists(map, 3 ,4 ,0 ,1);
-	        System.out.println("Chemin dans map");
-	        System.out.println(p ? "YES" : "NO");
+//	        boolean p = pf.pathExists(map, 3 ,4 ,0 ,1);
+//	        System.out.println("Chemin dans map");
+//	        System.out.println(p ? "YES" : "NO");
+//	        
+	    	Node in = null;
+	    	Node out = null;
+	    	for(int x=0; x<map[0].length; x++){
+	    		for(int y=0; y<map.length; y++){
+	    			if(map[y][x] == Cell.IN){
+	    				in = new Node(x,y);
+	    				System.out.println("IN = ("+in.x+","+in.y+")");
+	    			}
+	    			if(map[y][x] == Cell.OUT){
+	    				out = new Node(x,y);
+	    				System.out.println("OUT = ("+out.x+","+out.y+")");
+	    			}
+	    		}
+	    	}
+	    
+	        Vinc2 vinz = new Vinc2(map,in,out);
+	        List<Node> path = vinz.path();
+	        int cpt = 0;
+	        System.out.println("taille: "+path.size());
+	        for (Node node : path) {
+	        	System.out.print("Node "+cpt++);
+	        	System.out.print(" ["+ node.x);
+	        	System.out.println(","+node.y+"]");
+			}
+	        		
 	        
 //	        boolean pb = pf.pathExists(mapbug,3 ,4 ,0 ,1);
 //	        System.out.println("Chemin dans mapbug");

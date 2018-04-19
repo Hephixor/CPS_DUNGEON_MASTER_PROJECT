@@ -6,23 +6,33 @@ import java.util.List;
 public class Pathfinder{
   Cell[][] map ;
   List<Node> path;
+  
+  	public Pathfinder(){
+  		path = new ArrayList<Node>();
+  	}
+  
+  
     public boolean pathExists(Cell[][] map, int xi, int yi, int xo, int yo) {
     	this.map = map;
-    	
     	List<Node> queue = new ArrayList<Node>();
-        queue.add(new Node(xi,yi));
-
         boolean pathExists = false;
         int cpt = 0;
+        Node entr = new Node(xi,yi);
+        
+    	queue.add(entr);
+        
+//        System.out.println("queue vide " + queue.isEmpty());
         while(!queue.isEmpty()) {
         	
-//        	System.out.print("Node "+cpt++);
-//        	System.out.print(" ["+ queue.get(0).x);
-//        	System.out.print(","+queue.get(0).y+"] type : ");
+        	System.out.print("Node "+cpt++);
+        	System.out.print(" ["+ queue.get(0).x);
+        	System.out.println(","+queue.get(0).y+"]");
 //        	
             Node current = queue.remove(0);
-            path.add(current);
-//            System.out.print("Current "+cpt++);
+            if(current!=null){
+            	path.add(current);
+            }
+//          System.out.print("Current "+cpt++);
 //        	System.out.print(" ["+ current.x);
 //        	System.out.println(","+current.y+"]");
             
@@ -38,7 +48,8 @@ public class Pathfinder{
             for (Node node : neighbors) {
 				map[node.x][node.y]=Cell.WLL;
 			}
-          //  printMap();
+          
+           // printMap();
             
             
         }
