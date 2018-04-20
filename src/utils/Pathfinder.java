@@ -31,6 +31,7 @@ public class Pathfinder {
 		this.largeur = map[0].length;
 		this.hauteur = map.length;
 		this.etat = new int[hauteur][largeur];
+		
 	}
 	
 	
@@ -45,13 +46,16 @@ public class Pathfinder {
 			}
 		}
 		
+		System.out.println("\n======= Pathfinding in map =======");
+		printMap(etat);
 		/*on initialise le chemin IN->OUT a vide*/
 		chemin = new ArrayList<Node>();
 		
-		System.out.println("\n========== DEBUT REC ==========");
+		
 		/*on lance l'algo récursif sur la case depart*/
 		rec(in.x, in.y);
 		
+		System.out.println("\n======= Found path in map =======");
 		/*on affiche le chemin*/
 		printMap(etat);
 		/*on retourne le chemin trouve*/
@@ -76,7 +80,7 @@ public class Pathfinder {
 		
 		/*on marque le noeud "en cours" pour faire joli dans l'affichage*/
 		etat[y][x] = 2;
-		printMap(etat);
+		//printMap(etat);
 		
 		/*on marque le noeud comme "deja visite"*/
 		etat[y][x] = 3;
@@ -119,6 +123,7 @@ public class Pathfinder {
 		}
 		
 		//System.out.println("IMPASSE");
+		
 		return false;
 	}
 	

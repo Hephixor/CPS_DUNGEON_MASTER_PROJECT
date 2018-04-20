@@ -12,6 +12,7 @@ import utils.Cell;
 import utils.Dir;
 import utils.Node;
 import utils.Pathfinder;
+import utils.mapGenerator;
 
 public class DungeonMaster {
 
@@ -42,10 +43,10 @@ public class DungeonMaster {
 		mapc.init(width, heigth);
 		envc.init(width,heigth);
 		//ajouter les entities
-		enginec.init(envc);
+		//enginec.init(envc);
 		playerc.init(envc, 1, 1, Dir.N, 10);
-		mobsc[0].init(envc, 8, 8, Dir.S);
-		mobsc[1].init(envc, 5, 5, Dir.S);
+//		mobsc[0].init(envc, 8, 8, Dir.S);
+//		mobsc[1].init(envc, 5, 5, Dir.S);
 		cowsc[0].init(envc, 2, 2, Dir.E, 4);
 		cowsc[1].init(envc, 3, 3, Dir.S, 4);
 		cowsc[2].init(envc, 4, 4, Dir.W, 4);
@@ -93,55 +94,58 @@ public class DungeonMaster {
 	            {Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL, Cell.WLL},
 	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL}
 	            };
-	    
+//	    
+//	    System.out.println();
+//
+//       
+//	    	int inx = 0;
+//	    	int iny = 0;
+//	    	int outx = 0;
+//	    	int outy = 0;
+//	    	
+//	    	for(int x=0; x<map[0].length; x++){
+//	    		for(int y=0; y<map.length; y++){
+//	    			if(map[y][x] == Cell.IN){
+//	    				inx = x;
+//	    				iny = y;
+//	    				System.out.println("IN = ("+inx+","+iny+")");
+//	    			}
+//	    			if(map[y][x] == Cell.OUT){
+//	    				outx = x;
+//	    				outy = y;
+//	    				System.out.println("OUT = ("+outx+","+outy+")");
+//	    			}
+//	    		}
+//	    	}
+//	    	
+//	    	System.out.println();
+	    	
+//	    	int inxb = 0;
+//	    	int inyb = 0;
+//	    	int outxb = 0;
+//	    	int outyb = 0;
+//	    	
+//	    	for(int x=0; x<mapbug[0].length; x++){
+//	    		for(int y=0; y<mapbug.length; y++){
+//	    			if(mapbug[y][x] == Cell.IN){
+//	    				inxb = x;
+//	    				inyb = y;
+//	    				System.out.println("IN = ("+inxb+","+inyb+")");
+//	    			}
+//	    			if(mapbug[y][x] == Cell.OUT){
+//	    				outxb = x;
+//	    				outyb = y;
+//	    				System.out.println("OUT = ("+outxb+","+outyb+")");
+//	    			}
+//	    		}
+//	    	}
+//	    	
 
-       
-	    	int inx = 0;
-	    	int iny = 0;
-	    	int outx = 0;
-	    	int outy = 0;
-	    	
-	    	for(int x=0; x<map[0].length; x++){
-	    		for(int y=0; y<map.length; y++){
-	    			if(map[y][x] == Cell.IN){
-	    				inx = x;
-	    				iny = y;
-	    				System.out.println("IN = ("+inx+","+iny+")");
-	    			}
-	    			if(map[y][x] == Cell.OUT){
-	    				outx = x;
-	    				outy = y;
-	    				System.out.println("OUT = ("+outx+","+outy+")");
-	    			}
-	    		}
-	    	}
-	    	
-	    	int inxb = 0;
-	    	int inyb = 0;
-	    	int outxb = 0;
-	    	int outyb = 0;
-	    	
-	    	for(int x=0; x<mapbug[0].length; x++){
-	    		for(int y=0; y<mapbug.length; y++){
-	    			if(mapbug[y][x] == Cell.IN){
-	    				inxb = x;
-	    				inyb = y;
-	    				System.out.println("IN = ("+inxb+","+inyb+")");
-	    			}
-	    			if(mapbug[y][x] == Cell.OUT){
-	    				outxb = x;
-	    				outyb = y;
-	    				System.out.println("OUT = ("+outxb+","+outyb+")");
-	    			}
-	    		}
-	    	}
-	    	
-
-	    
-	       // Pathfinder pf = new Pathfinder(map,inx,iny,outx,outy);
-	        Pathfinder pfbug = new Pathfinder(mapbug,inxb,inyb,outxb,outyb);
-	       //  List<Node> path = pf.path();
-	        List<Node> pathbug = pfbug.path();
+//	    
+//	        Pathfinder pf = new Pathfinder(map,inx,iny,outx,outy);
+//	        List<Node> path = pf.path();
+	        //Pathfinder pfbug = new Pathfinder(mapbug,inxb,inyb,outxb,outyb);
+	        //List<Node> pathbug = pfbug.path();
 	        
 //	        int cpt = 0;
 //	        System.out.println("taille: "+path.size());
@@ -150,15 +154,25 @@ public class DungeonMaster {
 //	        	System.out.print(" ["+ node.x);
 //	        	System.out.println(","+node.y+"]");
 //			}
-	        
-	        int cptb = 0;
-	        System.out.println("taille: "+pathbug.size());
-	        for (Node node : pathbug) {
-	        	System.out.print("Node "+cptb++);
-	        	System.out.print(" ["+ node.x);
-	        	System.out.println(","+node.y+"]");
-			}
+//	        
+//	        int cptb = 0;
+//	        System.out.println("taille: "+path.size());
+//	        for (Node node : path) {
+//	        	System.out.print("Node "+cptb++);
+//	        	System.out.print(" ["+ node.x);
+//	        	System.out.println(","+node.y+"]");
+//			}
 	        		
+	    
+	    mapGenerator mgen = new mapGenerator(10,10,8,7);
+	    
+	    Cell[][] mapgen = mgen.getMap();
+	    for(int i = 0 ; i < 10 ; i++) {
+	    	for(int j = 0 ; j < 10 ; j++) {
+	    		System.out.print(mapgen[i][j] +" ");
+	    	}
+	    	System.out.println();
+	    }
 	        
 
 }
