@@ -25,5 +25,10 @@ public class EditMapDecorator extends MapDecorator implements EditMapService{
 		return delegate.setNature(x, y, c);
 	}
 
+	@Override
+	public int[][] getPath() {
+		return delegate.getPath();
+	}
+
 	
 }

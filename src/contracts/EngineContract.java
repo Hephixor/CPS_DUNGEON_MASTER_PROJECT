@@ -21,7 +21,7 @@ public class EngineContract extends EngineDecorator{
 		 * forall i in [0;size(Entities(E))-1], Entity::Envi(getEntity(E,i))=Envi(E)
 		 */
 		//a revoir
-		for(int i = 0 ; i < ents.length ; i++) {
+		for(int i = 0 ; i < super.entities().length ; i++) {
 			if(ents[i]!=getEntity(i)) {
 				throw new InvariantError("Entities in env mismatch");
 			}

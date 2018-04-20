@@ -10,6 +10,7 @@ public class EditMapImpl implements EditMapService{
 	int h;
 	int w;
 	Cell[][] cells;
+	int[][] path;
 	
 	@Override
 	public int getHeight() {
@@ -30,8 +31,10 @@ public class EditMapImpl implements EditMapService{
 	public void init(int w, int h) {
 		this.w=w;
 		this.h=h;
+		this.path=null;
 		
 		//Mettre des cells
+		//Cells = generateMap();
 	}
 
 	@Override
@@ -46,8 +49,11 @@ public class EditMapImpl implements EditMapService{
 
 	@Override
 	public boolean isReachable(int px, int py, int ox, int oy) {
-		Pathfinder pf = new Pathfinder();
-		return pf.pathExists(cells, 3 ,4 ,0 ,1);
+		Pathfinder pf = new Pathfinder(cells,px,py,ox,oy);
+		if(pf.hasPath()) {
+		path=pf.getPath();
+		}
+		return pf.hasPath();
 	}
 
 	@Override
@@ -59,6 +65,11 @@ public class EditMapImpl implements EditMapService{
 	public EditMapService setNature(int x, int y, Cell c) {
 		cells[x][y]=c;
 		return this;
+	}
+
+	@Override
+	public int[][] getPath() {
+		return path;
 	}
 
 }
