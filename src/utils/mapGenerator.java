@@ -15,7 +15,7 @@ public class mapGenerator {
 		createMap(maxTunnels,maxLength);
 	}
 
-	//helper function to make a two dimentional array that takes a number and the dimentions of the array
+	//Initializer to fill map with specific cell type
 	private void createArray(Cell type) {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < heigth; j++) {
@@ -24,25 +24,31 @@ public class mapGenerator {
 		}
 	}
 
-	//lets create a randomly generated map for our dungeon crawler
+	//Walk the map to create corridors
 	public Cell[][] createMap(int maxT, int maxL) {
-		// let dimensions = 5, // width and height of the map
-		int maxTunnels = maxT; // max number of tunnels possible
-		int maxLength = maxL; // max length each tunnel can have
-		createArray(Cell.WLL); // create a 2d array full of 1's
-		int currentRow = (int) Math.floor(Math.random() * heigth); // our current row - start at a random spot
-		int currentColumn = (int) Math.floor(Math.random() * width); // our current column - start at a random spot
-		Direction lastDirection; // save the last direction we went
-		Direction randomDirection = null; // next turn/direction - holds a value from directions
+		int maxTunnels = maxT; 
+		int maxLength = maxL; 
+		createArray(Cell.WLL);
+		int currentRow;
+		int currentColumn;
+		Direction lastDir = null;
 		
-		// lets create some tunnels - while maxTunnels, dimentions, and maxLength  is greater than 0.
-		while (maxTunnels > 0 && heigth>0 && width >0 && maxLength>0) {
+		do {
+		currentRow = (int) Math.floor(Math.random() * heigth); // our current row - start at a random spot
+		currentColumn = (int) Math.floor(Math.random() * width); // our current column - start at a random spot
+		}while(currentRow==0 || currentColumn==0 || currentRow== heigth-1 || currentColumn==width-1);
+		
+		map[currentRow][currentColumn]=Cell.IN;
+		System.out.println("In : " + currentRow + ", " + currentColumn);
+		
+	
+		while (maxTunnels > 0  && maxLength>0) {
 
 			// lets get a random direction - until it is a perpendicular to our lastDirection
 			// if the last direction = left or right,
 			// then our new direction has to be up or down,
 			// and vice versa
-	
+
 
 			Direction randDir = randomElement(Direction.values());
 
@@ -50,39 +56,75 @@ public class mapGenerator {
 			int tunnelLength = 0; //current length of tunnel being created
 			// lets loop until our tunnel is long enough or until we hit an edge
 			while (tunnelLength < randomLength) {
-				boolean validMove = false;
-				//break the loop if it is going out of the map
-				if (((currentRow == 0) && randDir==Direction.SOUTH) || ((currentColumn == 0) && randDir==Direction.EAST) ||
-						((currentRow == heigth-1 && randDir==Direction.NORTH)) ||
-						((currentColumn == width - 1) && randDir==Direction.WEST)) {
+				boolean validMove = false;				
+				
+				//Node U-turn mode
+				if(
+						lastDir==Direction.EAST && randDir == Direction.WEST 
+						|| lastDir==Direction.WEST && randDir == Direction.EAST 
+						|| lastDir==Direction.NORTH && randDir == Direction.SOUTH 
+						|| lastDir==Direction.SOUTH && randDir == Direction.NORTH)
+				{
 					break;
-				} else {
+				}
+				
+				
+//				//No corridor mode -> Arena mode
+//				if(
+//						lastDir==Direction.EAST && randDir == Direction.EAST 
+//						|| lastDir==Direction.EAST && randDir == Direction.WEST 
+//						|| lastDir==Direction.WEST && randDir == Direction.EAST 
+//						|| lastDir==Direction.WEST && randDir == Direction.WEST 
+//						|| lastDir==Direction.NORTH && randDir == Direction.NORTH 
+//						|| lastDir==Direction.NORTH && randDir == Direction.SOUTH 
+//						|| lastDir==Direction.SOUTH && randDir == Direction.NORTH 
+//						|| lastDir==Direction.SOUTH && randDir == Direction.SOUTH) {
+//					break;
+//				}
+				
+				//break the loop if it is going out of the map or the surrounding wall
+				if (
+						((currentRow == 1) && randDir==Direction.NORTH) 
+						|| ((currentColumn == 1) && randDir==Direction.WEST) 
+						|| ((currentRow == heigth-2 && randDir==Direction.SOUTH)) 
+						|| ((currentColumn == width - 2) && randDir==Direction.EAST)) {
+					break;
+				} 
+				
+				//break if erasing entry
+//				if(map[currentRow][currentColumn]==Cell.IN) {
+//					break;
+//				}
+				
+				else {
+					if(!(map[currentRow][currentColumn]==Cell.IN)) {
 					map[currentRow][currentColumn] = Cell.EMP; //set the value of the index in map to 0 (a tunnel, making it one longer)
+					}
 					currentRow += randDir.getX(); //add the value from randomDirection to row and col (-1, 0, or 1) to update our location
 					currentColumn += randDir.getY();
 					tunnelLength++; //the tunnel is now one longer, so lets increment that variable
 					validMove=true;
 				}
-			
 
-			if (validMove) { // update our variables unless our last loop broke before we made any part of a tunnel
-				lastDirection = randomDirection; //set lastDirection, so we can remember what way we went
-				maxTunnels--; // we created a whole tunnel so lets decrement how many we have left to create
+
+				if (validMove) { // update our variables unless our last loop broke before we made any part of a tunnel
+					lastDir = randDir;
+					maxTunnels--; // we created a whole tunnel so lets decrement how many we have left to create
+				}
 			}
+
 		}
-		
+		map[currentRow][currentColumn]=Cell.OUT;
+		return map; 
 	}
-		return map; // all our tunnels have been created and our map is complete, so lets return it to our render()
-	}
-	
+
 	public Cell[][] getMap(){
 		return map;
 	}
-	
 
-	
+
 	public <T> T randomElement(T[] elements) {
 		Random numberGenerator = new Random();
-		  return elements[numberGenerator.nextInt(elements.length)];
-		}
+		return elements[numberGenerator.nextInt(elements.length)];
+	}
 }
