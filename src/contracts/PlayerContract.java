@@ -7,7 +7,6 @@ import errors.PreconditionError;
 import services.MobService;
 import services.PlayerService;
 import utils.Cell;
-import utils.Command;
 import utils.Dir;
 
 public class PlayerContract extends PlayerDecorator {

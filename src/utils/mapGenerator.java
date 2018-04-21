@@ -11,14 +11,14 @@ public class mapGenerator {
 	public mapGenerator(int width, int heigth, int maxTunnels, int maxLength) {
 		this.width = width;
 		this.heigth = heigth;
-		map = new Cell[width][heigth];
+		map = new Cell[heigth][width];
 		createMap(maxTunnels,maxLength);
 	}
 
 	//Initializer to fill map with specific cell type
 	private void createArray(Cell type) {
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < heigth; j++) {
+		for (int i = 0; i < heigth; i++) {
+			for (int j = 0; j < width; j++) {
 				map[i][j]=type;
 			}
 		}

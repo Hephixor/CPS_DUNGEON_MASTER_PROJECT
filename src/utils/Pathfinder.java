@@ -47,7 +47,29 @@ public class Pathfinder {
 		}
 		
 		System.out.println("\n======= Pathfinding in map =======");
-		printMap(etat);
+		for(int i = 0 ; i < map.length; i++) {
+        	for(int j = 0 ; j < map[0].length; j++) {
+        		switch(map[i][j]){
+        		case WLL:
+            		System.out.print("##.");
+            		break;
+        		case EMP:
+            		System.out.print("  .");
+            		break;
+        		case IN:
+            		System.out.print("IN.");
+            		break;
+        		case OUT:
+            		System.out.print("OU.");
+            		break;
+				default:
+					break;
+            	
+        		}
+        	}
+        	System.out.println();
+        }
+        System.out.println();
 		/*on initialise le chemin IN->OUT a vide*/
 		chemin = new ArrayList<Node>();
 		
@@ -55,7 +77,7 @@ public class Pathfinder {
 		/*on lance l'algo récursif sur la case depart*/
 		rec(in.x, in.y);
 		
-		System.out.println("\n======= Found path in map =======");
+		//System.out.println("\n======= Found path in map =======");
 		/*on affiche le chemin*/
 		printMap(etat);
 		/*on retourne le chemin trouve*/
