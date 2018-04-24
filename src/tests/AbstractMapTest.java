@@ -37,6 +37,8 @@ public abstract class AbstractMapTest {
 	
 	/* ========== COUVERTURE PRECONDITIONS ========== */
 	
+	//TODO A REFAIRE
+	
 	@Test
 	public void testInitPositif(){
 		//init
