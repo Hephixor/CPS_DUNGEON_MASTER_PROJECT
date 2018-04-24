@@ -22,10 +22,10 @@ public abstract class AbstractEntityTest {
 	}
 	
 	@Before
-	public abstract void beforeTests();
+	public abstract void beforeTest();
 	
 	@After
-	public final void afterTests() {
+	public final void afterTest() {
 		entity = null;
 		this.toString();
 	}

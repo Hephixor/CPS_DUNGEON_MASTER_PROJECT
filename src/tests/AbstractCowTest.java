@@ -22,10 +22,10 @@ public abstract class AbstractCowTest {
 	}
 	
 	@Before
-	public abstract void beforeTests();
+	public abstract void beforeTest();
 	
 	@After
-	public final void afterTests() {
+	public final void afterTest() {
 		cow = null;
 		this.toString();
 	}

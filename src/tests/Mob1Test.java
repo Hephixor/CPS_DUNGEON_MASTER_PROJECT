@@ -6,7 +6,7 @@ import impl.MobImpl;
 public class Mob1Test extends AbstractMobTest {
 	
 	@Override
-	public void beforeTests() {
+	public void beforeTest() {
 		setMob(new MobContract(new MobImpl()));
 		//setMob(new MobImpl());
 	}

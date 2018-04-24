@@ -22,10 +22,10 @@ public abstract class AbstractEngineTest {
 	}
 	
 	@Before
-	public abstract void beforeTests();
+	public abstract void beforeTest();
 	
 	@After
-	public final void afterTests() {
+	public final void afterTest() {
 		engine = null;
 		this.toString();
 	}

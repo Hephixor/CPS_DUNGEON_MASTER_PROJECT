@@ -1,14 +1,17 @@
 package tests;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.util.Arrays;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import errors.InvariantError;
 import errors.PreconditionError;
 import services.MapService;
+import utils.Cell;
 
 public abstract class AbstractMapTest {
 	
@@ -27,77 +30,234 @@ public abstract class AbstractMapTest {
 	}
 	
 	@Before
-	public abstract void beforeTests();
+	public abstract void beforeTest();
 	
 	@After
-	public final void afterTests() {
+	public final void afterTest() {
 		map = null;
 		this.toString();
 	}
 	
 	/* ========== COUVERTURE PRECONDITIONS ========== */
 	
-	//TODO A REFAIRE
+	/*getcellnature, init, opendoor, closedoor*/
+	
+	/*getCellNature*/
+	
+	public void preGetCellNaturePositif() {
+		//init
+		map.init(14, 35);
+		
+		//operation
+		try {
+			map.getCellNature(3, 29);
+		}
+		//oracle
+		catch(PreconditionError | InvariantError e) {
+			fail(e.toString());
+		}
+	}
+	
+	public void preGetCellNatureNegatif() {
+		//init
+		map.init(14, 35);
+		
+		//operation
+		try {
+			map.getCellNature(15, -4);
+
+			//probleme
+			fail("preGetCellNatureNegatif");
+		}
+		//oracle
+		catch(PreconditionError e) {
+			
+		}
+	}
+	
+	/*init*/
 	
 	@Test
-	public void testInitPositif(){
+	public void preInitPositif() {
 		//init
-		int w = 14;
-		int h = 36;
 		
+		//operation
 		try {
-			//run
-			map.init(w, h);
-			
-			//oracle
-			assertTrue("map.getHeight() != h", map.getHeight() == h);
-			assertTrue("map.getWidth() != w", map.getWidth() == w);
+			map.init(14, 35);
 		}
-		catch(AssertionError e){
-			//probleme contrat/spec
+		//oracle
+		catch(PreconditionError | InvariantError e) {
+			fail(e.toString());
+		}
+		
+	}
+	
+	@Test
+	public void preInitNegatif() {
+		//init
+		
+		//operation
+		try {
+			map.init(0, 35);
+			
+			//probleme
+			fail("preInitNegatif");
+		}
+		//oracle
+		catch(PreconditionError e) {
+			//ok
+		}
+	}
+	
+	@Test
+	public void preOpenDoorPositif() {
+		//init
+		map.init(14, 35);
+		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
+					map.closeDoor(x, y);
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+		
+		//operation
+		try {
+			map.openDoor(xDoor, yDoor);
+		}
+		//oracle
+		catch(PreconditionError | InvariantError e) {
+			fail(e.toString());
+		}
+		
+		
+	}
+	
+	@Test
+	public void preOpenDoorNegatif() {
+		//init
+		map.init(14, 35);
+		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if( Arrays.asList(Cell.IN, Cell.OUT).contains(map.getCellNature(x, y)) ) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+		
+		//operation
+		try {
+			map.openDoor(xDoor, yDoor);
+			
+			//probleme
+			fail("preOpenDoorNegatif");
+		}
+		//oracle
+		catch(PreconditionError e) {
+			//ok
+		}
+	}
+	
+	/*closeDoor*/
+	
+	@Test
+	public void preCloseDoorPositif() {
+		//init
+		map.init(14, 35);
+		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
+					map.openDoor(x, y);
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+		
+		//operation
+		try {
+			map.closeDoor(xDoor, yDoor);
+		}
+		//oracle
+		catch(PreconditionError | InvariantError e) {
 			fail(e.toString());
 		}
 	}
 	
 	@Test
-	public void testInitNegatif(){
+	public void preCloseDoorNegatif() {
 		//init
-		int w = 0;
-		int h = 36;
+		map.init(14, 35);
 		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if( Arrays.asList(Cell.IN, Cell.OUT).contains(map.getCellNature(x, y)) ) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+		
+		//operation
 		try {
-			//run
-			map.init(w, h);
+			map.closeDoor(xDoor, yDoor);
 			
-			//oracle
-			fail("testInitNegatif");
+			//probleme
+			fail("preCloseDoorNegatif");
 		}
-		catch(AssertionError e){
-			//probleme contrat/spec
-			fail(e.toString());	
-		}catch(PreconditionError e) {
-			//bon deroulement
-			System.out.println(e.getMessage());
+		//oracle
+		catch(PreconditionError e) {
+			//ok
 		}
 	}
 	
-	@Test
-	public void testOpenDoorPositif() {
-		//TODO
-	}
-	
-	@Test
-	public void testOpenDoorNegatif() {
-		//TODO
-	}
-	
-	@Test
-	public void testCloseDoorPositif() {
-		//TODO
-	}
-	
-	@Test
-	public void testCloseDoorNegatif() {
-		//TODO
-	}
+	/* ========== COUVERTURE TRANSITIONS ========== */
+
+	//TODO
 }
