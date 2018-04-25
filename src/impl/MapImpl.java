@@ -20,7 +20,7 @@ public class MapImpl implements MapService {
 
 	@Override
 	public Cell getCellNature(int x, int y) {
-		return cells[x][y];
+		return cells[y][x];
 	}
 
 	@Override
