@@ -1,0 +1,30 @@
+A,B,,C,,D,,E,,F,,G,,H,,I,J,K,L,M
+couverture\service,AbsMap,,AbsMob,,AbsEnvironment,,AbsEntity,,AbsCow,,AbsPlayer,,AbsEditMap,,AbsEngine,,,,
+préconditions,"PreGetCellNature +
+PreGetCellNature -
+PreInit +
+PreInit -
+PreOpenDoor +
+PreOpenDoor -
+PreCloseDoor +
+PreCloseDoor -","OK
+OK
+OK
+OK
+OK a voir
+OK a voir 
+OK a voir
+OK a voir","PreInit +
+PreInit -","OK
+OK",,,,,,,,,,,,,,,
+transitions,"TransInit +
+TransOpenDoor +
+TransCloseDoor +
+
+",,"TransInit +
+TransForward +
+TransBackward +
+TransTurnL +
+TransTurnR +
+TransStrafeL +
+TransStrafeR +",,,,,,,,,,,,,,,,

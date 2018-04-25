@@ -53,7 +53,7 @@ public abstract class AbstractMapTest {
 			map.getCellNature(3, 29);
 		}
 		//oracle
-		catch(PreconditionError | InvariantError e) {
+		catch(PreconditionError e) {
 			fail(e.toString());
 		}
 	}
@@ -142,7 +142,7 @@ public abstract class AbstractMapTest {
 			map.openDoor(xDoor, yDoor);
 		}
 		//oracle
-		catch(PreconditionError | InvariantError e) {
+		catch(PreconditionError e) {
 			fail(e.toString());
 		}
 		
@@ -218,7 +218,7 @@ public abstract class AbstractMapTest {
 			map.closeDoor(xDoor, yDoor);
 		}
 		//oracle
-		catch(PreconditionError | InvariantError e) {
+		catch(PreconditionError e) {
 			fail(e.toString());
 		}
 	}

@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import errors.InvariantError;
 import errors.PreconditionError;
@@ -52,13 +53,13 @@ public abstract class AbstractEnvironmentTest {
 		
 		for(int x=0; x<env.getWidth(); x++) {
 			for(int y=0; y<env.getHeight(); y++) {
-				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
+				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(env.getCellNature(x, y))) {
 					xDoor = x;
 					yDoor = y;
 					found = true;
 					break;
 				}
-				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
+				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(env.getCellNature(x, y))) {
 					env.openDoor(x, y);
 					xDoor = x;
 					yDoor = y;
