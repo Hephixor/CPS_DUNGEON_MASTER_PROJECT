@@ -86,7 +86,7 @@ public abstract class AbstractMapTest {
 			map.init(14, 35);
 		}
 		//oracle
-		catch(PreconditionError | InvariantError e) {
+		catch(PreconditionError e) {
 			fail(e.toString());
 		}
 		

@@ -68,7 +68,7 @@ public abstract class AbstractMobTest {
 			mob.init(env, 7, 23, Dir.E);
 		}
 		//oracle
-		catch(PreconditionError | InvariantError e) {
+		catch(PreconditionError e) {
 			fail(e.toString());
 		}
 		
