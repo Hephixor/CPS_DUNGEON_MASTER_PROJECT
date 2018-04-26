@@ -39,7 +39,7 @@ public class mapGenerator {
 		}while(currentRow==0 || currentColumn==0 || currentRow== heigth-1 || currentColumn==width-1);
 		
 		map[currentRow][currentColumn]=Cell.IN;
-		System.out.println("In : " + currentRow + ", " + currentColumn);
+		//System.out.println("In : " + currentColumn + ", " + currentRow);
 		
 	
 		while (maxTunnels > 0  && maxLength>0) {

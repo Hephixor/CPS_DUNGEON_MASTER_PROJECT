@@ -9,6 +9,7 @@ public class EnvironmentImpl implements EnvironmentService{
 	int h;
 	int w;
 	Cell[][] cells;
+	MapService map;
 	
 	@Override
 	public int getHeight() {
@@ -22,15 +23,15 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public Cell getCellNature(int x, int y) {
-		return cells[x][y];
+		return map.getCellNature(x, y);
+		//return cells[x][y];
 	}
 
 	
-	public void init(int w, int h) {
-		this.h=h;
-		this.w=w;
-		//this.cells = ;
-		//Initialiser les cases
+	public void init(MapService map) {
+		this.map = map;
+		this.h=map.getHeight();
+		this.w=map.getWidth();
 		
 	}
 
@@ -48,6 +49,13 @@ public class EnvironmentImpl implements EnvironmentService{
 	public EnvironmentService closeDoor(int x, int y) {
 		return null;
 	}
+
+	@Override
+	public void init(int w, int h) {
+		
+	}
+
+
 
 
 }

@@ -3,6 +3,7 @@ package contracts;
 import decorators.EnvironmentDecorator;
 import errors.PreconditionError;
 import services.EnvironmentService;
+import services.MapService;
 
 public class EnvironmentContract extends EnvironmentDecorator{
 
@@ -35,5 +36,17 @@ public class EnvironmentContract extends EnvironmentDecorator{
 		//post
 		
 		return this;
+	}
+	
+	public void init(MapService map){
+		//pre
+		
+		//run
+		super.init(map);
+		
+		checkInvariants();
+		
+		//post
+		
 	}
 }

@@ -7,10 +7,11 @@ import utils.Cell;
 import utils.Node;
 
 public class EditMapDecorator extends MapDecorator implements EditMapService{
-	private final EditMapService delegate=null;
+	private final EditMapService delegate;
 	
 	public EditMapDecorator(EditMapService delegate) {
 		super(delegate);
+		this.delegate = delegate;
 	}
 	
 	@Override

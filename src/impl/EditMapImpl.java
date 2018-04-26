@@ -61,8 +61,6 @@ public class EditMapImpl implements EditMapService{
 		Pathfinder pf = new Pathfinder(cells,inx,iny,outx,outy);
 		path = pf.path();
 		
-		//Mettre des cells
-		//Cells = generateMap();
 	}
 
 	@Override
@@ -83,12 +81,12 @@ public class EditMapImpl implements EditMapService{
 
 	@Override
 	public boolean isReady() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public EditMapService setNature(int x, int y, Cell c) {
-		cells[x][y]=c;
+		cells[y][x]=c;
 		return this;
 	}
 
