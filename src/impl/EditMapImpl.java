@@ -1,16 +1,20 @@
 package impl;
 
+import java.util.List;
+
 import services.EditMapService;
 import services.MapService;
 import utils.Cell;
+import utils.Node;
 import utils.Pathfinder;
+import utils.mapGenerator;
 
 public class EditMapImpl implements EditMapService{
 
 	int h;
 	int w;
 	Cell[][] cells;
-	int[][] path;
+	List<Node> path;
 	
 	@Override
 	public int getHeight() {
@@ -32,6 +36,30 @@ public class EditMapImpl implements EditMapService{
 		this.w=w;
 		this.h=h;
 		this.path=null;
+		mapGenerator mgen = new mapGenerator(w,h,200,10);
+		cells = mgen.getMap();
+		int inx = 0;
+		int iny = 0;
+		int outx = 0;
+		int outy = 0;
+
+		for(int x=0; x<cells[0].length; x++){
+			for(int y=0; y<cells.length; y++){
+				if(cells[y][x] == Cell.IN){
+					inx = x;
+					iny = y;
+					System.out.println("IN = ("+inx+","+iny+")");
+				}
+				if(cells[y][x] == Cell.OUT){
+					outx = x;
+					outy = y;
+					System.out.println("OUT = ("+outx+","+outy+")");
+				}
+			}
+		}
+
+		Pathfinder pf = new Pathfinder(cells,inx,iny,outx,outy);
+		path = pf.path();
 		
 		//Mettre des cells
 		//Cells = generateMap();
@@ -50,9 +78,6 @@ public class EditMapImpl implements EditMapService{
 	@Override
 	public boolean isReachable(int px, int py, int ox, int oy) {
 		Pathfinder pf = new Pathfinder(cells,px,py,ox,oy);
-		if(pf.hasPath()) {
-		path=pf.getPath();
-		}
 		return pf.hasPath();
 	}
 
@@ -68,7 +93,7 @@ public class EditMapImpl implements EditMapService{
 	}
 
 	@Override
-	public int[][] getPath() {
+	public List<Node> getPath() {
 		return path;
 	}
 

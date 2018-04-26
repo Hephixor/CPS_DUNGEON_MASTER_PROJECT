@@ -1,5 +1,6 @@
 package contracts;
 
+import java.util.List;
 import java.util.Random;
 
 import decorators.EditMapDecorator;
@@ -8,6 +9,7 @@ import errors.PostconditionError;
 import errors.PreconditionError;
 import services.EditMapService;
 import utils.Cell;
+import utils.Node;
 
 public class EditMapContract extends EditMapDecorator{
 
@@ -15,7 +17,7 @@ public class EditMapContract extends EditMapDecorator{
 		super(delegate);
 	}
 	
-	public int[][] getPath(){
+	public List<Node> getPath(){
 		return super.getPath();
 	}
 
@@ -50,7 +52,7 @@ public class EditMapContract extends EditMapDecorator{
 		int randyi = rand.nextInt(getHeight());
 		int randxo = rand.nextInt(getWidth());
 		int randyo = rand.nextInt(getHeight());
-		int[][] path = null;
+		List<Node> path = null;
 		
 		/*
 		 * isReachable(M,x1,y1,x2,y2) = exists P in Array[int,int], P[0] = (x1,y1) and P[size(P)-1] = (x2,y2)
@@ -66,11 +68,11 @@ public class EditMapContract extends EditMapDecorator{
 				throw new InvariantError("Path to exit is null");
 			}
 			
-			for(int i = 1; i<path.length-1 ; i++) {
-				int xb = path[i][0];
-				int xa = path[i-1][0];
-				int yb = path[i][1];
-				int ya = path[i-1][1];
+			for(int i = 1; i<path.size() ; i++) {
+				int xb = path.get(i).x;
+				int xa = path.get(i-1).x;
+				int yb = path.get(i).y;
+				int ya = path.get(i-1).y;
 				
 					if((Math.pow(xa-xb,2)+(Math.pow(yb-ya,2))!=1) || getCellNature(xa, ya)==Cell.WLL){
 						throw new InvariantError("Path to destiantion has invalid move");

@@ -25,10 +25,11 @@ public class EnvironmentImpl implements EnvironmentService{
 		return cells[x][y];
 	}
 
-	@Override
+	
 	public void init(int w, int h) {
 		this.h=h;
 		this.w=w;
+		//this.cells = ;
 		//Initialiser les cases
 		
 	}
@@ -47,5 +48,6 @@ public class EnvironmentImpl implements EnvironmentService{
 	public EnvironmentService closeDoor(int x, int y) {
 		return null;
 	}
+
 
 }

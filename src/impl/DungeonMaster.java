@@ -31,8 +31,10 @@ public class DungeonMaster {
 //		width = sc.nextInt();
 //		sc.close();
 
-		heigth = 10;
-		width = 10;
+		heigth = 20;
+		width = 20;
+		
+
 
 		EditMapImpl mapimpl = new  EditMapImpl();
 		EnvironmentImpl env = new EnvironmentImpl();
@@ -73,36 +75,10 @@ public class DungeonMaster {
 
 
 
-		mapGenerator mgen = new mapGenerator(width,heigth,200,10);
-
-		Cell[][] mapgen = mgen.getMap();
+		
 
 
-		int inx = 0;
-		int iny = 0;
-		int outx = 0;
-		int outy = 0;
-
-		for(int x=0; x<mapgen[0].length; x++){
-			for(int y=0; y<mapgen.length; y++){
-				if(mapgen[y][x] == Cell.IN){
-					inx = x;
-					iny = y;
-					System.out.println("IN = ("+inx+","+iny+")");
-				}
-				if(mapgen[y][x] == Cell.OUT){
-					outx = x;
-					outy = y;
-					System.out.println("OUT = ("+outx+","+outy+")");
-				}
-			}
-		}
-
-		System.out.println();
-
-
-		Pathfinder pf = new Pathfinder(mapgen,inx,iny,outx,outy);
-		List<Node> path = pf.path();
+	
 
 
 	}
