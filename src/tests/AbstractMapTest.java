@@ -3,12 +3,16 @@ package tests;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Arrays;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import errors.InvariantError;
 import errors.PreconditionError;
 import services.MapService;
+import utils.Cell;
 
 public abstract class AbstractMapTest {
 	
@@ -27,75 +31,409 @@ public abstract class AbstractMapTest {
 	}
 	
 	@Before
-	public abstract void beforeTests();
+	public abstract void beforeTest();
 	
 	@After
-	public final void afterTests() {
+	public final void afterTest() {
 		map = null;
 		this.toString();
 	}
 	
 	/* ========== COUVERTURE PRECONDITIONS ========== */
 	
+	/*getcellnature, init, opendoor, closedoor*/
+	
+	/*getCellNature*/
+	
 	@Test
-	public void testInitPositif(){
+	public void preGetCellNaturePositif() {
 		//init
-		int w = 14;
-		int h = 36;
+		map.init(14, 35);
 		
+		//operation
 		try {
-			//run
-			map.init(w, h);
-			
-			//oracle
-			assertTrue("map.getHeight() != h", map.getHeight() == h);
-			assertTrue("map.getWidth() != w", map.getWidth() == w);
+			map.getCellNature(3, 29);
 		}
-		catch(AssertionError e){
-			//probleme contrat/spec
+		//oracle
+		catch(PreconditionError e) {
 			fail(e.toString());
 		}
 	}
 	
 	@Test
-	public void testInitNegatif(){
+	public void preGetCellNatureNegatif() {
 		//init
-		int w = 0;
-		int h = 36;
+		map.init(14, 35);
 		
+		//operation
 		try {
-			//run
-			map.init(w, h);
+			map.getCellNature(15, -4);
+
+			//probleme
+			fail("preGetCellNatureNegatif");
+		}
+		//oracle
+		catch(PreconditionError e) {
 			
-			//oracle
-			fail("testInitNegatif");
-		}
-		catch(AssertionError e){
-			//probleme contrat/spec
-			fail(e.toString());	
-		}catch(PreconditionError e) {
-			//bon deroulement
-			System.out.println(e.getMessage());
 		}
 	}
 	
+	/*init*/
+	
 	@Test
-	public void testOpenDoorPositif() {
-		//TODO
+	public void preInitPositif() {
+		//init
+		
+		//operation
+		try {
+			map.init(14, 35);
+		}
+		//oracle
+		catch(PreconditionError e) {
+			fail(e.toString());
+		}
+		
 	}
 	
 	@Test
-	public void testOpenDoorNegatif() {
-		//TODO
+	public void preInitNegatif() {
+		//init
+		
+		//operation
+		try {
+			map.init(0, 35);
+			
+			//probleme
+			fail("preInitNegatif");
+		}
+		//oracle
+		catch(PreconditionError e) {
+			//ok
+		}
 	}
 	
 	@Test
-	public void testCloseDoorPositif() {
-		//TODO
+	public void preOpenDoorPositif() {
+		//init
+		map.init(14, 35);
+		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
+					map.closeDoor(x, y);
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+
+		if(!found) throw new Error("no existing Door in the map");
+		
+		//operation
+		try {
+			map.openDoor(xDoor, yDoor);
+		}
+		//oracle
+		catch(PreconditionError e) {
+			fail(e.toString());
+		}
+		
+		
 	}
 	
 	@Test
-	public void testCloseDoorNegatif() {
-		//TODO
+	public void preOpenDoorNegatif() {
+		//init
+		map.init(14, 35);
+		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if( Arrays.asList(Cell.IN, Cell.OUT).contains(map.getCellNature(x, y)) ) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+		
+		if(!found) throw new Error("no existing IN and OUT in the map");
+		
+		//operation
+		try {
+			map.openDoor(xDoor, yDoor);
+			
+			//probleme
+			fail("preOpenDoorNegatif");
+		}
+		//oracle
+		catch(PreconditionError e) {
+			//ok
+		}
 	}
+	
+	/*closeDoor*/
+	
+	@Test
+	public void preCloseDoorPositif() {
+		//init
+		map.init(14, 35);
+		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
+					map.openDoor(x, y);
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+		
+		if(!found) throw new Error("no existing Door in the map");
+		
+		//operation
+		try {
+			map.closeDoor(xDoor, yDoor);
+		}
+		//oracle
+		catch(PreconditionError e) {
+			fail(e.toString());
+		}
+	}
+	
+	@Test
+	public void preCloseDoorNegatif() {
+		//init
+		map.init(14, 35);
+		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if( Arrays.asList(Cell.IN, Cell.OUT).contains(map.getCellNature(x, y)) ) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+		
+		if(!found) throw new Error("no existing IN and OUT in the map");
+		
+		//operation
+		try {
+			map.closeDoor(xDoor, yDoor);
+			
+			//probleme
+			fail("preCloseDoorNegatif");
+		}
+		//oracle
+		catch(PreconditionError e) {
+			//ok
+		}
+	}
+	
+	/* ========== COUVERTURE TRANSITIONS ========== */
+
+	private void assertInv() {
+		assertTrue(true);
+	}
+	
+	//TODO
+	
+	/*init*/
+	
+	@Test
+	public void transInit() {
+		//init
+		
+		//operation
+		map.init(14, 35);
+		
+		//oracle
+		assertInv();
+		assertTrue(map.getWidth()==14);
+		assertTrue(map.getHeight()==35);
+	}
+	
+	@Test
+	public void transOpenDoor() {
+		//init
+		map.init(14, 35);
+		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
+					map.closeDoor(x, y);
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+
+		if(!found) throw new Error("no existing Door in the map");
+		
+		//capture
+		Cell cellNat_atpre = map.getCellNature(xDoor, yDoor);
+		Cell[][] cells_atpre = new Cell[35][14];
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				cells_atpre[y][x] = map.getCellNature(x, y);
+			}
+		}
+		
+		//operation
+		map.openDoor(xDoor, yDoor);
+		
+		//oracle
+		assertInv();
+		
+		if(cellNat_atpre == Cell.DWC)
+			assertTrue(map.getCellNature(xDoor, yDoor) == Cell.DWO);
+		
+		if(cellNat_atpre == Cell.DNC)
+			assertTrue(map.getCellNature(xDoor, yDoor) == Cell.DNO);	
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if(x!=xDoor && y!=yDoor) {
+					assertTrue(map.getCellNature(x, y) == cells_atpre[y][x]);
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void transCloseDoor() {
+		//init
+		map.init(14, 35);
+		
+		boolean found = false;
+		int xDoor = -1;
+		int yDoor = -1;
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
+					map.openDoor(x, y);
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
+					xDoor = x;
+					yDoor = y;
+					found = true;
+					break;
+				}
+			}
+			if(found) break;
+		}
+
+		if(!found) throw new Error("no existing Door in the map");
+		
+		//capture
+		Cell cellNat_atpre = map.getCellNature(xDoor, yDoor);
+		Cell[][] cells_atpre = new Cell[35][14];
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				cells_atpre[y][x] = map.getCellNature(x, y);
+			}
+		}
+		
+		//operation
+		map.closeDoor(xDoor, yDoor);
+		
+		//oracle
+		assertInv();
+		
+		if(cellNat_atpre == Cell.DWC)
+			assertTrue(map.getCellNature(xDoor, yDoor) == Cell.DWO);
+		
+		if(cellNat_atpre == Cell.DNC)
+			assertTrue(map.getCellNature(xDoor, yDoor) == Cell.DNO);	
+		
+		for(int x=0; x<map.getWidth(); x++) {
+			for(int y=0; y<map.getHeight(); y++) {
+				if(x!=xDoor && y!=yDoor) {
+					assertTrue(map.getCellNature(x, y) == cells_atpre[y][x]);
+				}
+			}
+		}
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

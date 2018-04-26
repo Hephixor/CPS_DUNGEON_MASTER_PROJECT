@@ -19,7 +19,7 @@ public class MapContract extends MapDecorator {
 	@Override
 	public Cell getCellNature(int x, int y) {
 		//pre: 0 <= x < Width(M) and 0 <= y < Height(M)
-		if( !( 0<=x && x<getHeight() && 0<= y && y<getWidth() ) )
+		if( !( 0<=x && x<getWidth() && 0<= y && y<getHeight() ) )
 			throw new PreconditionError("Illegal coordinates");
 		
 		//run
