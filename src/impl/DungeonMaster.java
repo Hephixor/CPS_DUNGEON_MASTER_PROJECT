@@ -1,17 +1,17 @@
 package impl;
 
-import jdk.nashorn.internal.runtime.ECMAException;
-
-import org.hamcrest.core.IsInstanceOf;
-
+import services.EntityService;
+import services.EnvironmentService;
+import services.MapService;
+import utils.Cell;
+import utils.Dir;
 import contracts.CowContract;
 import contracts.EditMapContract;
 import contracts.EngineContract;
 import contracts.EnvironmentContract;
 import contracts.MobContract;
 import contracts.PlayerContract;
-import utils.Cell;
-import utils.Dir;
+import contracts.*;
 
 public class DungeonMaster {
 
@@ -22,48 +22,44 @@ public class DungeonMaster {
 
 		int heigth ;
 		int width ;
-//		Scanner sc = new Scanner(System.in);
-//		System.out.print("Heigth : ");
-//		heigth = sc.nextInt();
-//		System.out.print("Width : ");
-//		width = sc.nextInt();
-//		sc.close();
+		//		Scanner sc = new Scanner(System.in);
+		//		System.out.print("Heigth : ");
+		//		heigth = sc.nextInt();
+		//		System.out.print("Width : ");
+		//		width = sc.nextInt();
+		//		sc.close();
 
 		heigth = 20;
-		width = 20;
-		
+		width = 10;
 
 
-		EditMapImpl mapimpl = new  EditMapImpl();
-		//mapimpl.init(width, heigth);
-		EditMapContract mapc = new EditMapContract(mapimpl);
+		EditMapContract mapc = new EditMapContract(new  EditMapImpl());
 		mapc.init(width, heigth);
-		
-		EnvironmentImpl env = new EnvironmentImpl();
-		EnvironmentContract envc = new EnvironmentContract(env);
-		envc.init(mapc);
-		
-		EngineImpl engine = new EngineImpl();
-		EngineContract enginec = new EngineContract(engine);
+	//	System.out.println("AAAAAAA");
+	//	printMap(mapc);
 
-		PlayerImpl player = new PlayerImpl();		
-		PlayerContract playerc = new PlayerContract(player);
+		EnvironmentContract envc = new EnvironmentContract(new EnvironmentImpl());
+		envc.init(mapc);
+
 		
-		MobContract[] mobsc = new MobContract[2];
-		mobsc[0] = new MobContract(new MobImpl());
-		mobsc[1] = new MobContract(new MobImpl());
-		
+
+		PlayerContract playerc = new PlayerContract(new PlayerImpl());
+
+		EntityContract[] mobsc = new EntityContract[2];
+		mobsc[0] = new EntityContract(new EntityImpl());
+		mobsc[1] = new EntityContract(new EntityImpl());
+
 		CowContract[] cowsc = new CowContract[3];
 		cowsc[0] = new CowContract(new CowImpl());
 		cowsc[1] = new CowContract(new CowImpl());
 		cowsc[2] = new CowContract(new CowImpl());
 
-		
-		
+
+
 		//ajouter les entities
 		mapc.setNature(1, 1, Cell.EMP);
-		playerc.init(envc, 1, 1, Dir.N, 10);
 		
+
 		mapc.setNature(8, 8, Cell.EMP);
 		mobsc[0].init(envc, 8, 8, Dir.S);
 		mapc.setNature(5, 5, Cell.EMP);
@@ -75,63 +71,145 @@ public class DungeonMaster {
 		mapc.setNature(4, 4, Cell.EMP);
 		cowsc[2].init(envc, 4, 4, Dir.W, 4);
 
+//		System.out.println("Affichage Envi ");
+//		printEnv(envc);
+
+	
+		playerc.init(envc, 1, 1, Dir.N, 10);
 		
-		for(int y = 0 ; y < mapc.getHeight(); y++ ){
-			for(int x = 0 ; x < mapc.getWidth() ; x++){
-				switch(envc.getCellNature(x,y)){
-        		case WLL:
-            		System.out.print("##.");
-            		break;
-        		case EMP:
-        			if(envc.getCellContent(x,y) == null) {
-        				System.out.print("  .");
-						
-					}
-        			else if(envc.getCellContent(x,y) instanceof CowImpl) {
-        				System.out.print("[].");
-						
-					}
-        			else if(envc.getCellContent(x,y) instanceof PlayerImpl) {
-        				System.out.print("OO.");
-						
-					}
-        			else if(envc.getCellContent(x,y) instanceof MobImpl) {
-        				System.out.print("XX.");
-						
-					}
-        			else{
-        				throw new ECMAException(null, null);
-        			}
+		EngineContract enginec = new EngineContract(new EngineImpl());
+		enginec.init(envc);
+		System.out.println("ajout1");
+		enginec.addEntity(cowsc[2]);
+		System.out.println("ajout2");
+		enginec.addEntity(playerc);
+		System.out.println("ajout3");
+		enginec.addEntity(mobsc[0]);
+		enginec.addEntity(cowsc[0]);
+		enginec.addEntity(mobsc[1]);
+		enginec.addEntity(cowsc[1]);
+		
+
+		System.out.println("After Engine");
+		for(int y = 0 ; y < envc.getHeight(); y++ ){
+			for(int x = 0 ; x < envc.getWidth() ; x++){
+				if(envc.getCellContent(x, y)==null){
+					System.out.println("  ");
 				}
+				else if(envc.getCellContent(x, y) instanceof PlayerContract){
+					System.out.println("P ");
+				}
+				else if(envc.getCellContent(x, y) instanceof EntityContract){
+					System.out.println("M ");
+				}
+				else if(envc.getCellContent(x, y) instanceof CowContract){
+					System.out.println("V ");
+				}
+				System.out.print(envc.getCellContent(x, y) + " ");
 			}
-		System.out.println();
-    }
-		
-
-	enginec.init(envc);
-	enginec.addEntity(playerc);
-	
-	for(int y = 0 ; y < envc.getHeight(); y++ ){
-		for(int x = 0 ; x < envc.getWidth() ; x++){
-		System.out.print(envc.getCellContent(x, y) + " ");
+			System.out.println();
 		}
-		System.out.println();
-}
-	
-	System.out.println("Hello welcome to dungeon master"); 
-	System.out.println("you're playing on a " + mapc.getHeight()+" x " + mapc.getWidth() + " map with");
-	System.out.println(mobsc.length+" mobs and "+cowsc.length+" cows.");
 
-
-
-
-
-		
-
-
-	
-
+		System.out.println("Hello welcome to dungeon master"); 
+		System.out.println("you're playing on a " + mapc.getHeight()+" x " + mapc.getWidth() + " map with");
+		System.out.println(mobsc.length+" mobs and "+cowsc.length+" cows.");
 
 	}
 
+
+
+
+
+
+	public static void printEnv(EnvironmentService env){
+
+		for(int y = 0 ; y < env.getHeight(); y++ ){
+			for(int x = 0 ; x < env.getWidth() ; x++){
+				switch(env.getCellNature(x,y)){
+				case WLL:
+					System.out.print("##.");
+					break;
+				case IN:
+					System.out.print("IN.");
+					break;
+				case OUT:
+					System.out.print("OUT");
+					break;
+				case EMP:
+					if(env.getCellContent(x,y) == null) {
+						System.out.print("  .");
+
+					}
+					else if(env.getCellContent(x,y) instanceof CowImpl) {
+						System.out.print("[].");
+
+					}
+					else if(env.getCellContent(x,y) instanceof PlayerImpl) {
+						System.out.print("OO.");
+
+					}
+					else if(env.getCellContent(x,y) instanceof MobImpl) {
+						System.out.print("XX.");
+
+					}
+					else{
+						//Impossible
+					}
+				default:
+					break;
+				}
+			}
+			System.out.println();
+		}
+	}
+
+	public static void printMap(MapService map){
+
+		for(int y = 0 ; y < map.getHeight(); y++ ){
+			for(int x = 0 ; x < map.getWidth() ; x++){
+				switch(map.getCellNature(x,y)){
+				case WLL:
+					System.out.print("##.");
+					break;
+				case IN:
+					System.out.print("IN.");
+					break;
+				case OUT:
+					System.out.print("OUT");
+					break;
+				case EMP:
+					System.out.print("  .");	
+				default:
+					break;
+				}
+			}
+			System.out.println();
+		}
+	}
+
+	public static void printMap(Cell[][] map){
+
+		for(int y = 0 ; y < map.length; y++ ){
+			for(int x = 0 ; x < map[0].length ; x++){
+				switch(map[y][x]){
+				case WLL:
+					System.out.print("##.");
+					break;
+				case IN:
+					System.out.print("IN.");
+					break;
+				case OUT:
+					System.out.print("OUT");
+					break;
+				case EMP:
+					System.out.print("  .");	
+				default:
+					break;
+				}
+			}
+			System.out.println();
+		}
+	}
+
 }
+

@@ -8,9 +8,9 @@ import utils.Cell;
 public class EnvironmentImpl implements EnvironmentService{
 	int h;
 	int w;
-	Cell[][] cells;
 	MapService map;
-	
+	MobService[][] mapmob;
+
 	@Override
 	public int getHeight() {
 		return h;
@@ -27,12 +27,13 @@ public class EnvironmentImpl implements EnvironmentService{
 		//return cells[x][y];
 	}
 
-	
+
 	public void init(MapService map) {
 		this.map = map;
+		this.mapmob= new MobService[map.getHeight()][map.getWidth()];
 		this.h=map.getHeight();
 		this.w=map.getWidth();
-		
+
 	}
 
 	@Override
@@ -42,7 +43,8 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public MobService getCellContent(int x, int y) {
-		return null;
+		MobService c;
+		return mapmob[y][x];
 	}
 
 	@Override
@@ -52,10 +54,18 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public void init(int w, int h) {
-		
+
 	}
 
+	@Override
+	public void setCellContent(int x, int y, MobService mob) {
+		mapmob[y][x] = mob;
 
-
+	}
 
 }
+
+
+
+
+

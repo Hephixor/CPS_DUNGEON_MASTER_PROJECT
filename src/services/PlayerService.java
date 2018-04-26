@@ -16,5 +16,5 @@ public interface PlayerService extends EntityService{
 	
 	//pre Viewable(P,x,y) requires x ∈ {0, width(M)}and y ∈ {0,heigth(M)}
 	public boolean getViewable(int x, int y);
-
+	
 }

@@ -1,12 +1,14 @@
 package services;
 
+import java.util.List;
+
 public interface EngineService {
 	
 	/* Observators */
 	
 	public EnvironmentService envi();
 	
-	public EntityService[] entities(); 
+	public List<EntityService> entities(); 
 	
 	public EntityService getEntity(int idx);
 	
@@ -16,14 +18,14 @@ public interface EngineService {
 	
 	/* Operators */
 	
-	public EngineService removeEntity(int idx);
+	public void removeEntity(int idx);
 	
-	public EngineService addEntity(EntityService ent);
+	public void addEntity(EntityService ent);
 	
 	/**
 	 * pre step() requires forall i in [0;size(Entities(E))-1], Entity::Hp(getEntity(E,i))>0
 	 */
-	public EngineService step();
+	public void step();
 	
 	
 	

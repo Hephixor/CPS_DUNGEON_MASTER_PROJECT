@@ -36,7 +36,7 @@ public class PlayerImpl implements PlayerService{
 
 	@Override
 	public EnvironmentService getEnv() {
-		return null;
+		return env;
 	}
 
 	@Override

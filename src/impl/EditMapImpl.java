@@ -7,10 +7,10 @@ import services.MapService;
 import utils.Cell;
 import utils.Node;
 import utils.Pathfinder;
-import utils.mapGenerator;
+import utils.MapGenerator;
 
 public class EditMapImpl implements EditMapService{
-
+	int c = 0;
 	int h;
 	int w;
 	Cell[][] cells;
@@ -28,7 +28,7 @@ public class EditMapImpl implements EditMapService{
 
 	@Override
 	public Cell getCellNature(int x, int y) {
-		return cells[x][y];
+		return cells[y][x];
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class EditMapImpl implements EditMapService{
 		this.w=w;
 		this.h=h;
 		this.path=null;
-		mapGenerator mgen = new mapGenerator(w,h,200,10);
+		MapGenerator mgen = new MapGenerator(w,h,200,10);
 		cells = mgen.getMap();
 		int inx = 0;
 		int iny = 0;

@@ -4,7 +4,7 @@ import services.CowService;
 import services.EnvironmentService;
 import utils.Dir;
 
-public class CowImpl implements CowService{
+public class EntityImpl implements CowService{
 	private 
 	int hp;
 	int x;
@@ -12,7 +12,7 @@ public class CowImpl implements CowService{
 	Dir orientation;
 	EnvironmentService env;
 	
-	public CowImpl() {
+	public EntityImpl() {
 		
 	}
 

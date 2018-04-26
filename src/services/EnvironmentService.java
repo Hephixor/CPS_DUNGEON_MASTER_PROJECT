@@ -10,6 +10,8 @@ public interface EnvironmentService extends MapService {
 	 */
 	public EnvironmentService closeDoor(int x, int y);
 	
+	public void setCellContent(int x, int y, MobService mob);
+	
 	public void init(MapService map);
 	
 }

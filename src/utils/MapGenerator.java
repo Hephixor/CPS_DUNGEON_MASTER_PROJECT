@@ -2,13 +2,13 @@ package utils;
 
 import java.util.Random;
 
-public class mapGenerator {
-
+public class MapGenerator {
+	public static int single = 0;
 	private Cell[][] map;
 	private int width;
 	private int heigth;
 
-	public mapGenerator(int width, int heigth, int maxTunnels, int maxLength) {
+	public MapGenerator(int width, int heigth, int maxTunnels, int maxLength) {
 		this.width = width;
 		this.heigth = heigth;
 		map = new Cell[heigth][width];
@@ -26,6 +26,7 @@ public class mapGenerator {
 
 	//Walk the map to create corridors
 	public Cell[][] createMap(int maxT, int maxL) {
+		single++;
 		int maxTunnels = maxT; 
 		int maxLength = maxL; 
 		createArray(Cell.WLL);

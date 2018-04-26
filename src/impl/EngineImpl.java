@@ -1,5 +1,7 @@
 package impl;
 
+import java.util.ArrayList;
+
 import services.EngineService;
 import services.EntityService;
 import services.EnvironmentService;
@@ -7,7 +9,7 @@ import services.EnvironmentService;
 public class EngineImpl implements EngineService{
 
 	EnvironmentService env;
-	EntityService[] ents;
+	ArrayList<EntityService> ents;
 	
 	
 	@Override
@@ -16,34 +18,39 @@ public class EngineImpl implements EngineService{
 	}
 
 	@Override
-	public EntityService[] entities() {
+	public ArrayList<EntityService> entities() {
 		return ents;
 	}
 
 	@Override
 	public EntityService getEntity(int idx) {
-		return ents[idx];
+		return ents.get(idx);
 	}
 
 	@Override
 	public void init(EnvironmentService env) {
 		this.env = env;
+		this.ents = new ArrayList<EntityService>();
 		//parametrer le nombre d'entities
 	}
 
 	@Override
-	public EngineService removeEntity(int idx) {
-		return null;
+	public void removeEntity(int idx) {
+		ents.remove(idx);
 	}
 
 	@Override
-	public EngineService addEntity(EntityService ent) {
-		return null;
+	public void addEntity(EntityService ent) {
+		ents.add(ent);
+		env.setCellContent(ent.getCol(), ent.getRow(), ent);
 	}
 
 	@Override
-	public EngineService step() {
-		return null;
+	public void step() {
+		
+		for (EntityService entityService : ents) {
+			entityService.step();
+		}
 	}
 
 }

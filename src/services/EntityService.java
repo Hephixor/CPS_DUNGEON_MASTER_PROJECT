@@ -2,7 +2,7 @@ package services;
 
 import utils.Dir;
 
-public interface EntityService extends MobService{
+public interface EntityService extends MobService, Cloneable{
 	
 	/* Observators */
 	public int getHP();
@@ -18,4 +18,5 @@ public interface EntityService extends MobService{
 	/* Operators */
 	
 	public void step();
+
 }

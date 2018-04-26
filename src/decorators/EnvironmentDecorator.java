@@ -1,6 +1,5 @@
 package decorators;
 
-import services.CowService;
 import services.EnvironmentService;
 import services.MapService;
 import services.MobService;
@@ -25,6 +24,11 @@ public class EnvironmentDecorator extends MapDecorator implements EnvironmentSer
 	@Override
 	public void init(MapService map) {
 		delegate.init(map);
+	}
+
+	@Override
+	public void setCellContent(int x, int y, MobService mob) {
+		delegate.setCellContent(x, y, mob);
 	}
 	
 	

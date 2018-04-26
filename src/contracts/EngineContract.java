@@ -1,12 +1,15 @@
 package contracts;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import services.EngineService;
+import services.EntityService;
+import services.EnvironmentService;
 import decorators.EngineDecorator;
 import errors.InvariantError;
 import errors.PostconditionError;
 import errors.PreconditionError;
-import services.EngineService;
-import services.EntityService;
-import services.EnvironmentService;
 
 public class EngineContract extends EngineDecorator{
 
@@ -15,14 +18,15 @@ public class EngineContract extends EngineDecorator{
 	}
 	
 	public void checkInvariants() {
-		EntityService[] ents = this.entities();
+
 		
 		/**
 		 * forall i in [0;size(Entities(E))-1], Entity::Envi(getEntity(E,i))=Envi(E)
 		 */
-		//a revoir
-		for(int i = 0 ; i < super.entities().length ; i++) {
-			if(ents[i]!=getEntity(i)) {
+		
+		List<EntityService> ents = entities();
+		for(int i = 0 ; i < entities().size() ; i++) {
+			if(ents.get(i).getEnv()!=envi()) {
 				throw new InvariantError("Entities in env mismatch");
 			}
 		}
@@ -32,15 +36,15 @@ public class EngineContract extends EngineDecorator{
 		 *	and Entity::Row(getEntity(E,i))=y
 		 *  implies Environment::CellContent(Envi(E),x,y) = getEntity(E,i)
 		 */
-		//a revoir
-		for(int i = 0 ; i < ents.length ; i++) {
+		
+		for(int i = 0 ; i < ents.size() ; i++) {
 			int xent = getEntity(i).getCol();
 			int yent = getEntity(i).getRow();
 			
-			//envi().CellContent(xent,yent)!=ents[i]
-			//remplacer condition
-			if(xent==0||yent==0) {
-				throw new InvariantError("Entities in env mismatch");
+			if(envi().getCellContent(xent, yent)!=getEntity(i)){
+				System.out.println("Cell content : " + envi().getCellContent(xent, yent));
+				System.out.println("Entity : " + getEntity(i));
+				throw new InvariantError("Entity not seen by env");
 			}
 		}
 	}
@@ -57,9 +61,9 @@ public class EngineContract extends EngineDecorator{
 	}
 	
 	@Override
-	public EngineService removeEntity(int idx) {
+	public void removeEntity(int idx) {
 		//pre
-		if(idx<0 || idx >= entities().length) {
+		if(idx<0 || idx >= entities().size()) {
 			throw new PreconditionError("Invalide entity index");
 		}
 		
@@ -67,15 +71,15 @@ public class EngineContract extends EngineDecorator{
 		checkInvariants();
 		
 		//capture
-		int size_atpre = entities().length;
-		EntityService[] ents_atpre_bidx= new EntityService[entities().length -1];
-		EntityService[] ents_atpre_aidx= new EntityService[entities().length -1];
+		int size_atpre = entities().size();
+		EntityService[] ents_atpre_bidx= new EntityService[entities().size() -1];
+		EntityService[] ents_atpre_aidx= new EntityService[entities().size() -1];
 		
 		for(int i = 0 ; i < idx - 1; i++) {
 			ents_atpre_bidx[i]=getEntity(i);
 		}
 		
-		for(int i = idx ; i < entities().length-2; i++) {
+		for(int i = idx ; i < entities().size()-2; i++) {
 			ents_atpre_aidx[i]=getEntity(i);
 		}
 		
@@ -88,7 +92,7 @@ public class EngineContract extends EngineDecorator{
 		//post
 		
 		//size(Entities(removeEntity(E,i))) = size(Entities(E)) - 1
-		if(entities().length!=size_atpre-1) {
+		if(entities().size()!=size_atpre-1) {
 			throw new PostconditionError("Error removing entity");
 		}
 		
@@ -101,28 +105,31 @@ public class EngineContract extends EngineDecorator{
 		
 		//TODO moyen sûr
 		//forall k in [i,size(Entities(E))-2], getEntity(removeEntity(E,i),k)) = getEntity(E,k+1)
-		for(int k = idx ; k < entities().length-2 ; k++) {
+		for(int k = idx ; k < entities().size()-2 ; k++) {
 			if((getEntity(k+1))!=ents_atpre_aidx[k]) {
 				throw new PostconditionError("Error removing entity removed another");
 			}
 		}
 		
-		return this;
 	}
 
 	@Override
-	public EngineService addEntity(EntityService ent) {
+	public void addEntity(EntityService ent) {
 		//pre
 		
 		//inv pre
 		checkInvariants();
 		
 		//capture
-		int size_atpre = entities().length;
-		EntityService[] ents_atpre_aidx= new EntityService[entities().length -1];
+		//TODO 
+		//clone au lieu de copy comme ça
+		int size_atpre = entities().size();
+		System.out.println("Size at pre " + size_atpre);
+		List<EntityService> ents_atpre_aidx = entities();
 		
-		for(int i = 0 ; i < entities().length - 1; i++) {
-			ents_atpre_aidx[i]=getEntity(i);
+
+		for(int i = 0 ; i < size_atpre; i++) {
+			ents_atpre_aidx.add(getEntity(i));
 		}
 		
 		//run
@@ -134,29 +141,35 @@ public class EngineContract extends EngineDecorator{
 		//post
 		
 		//size(Entities(addEntity(E,e))) = size(Entities(E)) + 1
-		if(entities().length!=size_atpre + 1) {
+		System.out.println("new size " + entities().size());
+		System.out.print("[");
+		for (EntityService e : entities()) {
+			System.out.print(e+",");
+		}
+		System.out.println("]");
+		if(entities().size()!=size_atpre + 1) {
+			
 			throw new PostconditionError("Error adding new entity");
 		}
 		
 		//forall k in [0,size(Entities(E))-1], getEntity(addEntity(E,e),k)) = getEntity(E,k)
-		for(int k = 0 ; k < entities().length-1 ; k++) {
-			if((getEntity(k))!=ents_atpre_aidx[k]) {
+		for(int k = 0 ; k < entities().size()-1 ; k++) {
+			if((getEntity(k))!=ents_atpre_aidx.get(k)) {
 				throw new PostconditionError("Error adding entity modified another");
 			}
 		}
 		
 		//getEntity(addEntity(E,e),size(Entities(E))) = e
-		if(!(getEntity(entities().length)==ent)){
+		if(!(getEntity(entities().size()-1)==ent)){
 			throw new PostconditionError("Entity not added at the end.");
 		}
 		
-		return this;
 	}
 
 	@Override
-	public EngineService step() {
+	public void step() {
 		//pre
-		for(int i = 0 ; i < entities().length -1 ; i++) {
+		for(int i = 0 ; i < entities().size() -1 ; i++) {
 			if(!(getEntity(i).getHP()>0)) {
 				throw new PreconditionError("I see dead people");
 			}
@@ -173,7 +186,7 @@ public class EngineContract extends EngineDecorator{
 		
 		//post
 		
-		return this;
+		
 	}
 	
 
