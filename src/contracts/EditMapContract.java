@@ -54,13 +54,11 @@ public class EditMapContract extends EditMapDecorator{
 
 	public void checkInvariants() {
 
-
 		/**
 		 * isReachable
 		 */
 
 		Random rand = new Random();
-		int k = 0;
 		int randxi=0,randyi=0,randxo=0,randyo=0;
 		Cell c = Cell.WLL;
 		do{
@@ -199,10 +197,10 @@ public class EditMapContract extends EditMapDecorator{
 		checkInvariants();
 
 		//capture
-		Cell[][] map_atpre = new Cell[getWidth()][getHeight()];
+		Cell[][] map_atpre = new Cell[getHeight()][getWidth()];
 		for(int i = 0 ; i < getWidth(); i++) {
 			for(int j = 0; j < getHeight(); j++) {
-				map_atpre[i][j]=getCellNature(i, j);	
+				map_atpre[j][i]=getCellNature(i, j);	
 			}
 		}
 
@@ -223,7 +221,7 @@ public class EditMapContract extends EditMapDecorator{
 		for(int i = 0 ; i < getWidth(); i++) {
 			for(int j = 0; j < getHeight(); j++) {
 				if(i!=x || j!=y) {
-					if(getCellNature(i, j)!=map_atpre[i][j]) {
+					if(getCellNature(i, j)!=map_atpre[j][i]) {
 						throw new PostconditionError("Error changed more than target cell.");
 					}
 				}

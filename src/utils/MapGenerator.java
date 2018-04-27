@@ -9,6 +9,7 @@ public class MapGenerator {
 	private int heigth;
 
 	public MapGenerator(int width, int heigth, int maxTunnels, int maxLength) {
+		System.out.println("MaxTun: "+maxTunnels+" MaxLen: "+maxLength);
 		this.width = width;
 		this.heigth = heigth;
 		map = new Cell[heigth][width];
@@ -51,7 +52,7 @@ public class MapGenerator {
 			// and vice versa
 
 
-			Direction randDir = randomElement(Direction.values());
+			Direction randDir = Tools.randomElement(Direction.values());
 
 			int randomLength = (int) Math.ceil(Math.random() * maxLength); //length the next tunnel will be (max of maxLength)
 			int tunnelLength = 0; //current length of tunnel being created
@@ -121,11 +122,5 @@ public class MapGenerator {
 
 	public Cell[][] getMap(){
 		return map;
-	}
-
-
-	public <T> T randomElement(T[] elements) {
-		Random numberGenerator = new Random();
-		return elements[numberGenerator.nextInt(elements.length)];
 	}
 }

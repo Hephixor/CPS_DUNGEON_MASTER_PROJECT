@@ -1,8 +1,5 @@
 package tests;
 
-import contracts.EntityContract;
-//import impl.EntityImpl;
-
 public class Entity1Test extends AbstractEntityTest {
 
 	@Override

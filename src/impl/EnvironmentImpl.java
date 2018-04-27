@@ -8,7 +8,7 @@ import utils.Cell;
 public class EnvironmentImpl implements EnvironmentService{
 	int h;
 	int w;
-	MapService map;
+	public MapService map;
 	MobService[][] mapmob;
 
 	@Override
@@ -43,7 +43,6 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public MobService getCellContent(int x, int y) {
-		MobService c;
 		return mapmob[y][x];
 	}
 
@@ -54,7 +53,7 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public void init(int w, int h) {
-
+		throw new Error("init w, h EnvironmentService should not be called.");
 	}
 
 	@Override

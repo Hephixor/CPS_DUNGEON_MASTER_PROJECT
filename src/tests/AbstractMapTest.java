@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import errors.InvariantError;
 import errors.PreconditionError;
 import services.MapService;
 import utils.Cell;

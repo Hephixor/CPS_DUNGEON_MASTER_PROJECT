@@ -2,9 +2,6 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.Cell;
-import utils.Node;
-
 public class Pathfinder {
 	
 	private Cell map[][];
@@ -46,30 +43,6 @@ public class Pathfinder {
 			}
 		}
 		
-		System.out.println("\n======= Pathfinding in map =======");
-		for(int i = 0 ; i < map.length; i++) {
-        	for(int j = 0 ; j < map[0].length; j++) {
-        		switch(map[i][j]){
-        		case WLL:
-            		System.out.print("##.");
-            		break;
-        		case EMP:
-            		System.out.print("  .");
-            		break;
-        		case IN:
-            		System.out.print("IN.");
-            		break;
-        		case OUT:
-            		System.out.print("OU.");
-            		break;
-				default:
-					break;
-            	
-        		}
-        	}
-        	System.out.println();
-        }
-        System.out.println();
 		/*on initialise le chemin IN->OUT a vide*/
 		chemin = new ArrayList<Node>();
 		
@@ -77,9 +50,10 @@ public class Pathfinder {
 		/*on lance l'algo récursif sur la case depart*/
 		rec(in.x, in.y);
 		
-		//System.out.println("\n======= Found path in map =======");
+		//System.out.println("\n======= Path in map =======");
 		/*on affiche le chemin*/
-		printMap(etat);
+		//Tools.printPathMap(etat);
+		
 		/*on retourne le chemin trouve*/
 		return chemin;
 	}
@@ -109,7 +83,7 @@ public class Pathfinder {
 		
 		/*si le noeud est la SORTIE*/
 		if(x==out.x && y==out.y) {
-			System.out.println("Found path :");
+			//System.out.println("Found path !");
 			chemin.add(new Node(x,y));
 			fini = true;
 			hasPath=true;
@@ -148,33 +122,6 @@ public class Pathfinder {
 		
 		return false;
 	}
-	
-	private void printMap(int[][] map) {
-    	for(int i = 0 ; i < map.length; i++) {
-        	for(int j = 0 ; j < map[0].length; j++) {
-        		switch(map[i][j]){
-        		case 0:
-            		System.out.print("##.");
-            		break;
-        		case 1:
-            		System.out.print("  .");
-            		break;
-        		case 2:
-            		System.out.print("OO.");
-            		break;
-        		case 3:
-            		System.out.print("XX.");
-            		break;
-        		case 4:
-            		System.out.print("OK.");
-            		break;
-            	
-        		}
-        	}
-        	System.out.println();
-        }
-        System.out.println();
-    }
 	
 	public int[][] getPath(){
 		return etat;

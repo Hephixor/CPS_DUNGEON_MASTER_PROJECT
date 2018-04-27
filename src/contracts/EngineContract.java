@@ -42,8 +42,6 @@ public class EngineContract extends EngineDecorator{
 			int yent = getEntity(i).getRow();
 			
 			if(envi().getCellContent(xent, yent)!=getEntity(i)){
-				System.out.println("Cell content : " + envi().getCellContent(xent, yent));
-				System.out.println("Entity : " + getEntity(i));
 				throw new InvariantError("Entity not seen by env");
 			}
 		}
@@ -123,7 +121,7 @@ public class EngineContract extends EngineDecorator{
 		//TODO 
 		//clone au lieu de copy comme ça
 		int size_atpre = getEntities().size();
-		System.out.println("Size at pre " + size_atpre);
+	//	System.out.println("Size at pre " + size_atpre);
 		List<EntityService> ents_atpre_aidx = new ArrayList<EntityService>();
 		
 
@@ -140,12 +138,6 @@ public class EngineContract extends EngineDecorator{
 		//post
 		
 		//size(Entities(addEntity(E,e))) = size(Entities(E)) + 1
-		System.out.println("new size " + getEntities().size());
-		System.out.print("[");
-		for (EntityService e : getEntities()) {
-			System.out.print(e.hashCode()+",");
-		}
-		System.out.println("]");
 		if(getEntities().size()!=size_atpre + 1) {
 			
 			throw new PostconditionError("Error adding new entity");

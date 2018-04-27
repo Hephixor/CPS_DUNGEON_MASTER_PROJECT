@@ -7,59 +7,34 @@ import services.MapService;
 import utils.Cell;
 import utils.Node;
 import utils.Pathfinder;
-import utils.MapGenerator;
 
-public class EditMapImpl implements EditMapService{
-	int c = 0;
-	int h;
-	int w;
-	Cell[][] cells;
-	List<Node> path;
+public class EditMapImpl extends MapImpl implements EditMapService{
+	//List<Node> path;
 	
 	@Override
-	public int getHeight() {
-		return h;
-	}
-
-	@Override
-	public int getWidth() {
-		return w;
-	}
-
-	@Override
-	public Cell getCellNature(int x, int y) {
-		return cells[y][x];
-	}
-
-	@Override
 	public void init(int w, int h) {
-		this.w=w;
-		this.h=h;
-		this.path=null;
-		MapGenerator mgen = new MapGenerator(w,h,200,10);
-		cells = mgen.getMap();
-		int inx = 0;
-		int iny = 0;
-		int outx = 0;
-		int outy = 0;
-
-		for(int x=0; x<cells[0].length; x++){
-			for(int y=0; y<cells.length; y++){
-				if(cells[y][x] == Cell.IN){
-					inx = x;
-					iny = y;
-					System.out.println("IN = ("+inx+","+iny+")");
-				}
-				if(cells[y][x] == Cell.OUT){
-					outx = x;
-					outy = y;
-					System.out.println("OUT = ("+outx+","+outy+")");
-				}
-			}
-		}
-
-		Pathfinder pf = new Pathfinder(cells,inx,iny,outx,outy);
-		path = pf.path();
+		super.init(w,h);
+//		this.path=null;
+//		MapGenerator mgen = new MapGenerator(w,h,150,20);
+//		cells = mgen.getMap();
+//		
+//		for(int x=0; x<cells[0].length; x++){
+//			for(int y=0; y<cells.length; y++){
+//				if(cells[y][x] == Cell.IN){
+//					in.x = x;
+//					in.y = y;
+//					//System.out.println("IN = ("+inx+","+iny+")");
+//				}
+//				if(cells[y][x] == Cell.OUT){
+//					out.x = x;
+//					out.y = y;
+//					//System.out.println("OUT = ("+outx+","+outy+")");
+//				}
+//			}
+//		}
+//
+//		Pathfinder pf = new Pathfinder(cells,in.x,in.y,out.x,out.y);
+//		path = pf.path();
 		
 	}
 
@@ -93,6 +68,14 @@ public class EditMapImpl implements EditMapService{
 	@Override
 	public List<Node> getPath() {
 		return path;
+	}
+	
+	public Node getIn(){
+		return in;
+	}
+	
+	public Node getOut(){
+		return out;
 	}
 
 }

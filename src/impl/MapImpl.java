@@ -1,12 +1,20 @@
 package impl;
 
+import java.util.List;
+
 import services.MapService;
 import utils.Cell;
+import utils.MapGenerator;
+import utils.Node;
+import utils.Pathfinder;
 
 public class MapImpl implements MapService {
 	int h;
 	int w;
 	Cell[][] cells;
+	List<Node> path;
+	public Node in;
+	public Node out;
 	
 	@Override
 	public int getHeight() {
@@ -28,6 +36,25 @@ public class MapImpl implements MapService {
 		cells = new Cell[h][w];
 		this.h = cells.length;
 		this.w = cells[0].length;
+		this.path=null;
+		MapGenerator mgen = new MapGenerator( w, h, ((w+h)), (3*Math.min(w, h))/4 );
+		cells = mgen.getMap();
+		
+		for(int x=0; x<cells[0].length; x++){
+			for(int y=0; y<cells.length; y++){
+				if(cells[y][x] == Cell.IN){
+					in = new Node(x,y);
+					//System.out.println("IN = ("+inx+","+iny+")");
+				}
+				if(cells[y][x] == Cell.OUT){
+					out = new Node(x,y);
+					//System.out.println("OUT = ("+outx+","+outy+")");
+				}
+			}
+		}
+
+		Pathfinder pf = new Pathfinder(cells,in.x,in.y,out.x,out.y);
+		path = pf.path();
 	}
 
 	@Override
