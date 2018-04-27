@@ -5,12 +5,6 @@ import services.EnvironmentService;
 import services.MapService;
 import utils.Cell;
 import utils.Dir;
-import contracts.CowContract;
-import contracts.EditMapContract;
-import contracts.EngineContract;
-import contracts.EnvironmentContract;
-import contracts.MobContract;
-import contracts.PlayerContract;
 import contracts.*;
 
 public class DungeonMaster {
@@ -39,6 +33,7 @@ public class DungeonMaster {
 	//	printMap(mapc);
 
 		EnvironmentContract envc = new EnvironmentContract(new EnvironmentImpl());
+		
 		envc.init(mapc);
 
 		
@@ -80,35 +75,42 @@ public class DungeonMaster {
 		EngineContract enginec = new EngineContract(new EngineImpl());
 		enginec.init(envc);
 		System.out.println("ajout1");
-		enginec.addEntity(cowsc[2]);
-		System.out.println("ajout2");
-		enginec.addEntity(playerc);
-		System.out.println("ajout3");
+		
 		enginec.addEntity(mobsc[0]);
+		System.out.println("DM:"+enginec.getEntities());
+		System.out.println("ajout2");
+		System.out.println("DM:"+enginec.getEntities());
+		enginec.addEntity(playerc);
+		System.out.println("DM:"+enginec.getEntities());
+		System.out.println("ajout3");
+		enginec.addEntity(cowsc[2]);
 		enginec.addEntity(cowsc[0]);
 		enginec.addEntity(mobsc[1]);
 		enginec.addEntity(cowsc[1]);
 		
 
 		System.out.println("After Engine");
-		for(int y = 0 ; y < envc.getHeight(); y++ ){
+		printEnv(envc);
+		/*for(int y = 0 ; y < envc.getHeight(); y++ ){
 			for(int x = 0 ; x < envc.getWidth() ; x++){
 				if(envc.getCellContent(x, y)==null){
-					System.out.println("  ");
+					System.out.print("[ ]");
 				}
 				else if(envc.getCellContent(x, y) instanceof PlayerContract){
-					System.out.println("P ");
+					System.out.print("[P]");
 				}
 				else if(envc.getCellContent(x, y) instanceof EntityContract){
-					System.out.println("M ");
+					System.out.print("[M]");
 				}
 				else if(envc.getCellContent(x, y) instanceof CowContract){
-					System.out.println("V ");
+					System.out.print("[V]");
 				}
-				System.out.print(envc.getCellContent(x, y) + " ");
+				else{
+					System.out.print(envc.getCellContent(x, y) + " ");
+				}
 			}
 			System.out.println();
-		}
+		}*/
 
 		System.out.println("Hello welcome to dungeon master"); 
 		System.out.println("you're playing on a " + mapc.getHeight()+" x " + mapc.getWidth() + " map with");
@@ -141,15 +143,15 @@ public class DungeonMaster {
 
 					}
 					else if(env.getCellContent(x,y) instanceof CowImpl) {
-						System.out.print("[].");
+						System.out.print("VV.");
 
 					}
 					else if(env.getCellContent(x,y) instanceof PlayerImpl) {
-						System.out.print("OO.");
+						System.out.print("PP.");
 
 					}
 					else if(env.getCellContent(x,y) instanceof MobImpl) {
-						System.out.print("XX.");
+						System.out.print("MM.");
 
 					}
 					else{

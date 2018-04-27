@@ -8,7 +8,7 @@ public interface EngineService {
 	
 	public EnvironmentService envi();
 	
-	public List<EntityService> entities(); 
+	public List<EntityService> getEntities(); 
 	
 	public EntityService getEntity(int idx);
 	

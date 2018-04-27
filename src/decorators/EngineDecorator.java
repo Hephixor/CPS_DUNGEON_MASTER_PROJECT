@@ -20,8 +20,8 @@ public class EngineDecorator implements EngineService{
 	}
 
 	@Override
-	public List<EntityService> entities() {
-		return delegate.entities();
+	public List<EntityService> getEntities() {
+		return delegate.getEntities();
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class EngineImpl implements EngineService{
 	}
 
 	@Override
-	public ArrayList<EntityService> entities() {
+	public ArrayList<EntityService> getEntities() {
 		return ents;
 	}
 
@@ -41,8 +41,8 @@ public class EngineImpl implements EngineService{
 
 	@Override
 	public void addEntity(EntityService ent) {
-		ents.add(ent);
 		env.setCellContent(ent.getCol(), ent.getRow(), ent);
+		ents.add(ent);
 	}
 
 	@Override
