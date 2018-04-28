@@ -2,6 +2,7 @@ package impl;
 
 import java.util.List;
 
+import display.GameInterface;
 import services.MapService;
 import utils.Cell;
 import utils.MapGenerator;
@@ -37,8 +38,9 @@ public class MapImpl implements MapService {
 		this.h = cells.length;
 		this.w = cells[0].length;
 		this.path=null;
-		MapGenerator mgen = new MapGenerator( w, h, ((w+h)), (3*Math.min(w, h))/4 );
+		MapGenerator mgen = new MapGenerator( w, h, ((w+h)), (w/4)+(h/4) );
 		cells = mgen.getMap();
+		//GameInterface gi = new GameInterface(cells);
 		
 		for(int x=0; x<cells[0].length; x++){
 			for(int y=0; y<cells.length; y++){

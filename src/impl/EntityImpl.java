@@ -37,12 +37,12 @@ public class EntityImpl implements CowService{
 
 	@Override
 	public int getCol() {
-		return y;
+		return x;
 	}
 
 	@Override
 	public int getRow() {
-		return x;
+		return y;
 	}
 
 	@Override

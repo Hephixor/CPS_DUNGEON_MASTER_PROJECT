@@ -29,6 +29,14 @@ public class Tools {
 				case OUT:
 					System.out.print("OUT");
 					break;
+				
+				case DNC:
+					System.out.print("--.");
+					break;
+					
+				case DWC:
+					System.out.print(" |.");
+					break;
 					
 				case EMP:
 					if(env.getCellContent(x,y) == null) {
@@ -178,6 +186,18 @@ public class Tools {
 		for(int y = 0 ; y < env.getHeight(); y++ ){
 			for(int x = 0 ; x < env.getWidth() ; x++){
 				if(env.getCellNature(x,y) == Cell.EMP){
+					emp.add(new Node(x,y));
+				}
+			}
+		}
+		return emp;
+	}
+	
+	public static ArrayList<Node> getEmp(Cell[][] map){
+		ArrayList<Node> emp = new ArrayList<Node>();
+		for(int y = 0 ; y < map.length; y++ ){
+			for(int x = 0 ; x < map[0].length; x++){
+				if(map[y][x] == Cell.EMP){
 					emp.add(new Node(x,y));
 				}
 			}
