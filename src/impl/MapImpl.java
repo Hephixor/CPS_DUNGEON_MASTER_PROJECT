@@ -2,7 +2,6 @@ package impl;
 
 import java.util.List;
 
-import display.GameInterface;
 import services.MapService;
 import utils.Cell;
 import utils.MapGenerator;
@@ -61,12 +60,18 @@ public class MapImpl implements MapService {
 
 	@Override
 	public void openDoor(int x, int y) {
-		return;
+		if(cells[y][x]==Cell.DNC)
+			cells[y][x] = Cell.DNO;
+		if(cells[y][x]==Cell.DWC)
+			cells[y][x] = Cell.DWO;
 	}
 
 	@Override
 	public void closeDoor(int x, int y) {
-		return;
+		if(cells[y][x]==Cell.DNO)
+			cells[y][x] = Cell.DNC;
+		if(cells[y][x]==Cell.DWO)
+			cells[y][x] = Cell.DWC;
 	}
 
 }

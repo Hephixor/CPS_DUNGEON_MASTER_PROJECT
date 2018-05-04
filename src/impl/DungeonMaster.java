@@ -1,17 +1,16 @@
 package impl;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import utils.Dir;
-import utils.Node;
-import utils.Tools;
 import contracts.CowContract;
 import contracts.EditMapContract;
 import contracts.EngineContract;
 import contracts.EntityContract;
 import contracts.EnvironmentContract;
 import contracts.PlayerContract;
+import utils.Dir;
+import utils.Node;
+import utils.Tools;
 
 public class DungeonMaster {
 

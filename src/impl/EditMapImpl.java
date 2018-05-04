@@ -38,16 +38,6 @@ public class EditMapImpl extends MapImpl implements EditMapService{
 	}
 
 	@Override
-	public void openDoor(int x, int y) {
-		return;
-	}
-
-	@Override
-	public void closeDoor(int x, int y) {
-		return;
-	}
-
-	@Override
 	public boolean isReachable(int px, int py, int ox, int oy) {
 		Pathfinder pf = new Pathfinder(cells,px,py,ox,oy);
 		return pf.hasPath();

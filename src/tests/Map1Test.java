@@ -1,9 +1,7 @@
 package tests;
 
-import contracts.EditMapContract;
 import contracts.MapContract;
 import impl.EditMapImpl;
-import impl.MapImpl;
 import services.EditMapService;
 
 public class Map1Test extends AbstractMapTest {
