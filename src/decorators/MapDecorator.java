@@ -32,13 +32,13 @@ public class MapDecorator implements MapService {
 	}
 
 	@Override
-	public MapService openDoor(int x, int y) {
-	return delegate.openDoor(x, y);
+	public void openDoor(int x, int y) {
+		delegate.openDoor(x, y);
 	}
 
 	@Override
-	public MapService closeDoor(int x, int y) {
-		return delegate.closeDoor(x, y);
+	public void closeDoor(int x, int y) {
+		delegate.closeDoor(x, y);
 	}
 
 }

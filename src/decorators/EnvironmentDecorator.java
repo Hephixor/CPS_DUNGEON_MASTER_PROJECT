@@ -12,8 +12,8 @@ public class EnvironmentDecorator extends MapDecorator implements EnvironmentSer
 		this.delegate = delegate;
 	}
 	
-	public EnvironmentService closeDoor(int x, int y) {
-		return delegate.closeDoor(x, y);
+	public void closeDoor(int x, int y) {
+		delegate.closeDoor(x, y);
 	}
 
 	@Override

@@ -10,15 +10,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import errors.PreconditionError;
+import services.EditMapService;
 import services.MapService;
 import utils.Cell;
 
 public abstract class AbstractMapTest {
 	
 	private MapService map;
+	private EditMapService editmap;
 	
 	protected AbstractMapTest() {
 		map = null;
+		editmap = null;
 	}
 
 	protected final MapService getMap() {
@@ -29,12 +32,21 @@ public abstract class AbstractMapTest {
 		this.map = map;
 	}
 	
+	protected final EditMapService getEditMap() {
+		return editmap;
+	}
+
+	protected final void setEditMap(EditMapService editmap) {
+		this.editmap = editmap;
+	}
+	
 	@Before
 	public abstract void beforeTest();
 	
 	@After
 	public final void afterTest() {
 		map = null;
+		editmap = null;
 		this.toString();
 	}
 	
@@ -73,7 +85,7 @@ public abstract class AbstractMapTest {
 		}
 		//oracle
 		catch(PreconditionError e) {
-			
+			//ok
 		}
 	}
 	
@@ -113,6 +125,7 @@ public abstract class AbstractMapTest {
 	
 	@Test
 	public void preOpenDoorPositif() {
+		/*
 		//init
 		map.init(14, 35);
 		
@@ -140,10 +153,17 @@ public abstract class AbstractMapTest {
 		}
 
 		if(!found) throw new Error("no existing Door in the map");
+		*/
+		
+		//init
+		editmap.init(14, 35);
+		editmap.setNature(10, 10, Cell.DNC);
+		editmap.setNature(5, 5, Cell.DWC);
 		
 		//operation
 		try {
-			map.openDoor(xDoor, yDoor);
+			map.openDoor(10, 10);
+			//map.openDoor(5, 5);
 		}
 		//oracle
 		catch(PreconditionError e) {
@@ -155,30 +175,14 @@ public abstract class AbstractMapTest {
 	
 	@Test
 	public void preOpenDoorNegatif() {
-		//init
-		map.init(14, 35);
+		//init 
+		editmap.init(14, 35);
+		editmap.setNature(10, 10, Cell.IN);
 		
-		boolean found = false;
-		int xDoor = -1;
-		int yDoor = -1;
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
-				if( Arrays.asList(Cell.IN, Cell.OUT).contains(map.getCellNature(x, y)) ) {
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-			}
-			if(found) break;
-		}
-		
-		if(!found) throw new Error("no existing IN and OUT in the map");
 		
 		//operation
 		try {
-			map.openDoor(xDoor, yDoor);
+			map.openDoor(10, 10);
 			
 			//probleme
 			fail("preOpenDoorNegatif");
@@ -194,36 +198,15 @@ public abstract class AbstractMapTest {
 	@Test
 	public void preCloseDoorPositif() {
 		//init
-		map.init(14, 35);
-		
-		boolean found = false;
-		int xDoor = -1;
-		int yDoor = -1;
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
-				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
-					map.openDoor(x, y);
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-			}
-			if(found) break;
-		}
-		
-		if(!found) throw new Error("no existing Door in the map");
+		editmap.init(14, 35);
+		editmap.setNature(10, 10, Cell.DNO);
+		editmap.setNature(5, 5, Cell.DWO);
+
 		
 		//operation
 		try {
-			map.closeDoor(xDoor, yDoor);
+			map.closeDoor(10, 10);
+			map.closeDoor(5, 5);
 		}
 		//oracle
 		catch(PreconditionError e) {
@@ -233,31 +216,15 @@ public abstract class AbstractMapTest {
 	
 	@Test
 	public void preCloseDoorNegatif() {
-		//init
-		map.init(14, 35);
+		//init 
+		editmap.init(14, 35);
+		editmap.setNature(10, 10, Cell.IN);
 		
-		boolean found = false;
-		int xDoor = -1;
-		int yDoor = -1;
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
-				if( Arrays.asList(Cell.IN, Cell.OUT).contains(map.getCellNature(x, y)) ) {
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-			}
-			if(found) break;
-		}
-		
-		if(!found) throw new Error("no existing IN and OUT in the map");
 		
 		//operation
 		try {
-			map.closeDoor(xDoor, yDoor);
-			
+			map.closeDoor(10, 10);
+
 			//probleme
 			fail("preCloseDoorNegatif");
 		}

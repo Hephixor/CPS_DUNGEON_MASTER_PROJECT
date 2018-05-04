@@ -23,7 +23,7 @@ public class EnvironmentContract extends EnvironmentDecorator{
 	}
 
 	@Override
-	public EnvironmentService closeDoor(int x, int y) {
+	public void closeDoor(int x, int y) {
 		//pre
 		if(getCellContent(x,y)!=null) {
 			throw new PreconditionError("Can't close door on a mob");
@@ -40,7 +40,6 @@ public class EnvironmentContract extends EnvironmentDecorator{
 
 		//post
 
-		return this;
 	}
 
 	public void init(MapService map){

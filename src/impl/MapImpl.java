@@ -60,13 +60,13 @@ public class MapImpl implements MapService {
 	}
 
 	@Override
-	public MapService openDoor(int x, int y) {
-		return null;
+	public void openDoor(int x, int y) {
+		return;
 	}
 
 	@Override
-	public MapService closeDoor(int x, int y) {
-		return null;
+	public void closeDoor(int x, int y) {
+		return;
 	}
 
 }

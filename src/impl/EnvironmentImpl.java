@@ -37,8 +37,8 @@ public class EnvironmentImpl implements EnvironmentService{
 	}
 
 	@Override
-	public MapService openDoor(int x, int y) {
-		return null;
+	public void openDoor(int x, int y) {
+		return;
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public class EnvironmentImpl implements EnvironmentService{
 	}
 
 	@Override
-	public EnvironmentService closeDoor(int x, int y) {
-		return null;
+	public void closeDoor(int x, int y) {
+		return;
 	}
 
 	@Override

@@ -122,7 +122,24 @@ public class Tools {
 					System.out.print("  .");	
 					break;
 					
+				case DNC:
+					System.out.print("[n]");
+					break;
+					
+				case DWC:
+					System.out.print("[w]");
+					break;
+					
+				case DNO:
+					System.out.print("]n[");
+					break;
+					
+				case DWO:
+					System.out.print("]w[.");
+					break;
+					
 				default:
+					System.out.println("ERREUR AFFICHAGE ["+map[y][x]+"] NON GERE :CAS DEFAUT");
 					break;
 				}
 			}
@@ -215,5 +232,26 @@ public class Tools {
 		return elements.get(numberGenerator.nextInt(elements.size()));
 	}
 
-	
+	public static void main(String[] args) {
+		
+		Cell[][] mapF = {{Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP},
+						{Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP},
+						{Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP},
+						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
+						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
+						{Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP},
+						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
+						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
+						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
+						{Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP}};
+		
+		mapF[1][1] = Cell.IN;
+		mapF[2][1] = Cell.OUT; //NORTH ? non => SUD (axe Y inverse)
+		mapF[1][2] = Cell.OUT; //EAST ? oui 
+		mapF[1][0] = Cell.DNO; //WEST ? oui 
+		mapF[0][1] = Cell.DNC; //SOUTH ? non => NORTH
+		
+		
+		printMap(mapF);
+	}
 }

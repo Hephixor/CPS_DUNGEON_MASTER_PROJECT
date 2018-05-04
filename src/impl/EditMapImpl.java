@@ -3,7 +3,6 @@ package impl;
 import java.util.List;
 
 import services.EditMapService;
-import services.MapService;
 import utils.Cell;
 import utils.Node;
 import utils.Pathfinder;
@@ -39,13 +38,13 @@ public class EditMapImpl extends MapImpl implements EditMapService{
 	}
 
 	@Override
-	public MapService openDoor(int x, int y) {
-		return this;
+	public void openDoor(int x, int y) {
+		return;
 	}
 
 	@Override
-	public MapService closeDoor(int x, int y) {
-		return this;
+	public void closeDoor(int x, int y) {
+		return;
 	}
 
 	@Override

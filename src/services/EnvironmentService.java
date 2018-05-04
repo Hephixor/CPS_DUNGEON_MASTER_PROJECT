@@ -8,7 +8,7 @@ public interface EnvironmentService extends MapService {
 	/**
 	 * pre CloseDoor(M,x,y) requires CellContent(M,x,y) = No
 	 */
-	public EnvironmentService closeDoor(int x, int y);
+	public void closeDoor(int x, int y);
 	
 	public void setCellContent(int x, int y, MobService mob);
 	

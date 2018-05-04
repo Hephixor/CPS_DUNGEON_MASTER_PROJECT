@@ -53,7 +53,7 @@ public class MapContract extends MapDecorator {
 	}
 
 	@Override
-	public MapService openDoor(int x, int y) {
+	public void openDoor(int x, int y) {
 		//pre
 		if(!(getCellNature(x,y)== Cell.DWC || getCellNature(x, y)==Cell.DNC))
 			throw new PreconditionError("Target cell is not a closed door.");
@@ -62,8 +62,7 @@ public class MapContract extends MapDecorator {
 		checkInvariant();
 		
 		//capture
-		Cell cell_atpre = getCellNature(getHeight()-1, getWidth()-1);
-		
+		Cell cell_atpre = getCellNature(x, y);
 		Cell cellb_atpre = null;
 		if((x-1)>=0 && (y-1)>=0) {
 		cellb_atpre = getCellNature(x-1, y-1);
@@ -96,13 +95,11 @@ public class MapContract extends MapDecorator {
 		if(getCellNature(getHeight()-1, getWidth()-1)!=cell_atpre) {
 			throw new PostconditionError("Open door modified a cell other than the door.");
 		}
-		
-		return this;
-		
+			
 	}
 
 	@Override
-	public MapService closeDoor(int x, int y) {
+	public void closeDoor(int x, int y) {
 		//pre
 		if(!(getCellNature(x,y)== Cell.DWO || getCellNature(x, y)==Cell.DNO))
 			throw new PreconditionError("Target cell is not an opened door.");
@@ -145,7 +142,6 @@ public class MapContract extends MapDecorator {
 		if(getCellNature(getHeight()-1, getWidth()-1)!=cell_atpre) {
 			throw new PostconditionError("Close door modified a cell other than the door.");
 		}
-		
-		return this;
+
 	}
 }
