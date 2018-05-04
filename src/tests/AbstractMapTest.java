@@ -125,45 +125,15 @@ public abstract class AbstractMapTest {
 	
 	@Test
 	public void preOpenDoorPositif() {
-		/*
-		//init
-		map.init(14, 35);
-		
-		boolean found = false;
-		int xDoor = -1;
-		int yDoor = -1;
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
-				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
-					map.closeDoor(x, y);
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-			}
-			if(found) break;
-		}
-
-		if(!found) throw new Error("no existing Door in the map");
-		*/
-		
 		//init
 		editmap.init(14, 35);
 		editmap.setNature(10, 10, Cell.DNC);
-		editmap.setNature(5, 5, Cell.DWC);
+		editmap.setNature(13, 34, Cell.DWC);
 		
 		//operation
 		try {
 			map.openDoor(10, 10);
-			//map.openDoor(5, 5);
+			map.openDoor(13, 34);
 		}
 		//oracle
 		catch(PreconditionError e) {
@@ -200,13 +170,13 @@ public abstract class AbstractMapTest {
 		//init
 		editmap.init(14, 35);
 		editmap.setNature(10, 10, Cell.DNO);
-		editmap.setNature(5, 5, Cell.DWO);
+		editmap.setNature(13, 34, Cell.DWO);
 
 		
 		//operation
 		try {
 			map.closeDoor(10, 10);
-			map.closeDoor(5, 5);
+			map.closeDoor(13, 34);
 		}
 		//oracle
 		catch(PreconditionError e) {
@@ -260,58 +230,31 @@ public abstract class AbstractMapTest {
 	@Test
 	public void transOpenDoor() {
 		//init
-		map.init(14, 35);
-		
-		boolean found = false;
-		int xDoor = -1;
-		int yDoor = -1;
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
-				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
-					map.closeDoor(x, y);
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-			}
-			if(found) break;
-		}
-
-		if(!found) throw new Error("no existing Door in the map");
+		editmap.init(14, 35);
+		editmap.setNature(10, 10, Cell.DNC);
+		editmap.setNature(13, 34, Cell.DWC);
 		
 		//capture
-		Cell cellNat_atpre = map.getCellNature(xDoor, yDoor);
 		Cell[][] cells_atpre = new Cell[35][14];
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
+		for(int x=0; x<14; x++) {
+			for(int y=0; y<35; y++) {
 				cells_atpre[y][x] = map.getCellNature(x, y);
 			}
 		}
-		
+				
 		//operation
-		map.openDoor(xDoor, yDoor);
+		map.openDoor(10, 10);
+		map.openDoor(13, 34);
 		
 		//oracle
 		assertInv();
 		
-		if(cellNat_atpre == Cell.DWC)
-			assertTrue(map.getCellNature(xDoor, yDoor) == Cell.DWO);
+		assertTrue(map.getCellNature(10, 10) == Cell.DNO);
+		assertTrue(map.getCellNature(13, 34) == Cell.DWO);
 		
-		if(cellNat_atpre == Cell.DNC)
-			assertTrue(map.getCellNature(xDoor, yDoor) == Cell.DNO);	
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
-				if(x!=xDoor && y!=yDoor) {
+		for(int x=0; x<14; x++) {
+			for(int y=0; y<35; y++) {
+				if( (x!=10 && y!=10) && (x!=13 && y!=34)) {
 					assertTrue(map.getCellNature(x, y) == cells_atpre[y][x]);
 				}
 			}
@@ -321,58 +264,31 @@ public abstract class AbstractMapTest {
 	@Test
 	public void transCloseDoor() {
 		//init
-		map.init(14, 35);
-		
-		boolean found = false;
-		int xDoor = -1;
-		int yDoor = -1;
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
-				if(Arrays.asList(Cell.DNC, Cell.DWC).contains(map.getCellNature(x, y))) {
-					map.openDoor(x, y);
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-				if(Arrays.asList(Cell.DNO, Cell.DWO).contains(map.getCellNature(x, y))) {
-					xDoor = x;
-					yDoor = y;
-					found = true;
-					break;
-				}
-			}
-			if(found) break;
-		}
-
-		if(!found) throw new Error("no existing Door in the map");
+		editmap.init(14, 35);
+		editmap.setNature(10, 10, Cell.DNO);
+		editmap.setNature(13, 34, Cell.DWO);
 		
 		//capture
-		Cell cellNat_atpre = map.getCellNature(xDoor, yDoor);
 		Cell[][] cells_atpre = new Cell[35][14];
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
+		for(int x=0; x<14; x++) {
+			for(int y=0; y<35; y++) {
 				cells_atpre[y][x] = map.getCellNature(x, y);
 			}
 		}
-		
+				
 		//operation
-		map.closeDoor(xDoor, yDoor);
+		map.closeDoor(10, 10);
+		map.closeDoor(13, 34);
 		
 		//oracle
 		assertInv();
 		
-		if(cellNat_atpre == Cell.DWC)
-			assertTrue(map.getCellNature(xDoor, yDoor) == Cell.DWO);
+		assertTrue(map.getCellNature(10, 10) == Cell.DNC);
+		assertTrue(map.getCellNature(13, 34) == Cell.DWC);
 		
-		if(cellNat_atpre == Cell.DNC)
-			assertTrue(map.getCellNature(xDoor, yDoor) == Cell.DNO);	
-		
-		for(int x=0; x<map.getWidth(); x++) {
-			for(int y=0; y<map.getHeight(); y++) {
-				if(x!=xDoor && y!=yDoor) {
+		for(int x=0; x<14; x++) {
+			for(int y=0; y<35; y++) {
+				if( (x!=10 && y!=10) && (x!=13 && y!=34)) {
 					assertTrue(map.getCellNature(x, y) == cells_atpre[y][x]);
 				}
 			}

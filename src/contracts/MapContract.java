@@ -100,7 +100,7 @@ public class MapContract extends MapDecorator {
 	public void closeDoor(int x, int y) {
 		//pre
 		if(!(getCellNature(x,y)== Cell.DWO || getCellNature(x, y)==Cell.DNO))
-			throw new PreconditionError("Target cell is not a closed door.");
+			throw new PreconditionError("Target cell is not an opened door.");
 		
 		//inv pre
 		checkInvariant();
