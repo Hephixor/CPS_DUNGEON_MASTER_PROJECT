@@ -1,13 +1,19 @@
 package tests;
 
 import contracts.MapContract;
-import impl.MapImpl;
+import impl.EditMapImpl;
+import services.EditMapService;
 
 public class Map1Test extends AbstractMapTest {
 	
 	@Override
-	public void beforeTests() {
-		setMap(new MapContract(new MapImpl()));
+	public void beforeTest() {
+		EditMapService editmap = new EditMapImpl();
+		setEditMap(editmap);
+		setMap(new MapContract(editmap));
 		//setMap(new MapImpl());
+		
+		//System.out.println(this.getEditMap().getClass());
+		//System.out.println(this.getMap().getClass());
 	}
 }

@@ -1,88 +1,112 @@
 package impl;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
 import contracts.CowContract;
 import contracts.EditMapContract;
 import contracts.EngineContract;
+import contracts.EntityContract;
 import contracts.EnvironmentContract;
-import contracts.MobContract;
 import contracts.PlayerContract;
-import services.EnvironmentService;
-import services.MobService;
-import utils.Cell;
 import utils.Dir;
-import utils.Pathfinder;
+import utils.Node;
+import utils.Tools;
 
 public class DungeonMaster {
 
 	public static void main(String[] args) {
-		
+
 		//initialisation d'une partie avec une carte vide de taille 10x10, 1 joueur, 2 monstres et 3 vaches
-		
-//		int heigth = 10;
-//		int width = 10;
-//		
-//		EditMapImpl map = new  EditMapImpl();
-//		EnvironmentImpl env = new EnvironmentImpl();
-//		EngineImpl engine = new EngineImpl();
-//		PlayerImpl player = new PlayerImpl();
-//		
-//		EditMapContract mapc = new EditMapContract(map);
-//		EnvironmentContract envc = new EnvironmentContract(env);
-//		EngineContract enginec = new EngineContract(engine);
-//		PlayerContract playerc = new PlayerContract(player);
-//		MobContract[] mobsc = new MobContract[2];
-//		mobsc[0] = new MobContract(new MobImpl());
-//		mobsc[1] = new MobContract(new MobImpl());
-//		CowContract[] cowsc = new CowContract[3];
-//		cowsc[0] = new CowContract(new CowImpl());
-//		cowsc[1] = new CowContract(new CowImpl());
-//		cowsc[2] = new CowContract(new CowImpl());
-//		
-//		mapc.init(width, heigth);
-//		envc.init(width,heigth);
-//		enginec.init(envc);
-//		playerc.init(envc, 1, 1, Dir.N, 10);
-//		mobsc[0].init(envc, 8, 8, Dir.S);
-//		mobsc[1].init(envc, 5, 5, Dir.S);
-//		cowsc[0].init(envc, 2, 2, Dir.E, 4);
-//		cowsc[1].init(envc, 3, 3, Dir.S, 4);
-//		cowsc[2].init(envc, 4, 4, Dir.W, 4);
-//		
-//		System.out.println("Hello welcome to dungeon master"); 
-//		System.out.println("you're playing on a " + mapc.getHeight()+" x " + mapc.getWidth() + " map with");
-//		System.out.println(mobsc.length+" mobs and "+cowsc.length+" cows.");
-
-		
-		Pathfinder pf = new Pathfinder();
-		
-	    Cell[][] map = {
-	            {Cell.WLL, Cell.OUT, Cell.WLL, Cell.WLL, Cell.WLL},
-	            {Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP, Cell.IN},
-	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL}
-	        };
-		
-	    Cell[][] mapbug = {
-	            {Cell.WLL, Cell.OUT, Cell.WLL, Cell.WLL, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.WLL},
-	            {Cell.WLL, Cell.WLL, Cell.EMP, Cell.EMP, Cell.IN},
-	            {Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL, Cell.WLL}
-	        };
-	    
-
-	        boolean p = pf.pathExists(map, 3 ,4 ,0 ,1);
-	        System.out.println("Chemin dans map");
-	        System.out.println(p ? "YES" : "NO");
-	        
-//	        boolean pb = pf.pathExists(mapbug,3 ,4 ,0 ,1);
-//	        System.out.println("Chemin dans mapbug");
-//	        System.out.println(pb ? "YES" : "NO");
 
 
+		int heigth ;
+		int width ;
+//		Scanner sc = new Scanner(System.in);
+//		System.out.print("Heigth : ");
+//		heigth = sc.nextInt();
+//		System.out.print("Width : ");
+//		width = sc.nextInt();
+//		sc.close();
+
+				heigth = 30;
+				width = 20;
+
+		//Map & Env
+		EditMapContract mapc = new EditMapContract(new  EditMapImpl());
+		mapc.init(width, heigth);
+		EnvironmentContract envc = new EnvironmentContract(new EnvironmentImpl());
+		envc.init(mapc);
+
+		//Entities
+		PlayerContract playerc = new PlayerContract(new PlayerImpl());
+
+		playerc.init(envc, Tools.getIn(envc).x, Tools.getIn(envc).y, Dir.N, 10);
+
+		EntityContract[] mobsc = new EntityContract[2];
+		mobsc[0] = new EntityContract(new EntityImpl());
+		mobsc[1] = new EntityContract(new EntityImpl());
+
+		CowContract[] cowsc = new CowContract[3];
+		cowsc[0] = new CowContract(new CowImpl());
+		cowsc[1] = new CowContract(new CowImpl());
+		cowsc[2] = new CowContract(new CowImpl());
+
+
+		//Place entities
+		ArrayList<Node> emp = Tools.getEmp(envc);
+
+		for (CowContract cowContract : cowsc) {
+			Dir randDir = Tools.randomElement(Dir.values());
+			boolean placed = false;
+
+			do{
+				Node randNode = Tools.randomElement(emp);
+				if(envc.getCellContent(randNode.x, randNode.y)==null){
+					cowContract.init(envc, randNode.x, randNode.y, randDir);
+					placed=true;
+				}
+			}while(!placed);
+		}
+		
+		for (EntityContract entityContract : mobsc) {
+			Dir randDir = Tools.randomElement(Dir.values());
+			boolean placed = false;
+
+			do{
+				Node randNode = Tools.randomElement(emp);
+				if(envc.getCellContent(randNode.x, randNode.y)==null){
+					entityContract.init(envc, randNode.x, randNode.y, randDir);
+					placed=true;
+				}
+			}while(!placed);
+		}
+
+
+		EngineContract enginec = new EngineContract(new EngineImpl());
+		enginec.init(envc);
+		
+		//Add entities
+		//Player
+		enginec.addEntity(playerc);
+		
+		//Cows
+		for (CowContract cowContract : cowsc) {
+			enginec.addEntity(cowContract);
+		}
+		
+		//Mobs
+		for (EntityContract entityContract : mobsc) {
+			enginec.addEntity(entityContract);
+		}
+		
+		System.out.println("Hello welcome to dungeon master"); 
+		System.out.println("you're playing on a " + mapc.getHeight()+" x " + mapc.getWidth() + " map with");
+		System.out.println(mobsc.length+" mobs and "+cowsc.length+" cows.");
+		System.out.println();
+
+		Tools.printEnv(envc);
+		
+		
+	}
 }
-	
-}
+

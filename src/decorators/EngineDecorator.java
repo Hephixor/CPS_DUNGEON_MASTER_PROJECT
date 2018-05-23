@@ -1,5 +1,7 @@
 package decorators;
 
+import java.util.List;
+
 import services.EngineService;
 import services.EntityService;
 import services.EnvironmentService;
@@ -17,8 +19,8 @@ public class EngineDecorator implements EngineService{
 	}
 
 	@Override
-	public EntityService[] entities() {
-		return delegate.entities();
+	public List<EntityService> getEntities() {
+		return delegate.getEntities();
 	}
 
 	@Override
@@ -32,18 +34,18 @@ public class EngineDecorator implements EngineService{
 	}
 
 	@Override
-	public EngineService removeEntity(int idx) {
-		return delegate.removeEntity(idx);
+	public void removeEntity(int idx) {
+		delegate.removeEntity(idx);
 	}
 
 	@Override
-	public EngineService addEntity(EntityService ent) {
-		return delegate.addEntity(ent);
+	public void addEntity(EntityService ent) {
+		delegate.addEntity(ent);
 	}
 
 	@Override
-	public EngineService step() {
-		return delegate.step();
+	public void step() {
+		delegate.step();
 	}
 	
 

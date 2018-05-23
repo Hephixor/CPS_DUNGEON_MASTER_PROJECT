@@ -7,7 +7,6 @@ import errors.PreconditionError;
 import services.MobService;
 import services.PlayerService;
 import utils.Cell;
-import utils.Command;
 import utils.Dir;
 
 public class PlayerContract extends PlayerDecorator {
@@ -164,6 +163,7 @@ public class PlayerContract extends PlayerDecorator {
 		CheckInvariants();
 
 		//post
+		//TODO cas 1 er tour aps de lastcom ? 
 		switch(getLastCom()) {
 		case FF:
 			switch(getFace()) {

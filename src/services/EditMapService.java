@@ -1,9 +1,15 @@
 package services;
 
+import java.util.List;
+
 import utils.Cell;
+import utils.Node;
 
 public interface EditMapService extends MapService{
 	/* Observators */
+	
+	public List<Node> getPath();
+	
 	/**
 	 * pre isReachable(M,x1,y1,x2,y2) requires CellNature(M,x1,y1) 6 = WLL
 	 *	and CellNature(M,x2,y2) 6 = WLL

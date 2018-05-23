@@ -32,17 +32,17 @@ public class CowImpl implements CowService{
 
 	@Override
 	public EnvironmentService getEnv() {
-		return getEnv();
+		return env;
 	}
 
 	@Override
 	public int getCol() {
-		return y;
+		return x;
 	}
 
 	@Override
 	public int getRow() {
-		return x;
+		return y;
 	}
 
 	@Override

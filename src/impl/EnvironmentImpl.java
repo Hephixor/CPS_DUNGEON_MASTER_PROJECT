@@ -8,8 +8,9 @@ import utils.Cell;
 public class EnvironmentImpl implements EnvironmentService{
 	int h;
 	int w;
-	Cell[][] cells;
-	
+	public MapService map;
+	MobService[][] mapmob;
+
 	@Override
 	public int getHeight() {
 		return h;
@@ -22,30 +23,48 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public Cell getCellNature(int x, int y) {
-		return cells[x][y];
+		return map.getCellNature(x, y);
+		//return cells[x][y];
+	}
+
+
+	public void init(MapService map) {
+		this.map = map;
+		this.mapmob= new MobService[map.getHeight()][map.getWidth()];
+		this.h=map.getHeight();
+		this.w=map.getWidth();
+
 	}
 
 	@Override
-	public void init(int w, int h) {
-		this.h=h;
-		this.w=w;
-		//Initialiser les cases
-		
-	}
-
-	@Override
-	public MapService openDoor(int x, int y) {
-		return null;
+	public void openDoor(int x, int y) {
+		return;
 	}
 
 	@Override
 	public MobService getCellContent(int x, int y) {
-		return null;
+		return mapmob[y][x];
 	}
 
 	@Override
-	public EnvironmentService closeDoor(int x, int y) {
-		return null;
+	public void closeDoor(int x, int y) {
+		return;
+	}
+
+	@Override
+	public void init(int w, int h) {
+		throw new Error("init w, h EnvironmentService should not be called.");
+	}
+
+	@Override
+	public void setCellContent(int x, int y, MobService mob) {
+		mapmob[y][x] = mob;
+
 	}
 
 }
+
+
+
+
+

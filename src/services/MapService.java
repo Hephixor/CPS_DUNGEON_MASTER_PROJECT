@@ -37,7 +37,7 @@ public interface MapService {
 	 *				forall v in [0; Height(M)-1] 
 	 *					(u != x or v != y) implies CellNature(OpenDoor(M,x,y),u,v) = CellNature(M,u,v)
 	 */
-	public MapService openDoor(int x, int y);
+	public void openDoor(int x, int y);
 	
 	
 	/**
@@ -48,7 +48,7 @@ public interface MapService {
 	 *				forall v in [0; Height(M)-1] 
 	 *					(u != x or v != y) implies CellNature(CloseDoor(M,x,y),u,v) = CellNature(M,u,v)
 	 */
-	public MapService closeDoor(int x, int y);
+	public void closeDoor(int x, int y);
 		
 	
 	

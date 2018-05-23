@@ -31,8 +31,8 @@ public class MobContract extends MobDecorator{
 			throw new InvariantError("@inv 0 <= Row(M) < Environment::Height(Envi(M))");
 		
 		Cell o = getEnv().getCellNature(getCol(), getRow());
-		if( !(Arrays.asList(Cell.WLL, Cell.DNC, Cell.DWC).contains(o)) )
-			throw new InvariantError("@inv Environment::CellNature(Envi(M),Col(M),Row(M)) not in {WLL, DNC, DWC}");
+		if( Arrays.asList(Cell.WLL, Cell.DNC, Cell.DWC).contains(o) )
+			throw new InvariantError("@inv Environment::CellNature(Envi(M),Col(M),Row(M)) in {WLL, DNC, DWC}");
 	}
 
 	@Override

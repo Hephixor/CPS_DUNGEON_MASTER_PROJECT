@@ -105,5 +105,5 @@ public class PlayerDecorator implements PlayerService{
 	public boolean getViewable(int x, int y) {
 		return delegate.getViewable(x, y);
 	}
-
+	
 }

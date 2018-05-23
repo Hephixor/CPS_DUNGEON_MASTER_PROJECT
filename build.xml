@@ -9,6 +9,7 @@
 	<property name="jars" location="jars"/>
 	<property name="doc" location="doc"/>
 	<import file="./javadoc.xml"/>
+	<mport file="./create-jar.xml"/>
 
 	<!-- METTRE ICI LE NOM DU BINOME -->
 	<property name="nom1" value="HAVINH"/>

@@ -19,9 +19,9 @@ public class MapContract extends MapDecorator {
 	@Override
 	public Cell getCellNature(int x, int y) {
 		//pre: 0 <= x < Width(M) and 0 <= y < Height(M)
-		if( !( 0<=x && x<getHeight() && 0<= y && y<getWidth() ) )
-			throw new PreconditionError("Illegal coordinates");
-		
+		if( !( 0<=x && x<getWidth() && 0<= y && y<getHeight() ) ) {
+			throw new PreconditionError("Illegal coordinates:"+x+"!<"+getWidth()+" "+y+"!<"+getHeight());
+		}
 		//run
 		return super.getCellNature(x, y);
 	}
@@ -53,24 +53,25 @@ public class MapContract extends MapDecorator {
 	}
 
 	@Override
-	public MapService openDoor(int x, int y) {
+	public void openDoor(int x, int y) {
 		//pre
 		if(!(getCellNature(x,y)== Cell.DWC || getCellNature(x, y)==Cell.DNC))
 			throw new PreconditionError("Target cell is not a closed door.");
 		
 		//inv pre
 		checkInvariant();
-		
+
 		//capture
-		Cell cell_atpre = getCellNature(getHeight()-1, getWidth()-1);
+		Cell cell_atpre = getCellNature(x, y);
 		
-		Cell cellb_atpre = null;
-		if((x-1)>=0 && (y-1)>=0) {
-		cellb_atpre = getCellNature(x-1, y-1);
-		}
-		else {
-		cellb_atpre= getCellNature(x+1, y+1);	
-		}
+		Cell cellA_atpre=null; 
+		Cell cellB_atpre=null;
+		Cell cellC_atpre=null;
+		Cell cellD_atpre=null;
+		if(x-1 >= 0) cellA_atpre = getCellNature(x-1, y);
+		if(x+1 < getWidth()) cellB_atpre = getCellNature(x+1, y);
+		if(y-1 >= 0) cellC_atpre = getCellNature(x, y-1);
+		if(y+1 < getHeight()) cellD_atpre = getCellNature(x, y+1);
 		
 		//run
 		super.openDoor(x, y);
@@ -79,47 +80,42 @@ public class MapContract extends MapDecorator {
 		checkInvariant();
 		
 		//post
-		if(!(getCellNature(x,y)== Cell.DWO || getCellNature(x, y)==Cell.DNO))
-			throw new PostconditionError("Target cell didn't open correctly.");
+		if(cell_atpre == Cell.DWC) if( !(getCellNature(x, y) == Cell.DWO) ) 
+			throw new PostconditionError("openDoor(door DWC) != door DWO");
 		
-		if((x-1)>=0 && (y-1)>=0) {
-			if(getCellNature(x-1,y-1)!=cellb_atpre) {
-				throw new PostconditionError("Open door modified a cell other than the door.");
-			}
-		}
-		else {
-			if(getCellNature(x+1,y+1)!=cellb_atpre) {
-				throw new PostconditionError("Open door modified a cell other than the door.");
-			}
-		}
+		if(cell_atpre == Cell.DNC) if( !(getCellNature(x, y) == Cell.DNO) ) 
+			throw new PostconditionError("openDoor(door DNC) != door DNO");
 		
-		if(getCellNature(getHeight()-1, getWidth()-1)!=cell_atpre) {
-			throw new PostconditionError("Open door modified a cell other than the door.");
-		}
-		
-		return this;
-		
+		if(x-1 >= 0) if( !(cellA_atpre == getCellNature(x-1, y)) )
+			throw new PostconditionError("openDoor also changed another cell's nature.");
+		if(x+1 < getWidth()) if( !(cellB_atpre == getCellNature(x+1, y)) )
+			throw new PostconditionError("openDoor also changed another cell's nature.");
+		if(y-1 >= 0) if( !(cellC_atpre == getCellNature(x, y-1)) )
+			throw new PostconditionError("openDoor also changed another cell's nature.");
+		if(y+1 < getHeight()) if( !(cellD_atpre == getCellNature(x, y+1)) )
+			throw new PostconditionError("openDoor also changed another cell's nature.");
 	}
 
 	@Override
-	public MapService closeDoor(int x, int y) {
+	public void closeDoor(int x, int y) {
 		//pre
 		if(!(getCellNature(x,y)== Cell.DWO || getCellNature(x, y)==Cell.DNO))
 			throw new PreconditionError("Target cell is not an opened door.");
 		
 		//inv pre
 		checkInvariant();
-		
+
 		//capture
-		Cell cell_atpre = getCellNature(getHeight()-1, getWidth()-1);
+		Cell cell_atpre = getCellNature(x, y);
 		
-		Cell cellb_atpre = null;
-		if((x-1)>=0 && (y-1)>=0) {
-		cellb_atpre = getCellNature(x-1, y-1);
-		}
-		else {
-		cellb_atpre= getCellNature(x+1, y+1);	
-		}
+		Cell cellA_atpre=null; 
+		Cell cellB_atpre=null;
+		Cell cellC_atpre=null;
+		Cell cellD_atpre=null;
+		if(x-1 >= 0) cellA_atpre = getCellNature(x-1, y);
+		if(x+1 < getWidth()) cellB_atpre = getCellNature(x+1, y);
+		if(y-1 >= 0) cellC_atpre = getCellNature(x, y-1);
+		if(y+1 < getHeight()) cellD_atpre = getCellNature(x, y+1);
 		
 		//run
 		super.closeDoor(x, y);
@@ -128,24 +124,19 @@ public class MapContract extends MapDecorator {
 		checkInvariant();
 		
 		//post
-		if(!(getCellNature(x,y)== Cell.DWC || getCellNature(x, y)==Cell.DNC))
-			throw new PostconditionError("Target cell didn't close correctly.");
+		if(cell_atpre == Cell.DWO) if( !(getCellNature(x, y) == Cell.DWC) ) 
+			throw new PostconditionError("openDoor(door DWO) != door DWC");
 		
-		if((x-1)>=0 && (y-1)>=0) {
-			if(getCellNature(x-1,y-1)!=cellb_atpre) {
-				throw new PostconditionError("Close door modified a cell other than the door.");
-			}
-		}
-		else {
-			if(getCellNature(x+1,y+1)!=cellb_atpre) {
-				throw new PostconditionError("Close door modified a cell other than the door.");
-			}
-		}
+		if(cell_atpre == Cell.DNO) if( !(getCellNature(x, y) == Cell.DNC) ) 
+			throw new PostconditionError("openDoor(door DNO) != door DNC");
 		
-		if(getCellNature(getHeight()-1, getWidth()-1)!=cell_atpre) {
-			throw new PostconditionError("Close door modified a cell other than the door.");
-		}
-		
-		return this;
+		if(x-1 >= 0) if( !(cellA_atpre == getCellNature(x-1, y)) )
+			throw new PostconditionError("openDoor also changed another cell's nature.");
+		if(x+1 < getWidth()) if( !(cellB_atpre == getCellNature(x+1, y)) )
+			throw new PostconditionError("openDoor also changed another cell's nature.");
+		if(y-1 >= 0) if( !(cellC_atpre == getCellNature(x, y-1)) )
+			throw new PostconditionError("openDoor also changed another cell's nature.");
+		if(y+1 < getHeight()) if( !(cellD_atpre == getCellNature(x, y+1)) )
+			throw new PostconditionError("openDoor also changed another cell's nature.");
 	}
 }
