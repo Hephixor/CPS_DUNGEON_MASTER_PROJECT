@@ -8,7 +8,7 @@ public enum Cell {
 	DNO, //North-south opened door
 	DNC, //North-south closed door
 	DWO, //West-east opened door
-	DWC //West-east closed door
+	DWC; //West-east closed door
 	
 
 }

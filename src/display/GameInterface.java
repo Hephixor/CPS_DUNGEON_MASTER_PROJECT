@@ -40,12 +40,12 @@ public class GameInterface extends JFrame {
 		super("Dungeon Master");
 		this.map=map;
 		try {
-			tiles[WLL] = ImageIO.read(getResource("data/wll.png"));
-			tiles[EMP] = ImageIO.read(getResource("data/emp.png"));
-			tiles[DNC] = ImageIO.read(getResource("data/dnc.png"));
-			tiles[DWC] = ImageIO.read(getResource("data/dwc.png"));
-			tiles[IN] = ImageIO.read(getResource("data/in.png"));
-			tiles[OUT] = ImageIO.read(getResource("data/out.png"));
+			tiles[WLL] = ImageIO.read(getResource("src/resources/images/wall.png"));
+			tiles[EMP] = ImageIO.read(getResource("src/resources/images/ground.png"));
+			tiles[DNC] = ImageIO.read(getResource("src/resources/images/dnc.png"));
+			tiles[DWC] = ImageIO.read(getResource("src/resources/images/dwc.png"));
+			tiles[IN] = ImageIO.read(getResource("src/resources/images/in.png"));
+			tiles[OUT] = ImageIO.read(getResource("src/resources/images/out.png"));
 		} catch (IOException e) {
 			System.err.println("Failed to load resources: "+e.getMessage());
 			System.exit(0);
@@ -58,7 +58,7 @@ public class GameInterface extends JFrame {
 		});
 		
 		setSize(map[0].length*16,map.length*16);
-		setResizable(false);
+		setResizable(true);
 		setVisible(true);
 	}
 	

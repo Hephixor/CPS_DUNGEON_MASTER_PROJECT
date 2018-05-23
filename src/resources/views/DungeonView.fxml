@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+
+<BorderPane fx:id="borderPane" maxHeight="1650.0" maxWidth="1450.0" prefHeight="1360.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="display.DisplayController" stylesheets="@../styles/ButtonStyle.css">
+  <center>
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #000000;" BorderPane.alignment="CENTER">
+        <top>
+          <VBox>
+            <BorderPane.margin>
+              <Insets top="10.0" bottom="25.0" left="25.0" right="25.0"/>
+            </BorderPane.margin>
+            <HBox alignment="CENTER">
+              <children>
+                <Label fx:id="currentWord" id="title" text=""/>
+              </children>
+            </HBox>
+          </VBox>
+        </top>
+        <center>
+          <VBox fx:id="map" alignment="CENTER">
+            <HBox alignment="CENTER">
+              <ImageView fx:id="a" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@../images/chest.gif" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="b" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+                  <ImageView fx:id="c" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+            </HBox>
+            <HBox alignment="CENTER">
+              <ImageView fx:id="d" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@../images/chest.gif" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="e" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+                  <ImageView fx:id="f" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+            </HBox>
+            <HBox alignment="CENTER">
+              <ImageView fx:id="g" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@../images/chest.gif" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="h" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+                  <ImageView fx:id="i" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+            </HBox>
+            <HBox alignment="CENTER">
+              <ImageView fx:id="j" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@../images/chest.gif" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="k" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+                  <ImageView fx:id="l" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+            </HBox>
+            <HBox alignment="CENTER">
+              <ImageView fx:id="m" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@../images/chest.gif" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="n" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+                  <ImageView fx:id="o" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                      <Image url="@../images/chest.gif" />
+                    </image>
+                  </ImageView>
+            </HBox>
+          </VBox>
+        </center>
+        <bottom>
+          <VBox>
+
+            <children>
+              <VBox alignment="CENTER">
+                <children>
+                  <VBox>
+                    <BorderPane.margin>
+                      <Insets top="25.0" bottom="25.0"/>
+                    </BorderPane.margin>
+                    <children>
+                      <Label text="Map"/>
+                    </children>
+                  </VBox>
+
+                </children>
+              </VBox>
+              <HBox alignment="CENTER">
+                <BorderPane.margin>
+                  <Insets top="25.0" bottom="25.0"/>
+                </BorderPane.margin>
+                <children>
+                </children>
+              </HBox>
+            </children>
+          </VBox>
+        </bottom>
+      </BorderPane>
+  </center>
+  <left>
+  </left>
+  <top>
+    <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #000000;" BorderPane.alignment="CENTER">
+      <left>
+      </left>
+      <center>
+        <ImageView fitHeight="79.0" fitWidth="522.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+          <image>
+            <Image url="@../images/dm.png" />
+          </image>
+          <BorderPane.margin>
+            <Insets right="100.0" />
+          </BorderPane.margin>
+        </ImageView>
+      </center>
+      <right>
+        <HBox prefHeight="24.0" prefWidth="30.0" stylesheets="@../styles/ButtonStyle.css" BorderPane.alignment="CENTER">
+          <children>
+            <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
+              <image>
+
+              </image>
+              <HBox.margin>
+                <Insets right="30.0" top="30.0" />
+              </HBox.margin>
+              <cursor>
+                <Cursor fx:constant="HAND" />
+              </cursor>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="21.0" onMousePressed="#closeApplication" pickOnBounds="true" preserveRatio="true" styleClass="button">
+              <image>
+                <Image url="@../images/close_normal.png" />
+              </image>
+              <HBox.margin>
+                <Insets right="30.0" top="30.0" />
+              </HBox.margin>
+              <cursor>
+                <Cursor fx:constant="HAND" />
+              </cursor>
+            </ImageView>
+          </children>
+        </HBox>
+      </right>
+      <left>
+
+      </left>
+    </BorderPane>
+  </top>
+  <right>
+    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="300" style="-fx-background-color: #000000;">
+      <children>
+        <HBox alignment="CENTER">
+          <children>
+            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#hit" mnemonicParsing="false" id="hit"></Button>
+            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" id="invisible"></Button>
+            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#inventory" mnemonicParsing="false" id="inventory"></Button>
+          </children>
+        </HBox>
+
+        <HBox alignment="CENTER">
+          <children>
+            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#strafeLeft" mnemonicParsing="false" id="strafeLeft"></Button>
+            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#forward" mnemonicParsing="false" id="forward"></Button>
+            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#strafeRight" mnemonicParsing="false" id="strafeRight"></Button>
+          </children>
+        </HBox>
+
+      <HBox alignment="CENTER">
+        <children>
+          <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#left" mnemonicParsing="false" id="left"></Button>
+          <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#backward" mnemonicParsing="false" id="backward"></Button>
+          <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#right" mnemonicParsing="false" id="right"></Button>
+        </children>
+      </HBox>
+      </children>
+    </VBox>
+  </right>
+  <rotationAxis>
+    <Point3D />
+  </rotationAxis>
+</BorderPane>

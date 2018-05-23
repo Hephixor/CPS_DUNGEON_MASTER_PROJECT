@@ -24,7 +24,7 @@ public class EnvironmentImpl implements EnvironmentService{
 	@Override
 	public Cell getCellNature(int x, int y) {
 		return map.getCellNature(x, y);
-		//return cells[x][y];
+		
 	}
 
 

@@ -2,6 +2,7 @@ package impl;
 
 import java.util.List;
 
+import display.GameInterface;
 import services.MapService;
 import utils.Cell;
 import utils.MapGenerator;
@@ -15,6 +16,11 @@ public class MapImpl implements MapService {
 	List<Node> path;
 	public Node in;
 	public Node out;
+	
+	//Debug
+	public Cell[][] getCells(){
+		return cells;
+	}
 	
 	@Override
 	public int getHeight() {
@@ -39,7 +45,7 @@ public class MapImpl implements MapService {
 		this.path=null;
 		MapGenerator mgen = new MapGenerator( w, h, ((w+h)), (w/4)+(h/4) );
 		cells = mgen.getMap();
-		//GameInterface gi = new GameInterface(cells);
+		GameInterface gi = new GameInterface(cells);
 		
 		for(int x=0; x<cells[0].length; x++){
 			for(int y=0; y<cells.length; y++){

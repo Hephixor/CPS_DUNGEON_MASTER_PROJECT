@@ -8,32 +8,30 @@ import contracts.EngineContract;
 import contracts.EntityContract;
 import contracts.EnvironmentContract;
 import contracts.PlayerContract;
+import utils.Cell;
 import utils.Dir;
 import utils.Node;
 import utils.Tools;
 
 public class DungeonMaster {
+	EngineContract enginec;
+	public DungeonMaster() {
+	}
 
-	public static void main(String[] args) {
-
+	public void init() {
 		//initialisation d'une partie avec une carte vide de taille 10x10, 1 joueur, 2 monstres et 3 vaches
 
 
 		int heigth ;
 		int width ;
-//		Scanner sc = new Scanner(System.in);
-//		System.out.print("Heigth : ");
-//		heigth = sc.nextInt();
-//		System.out.print("Width : ");
-//		width = sc.nextInt();
-//		sc.close();
 
-				heigth = 30;
-				width = 20;
+		heigth = 30;
+		width = 20;
 
 		//Map & Env
 		EditMapContract mapc = new EditMapContract(new  EditMapImpl());
 		mapc.init(width, heigth);
+
 		EnvironmentContract envc = new EnvironmentContract(new EnvironmentImpl());
 		envc.init(mapc);
 
@@ -67,7 +65,7 @@ public class DungeonMaster {
 				}
 			}while(!placed);
 		}
-		
+
 		for (EntityContract entityContract : mobsc) {
 			Dir randDir = Tools.randomElement(Dir.values());
 			boolean placed = false;
@@ -82,31 +80,45 @@ public class DungeonMaster {
 		}
 
 
-		EngineContract enginec = new EngineContract(new EngineImpl());
+		enginec = new EngineContract(new EngineImpl());
 		enginec.init(envc);
-		
+
 		//Add entities
 		//Player
 		enginec.addEntity(playerc);
-		
+
 		//Cows
 		for (CowContract cowContract : cowsc) {
 			enginec.addEntity(cowContract);
 		}
-		
+
 		//Mobs
 		for (EntityContract entityContract : mobsc) {
 			enginec.addEntity(entityContract);
 		}
-		
-		System.out.println("Hello welcome to dungeon master"); 
-		System.out.println("you're playing on a " + mapc.getHeight()+" x " + mapc.getWidth() + " map with");
-		System.out.println(mobsc.length+" mobs and "+cowsc.length+" cows.");
-		System.out.println();
+
+//		System.out.println("Hello welcome to dungeon master"); 
+//		System.out.println("you're playing on a " + mapc.getHeight()+" x " + mapc.getWidth() + " map with");
+//		System.out.println(mobsc.length+" mobs and "+cowsc.length+" cows.");
+//		System.out.println();
 
 		Tools.printEnv(envc);
-		
-		
+
+
+	}
+	
+	public Cell getCellNature(int x, int y) {
+		return enginec.envi().getCellNature(x, y);
+	}
+	
+	public Node getPlayerPos() {
+		return new Node(enginec.getEntity(0).getCol(), enginec.getEntity(0).getRow());
+	}
+	
+
+	public void test() {
+		System.out.println("Test");
 	}
 }
+
 
