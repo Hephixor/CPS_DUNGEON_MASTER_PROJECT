@@ -9,23 +9,23 @@
 	<property name="jars" location="jars"/>
 	<property name="doc" location="doc"/>
 	<import file="./javadoc.xml"/>
-	
+
 	<!-- METTRE ICI LE NOM DU BINOME -->
 	<property name="nom1" value="HAVINH"/>
 	<property name="nom2" value="SERGEANT"/>
-	
+
 	<target name="init">
     	<!-- Create the time stamp -->
     	<tstamp/>
     	<!-- Create the bin directory structure used by compile -->
     	<mkdir dir="${build}"/>
 	</target>
-	
+
 	<target name="compile" depends="init" description="compile the source" >
     	<!-- Compile the java code from ${src} into ${build} -->
     	<javac debug="true" classpath="${jars}/junit.jar" srcdir="${src}" excludes="" destdir="${build}" includeantruntime="false" />
 	</target>
-	
+
 	<target name="test1" depends="compile" description="test of implementation">
 		<echo>================ Run first test ================</echo>
 		<junit printsummary="yes">
@@ -37,18 +37,18 @@
 			<test name="tests.testSuite" outfile="testSuite"/>
 		</junit>
 	</target>
-	
-	<target name="clean" description="clean up" >	
+
+	<target name="clean" description="clean up" >
 		<echo>================ Removing temporary files... ================</echo>
 		<delete verbose="true"> <!-- Remove all *~ files -->
 			<fileset dir="${basedir}" defaultexcludes="no">
 				<include name="**/*~"/>
 			</fileset>
 		</delete>
-		<echo>================ Removing build directory ================</echo>    
+		<echo>================ Removing build directory ================</echo>
 		<delete dir="${build}"/>
-		<echo>================ Removing bin directory ================</echo>    
+		<echo>================ Removing bin directory ================</echo>
 		<delete dir="${bin}"/>
 	</target>
-	
+
 </project>
