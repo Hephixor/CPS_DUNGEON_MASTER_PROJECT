@@ -40,8 +40,11 @@ public class EngineContract extends EngineDecorator{
 		for(int i = 0 ; i < ents.size() ; i++) {
 			int xent = getEntity(i).getCol();
 			int yent = getEntity(i).getRow();
-			
+
 			if(envi().getCellContent(xent, yent)!=getEntity(i)){
+				System.out.println("error ent at x"+getEntity(i).getCol()+" y"+getEntity(i).getRow());
+				System.out.println("engine see x"+getEntity(i).toString());
+				System.out.println("env see x"+envi().getCellContent(xent, yent).toString());
 				throw new InvariantError("Entity not seen by env");
 			}
 		}

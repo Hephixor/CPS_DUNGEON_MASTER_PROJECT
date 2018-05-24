@@ -2,18 +2,20 @@ package impl;
 
 import java.util.ArrayList;
 
-import contracts.CowContract;
+import services.EntityService;
+import services.EnvironmentService;
+import utils.*;
 import contracts.EditMapContract;
 import contracts.EngineContract;
 import contracts.EntityContract;
 import contracts.EnvironmentContract;
 import contracts.PlayerContract;
-import utils.Cell;
-import utils.Dir;
-import utils.Node;
-import utils.Tools;
+import contracts.CowContract;
+import services.CowService;
 
 public class DungeonMaster {
+	int heigth ;
+	int width ;
 	EngineContract enginec;
 	public DungeonMaster() {
 	}
@@ -22,8 +24,7 @@ public class DungeonMaster {
 		//initialisation d'une partie avec une carte vide de taille 10x10, 1 joueur, 2 monstres et 3 vaches
 
 
-		int heigth ;
-		int width ;
+
 
 		heigth = 30;
 		width = 20;
@@ -40,11 +41,11 @@ public class DungeonMaster {
 
 		playerc.init(envc, Tools.getIn(envc).x, Tools.getIn(envc).y, Dir.N, 10);
 
-		EntityContract[] mobsc = new EntityContract[2];
+		EntityService[] mobsc = new EntityService[2];
 		mobsc[0] = new EntityContract(new EntityImpl());
 		mobsc[1] = new EntityContract(new EntityImpl());
 
-		CowContract[] cowsc = new CowContract[3];
+		CowService[] cowsc = new CowService[3];
 		cowsc[0] = new CowContract(new CowImpl());
 		cowsc[1] = new CowContract(new CowImpl());
 		cowsc[2] = new CowContract(new CowImpl());
@@ -53,7 +54,7 @@ public class DungeonMaster {
 		//Place entities
 		ArrayList<Node> emp = Tools.getEmp(envc);
 
-		for (CowContract cowContract : cowsc) {
+		for (CowService cowContract : cowsc) {
 			Dir randDir = Tools.randomElement(Dir.values());
 			boolean placed = false;
 
@@ -66,7 +67,7 @@ public class DungeonMaster {
 			}while(!placed);
 		}
 
-		for (EntityContract entityContract : mobsc) {
+		for (EntityService entityContract : mobsc) {
 			Dir randDir = Tools.randomElement(Dir.values());
 			boolean placed = false;
 
@@ -88,12 +89,12 @@ public class DungeonMaster {
 		enginec.addEntity(playerc);
 
 		//Cows
-		for (CowContract cowContract : cowsc) {
+		for (CowService cowContract : cowsc) {
 			enginec.addEntity(cowContract);
 		}
 
 		//Mobs
-		for (EntityContract entityContract : mobsc) {
+		for (EntityService entityContract : mobsc) {
 			enginec.addEntity(entityContract);
 		}
 
@@ -107,6 +108,19 @@ public class DungeonMaster {
 
 	}
 	
+	public EnvironmentService getEnv(){
+		return enginec.envi();
+	}
+	
+	public void setPlayerCommand(Command com){
+		((PlayerContract) enginec.getEntity(0)).setLastCom(com);
+	}
+
+	public void step(){
+		enginec.step();
+		Tools.printEnv(enginec.envi());
+	}
+	
 	public Cell getCellNature(int x, int y) {
 		return enginec.envi().getCellNature(x, y);
 	}
@@ -116,9 +130,6 @@ public class DungeonMaster {
 	}
 	
 
-	public void test() {
-		System.out.println("Test");
-	}
 }
 
 

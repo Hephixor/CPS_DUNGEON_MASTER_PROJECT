@@ -106,4 +106,9 @@ public class PlayerDecorator implements PlayerService{
 		return delegate.getViewable(x, y);
 	}
 	
+	@Override
+	public void setLastCom(Command com) {
+		delegate.setLastCom(com);
+	}
+	
 }

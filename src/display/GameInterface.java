@@ -16,6 +16,11 @@ import utils.Cell;
 
 public class GameInterface extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Cell[][] map;
 	
 	/** The list of tile images to render the map */
@@ -57,7 +62,7 @@ public class GameInterface extends JFrame {
 			}
 		});
 		
-		setSize(map[0].length*16,map.length*16);
+		setSize(map[0].length*32,map.length*32);
 		setResizable(true);
 		setVisible(true);
 	}
@@ -84,11 +89,11 @@ public class GameInterface extends JFrame {
 		// create an offscreen buffer to render the map
 
 		if (buffer == null) {
-			buffer = new BufferedImage(map[0].length*16, map.length*16, BufferedImage.TYPE_INT_ARGB);			
+			buffer = new BufferedImage(map[0].length*32, map.length*32, BufferedImage.TYPE_INT_ARGB);			
 		}
 		Graphics g = buffer.getGraphics();
 		
-		g.clearRect(0,0,map[0].length*16,map.length*16);
+		g.clearRect(0,0,map[0].length*32,map.length*32);
 		g.translate(0,0);
 		
 		// cycle through the tiles in the map drawing the appropriate
@@ -97,7 +102,7 @@ public class GameInterface extends JFrame {
 		int currCellType;
 		int heigth = map.length;
 		int width = map[0].length;
-		for (int y=0;y<heigth;y++) {
+		for (int y=heigth-1;y>=0;y--) {
 			for (int x=0;x<width;x++) {
 				switch(map[y][x]) {
 				case WLL:
@@ -122,7 +127,7 @@ public class GameInterface extends JFrame {
 					currCellType = WLL; 
 					break;
 				}
-				g.drawImage(tiles[currCellType],x*16,y*16,null);
+				g.drawImage(tiles[currCellType],x*32,y*32,null);
 			}
 		}
 

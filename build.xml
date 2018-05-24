@@ -1,55 +1,12 @@
-<project name="Dungeon Master" default="compile" basedir=".">
-    <description>
-       Fichier de construction du projet Dungeon Master
-    </description>
-    <!-- set global properties for this build -->
-	<property name="src" location="src"/>
-	<property name="bin" location="bin"/>
-	<property name="build" location="build"/>
-	<property name="jars" location="jars"/>
-	<property name="doc" location="doc"/>
-	<import file="./javadoc.xml"/>
-	<mport file="./create-jar.xml"/>
-
-	<!-- METTRE ICI LE NOM DU BINOME -->
-	<property name="nom1" value="HAVINH"/>
-	<property name="nom2" value="SERGEANT"/>
-
-	<target name="init">
-    	<!-- Create the time stamp -->
-    	<tstamp/>
-    	<!-- Create the bin directory structure used by compile -->
-    	<mkdir dir="${build}"/>
-	</target>
-
-	<target name="compile" depends="init" description="compile the source" >
-    	<!-- Compile the java code from ${src} into ${build} -->
-    	<javac debug="true" classpath="${jars}/junit.jar" srcdir="${src}" excludes="" destdir="${build}" includeantruntime="false" />
-	</target>
-
-	<target name="test1" depends="compile" description="test of implementation">
-		<echo>================ Run first test ================</echo>
-		<junit printsummary="yes">
-			<classpath>
-				<pathelement location="${build}"/>
-				<pathelement location="${jars}/junit.jar"/>
-			</classpath>
-			<formatter type="plain"/>
-			<test name="tests.testSuite" outfile="testSuite"/>
-		</junit>
-	</target>
-
-	<target name="clean" description="clean up" >
-		<echo>================ Removing temporary files... ================</echo>
-		<delete verbose="true"> <!-- Remove all *~ files -->
-			<fileset dir="${basedir}" defaultexcludes="no">
-				<include name="**/*~"/>
-			</fileset>
-		</delete>
-		<echo>================ Removing build directory ================</echo>
-		<delete dir="${build}"/>
-		<echo>================ Removing bin directory ================</echo>
-		<delete dir="${bin}"/>
-	</target>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project Dungeon Master">
+    <target name="create_jar">
+        <jar destfile="./dungeon_master.jar">
+            <manifest>
+                <attribute name="Main-Class" value="display.MainLauncher"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="./bin"/>
+        </jar>
+    </target>
 </project>

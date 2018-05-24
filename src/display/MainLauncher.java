@@ -34,10 +34,6 @@ public class MainLauncher extends Application {
 		Scene mainScene = new Scene(root,900, 700);
 		mainScene.setRoot(root);
 		
-		DisplayController dc = new DisplayController();
-		dc.init();
-		root = FXMLLoader.load(fxml); 
-		
 		primaryStage.setResizable(true);
 		primaryStage.setScene(mainScene);
 		primaryStage.sizeToScene();

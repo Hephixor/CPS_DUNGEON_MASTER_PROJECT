@@ -15,7 +15,7 @@ public class Tools {
 
 	public static void printEnv(EnvironmentService env){
 
-		for(int y = 0 ; y < env.getHeight(); y++ ){
+		for(int y = env.getHeight()-1 ; y >= 0 ; y-- ){
 			for(int x = 0 ; x < env.getWidth() ; x++){
 				switch(env.getCellNature(x,y)){
 				
@@ -72,7 +72,7 @@ public class Tools {
 
 	public static void printMap(MapService map){
 
-		for(int y = 0 ; y < map.getHeight(); y++ ){
+		for(int y = map.getHeight()-1 ; y >= 0 ; y++ ){
 			for(int x = 0 ; x < map.getWidth() ; x++){
 				switch(map.getCellNature(x,y)){
 				
@@ -103,7 +103,7 @@ public class Tools {
 
 	public static void printMap(Cell[][] map){
 
-		for(int y = 0 ; y < map.length; y++ ){
+		for(int y = map.length-1 ; y >=0 ; y++ ){
 			for(int x = 0 ; x < map[0].length ; x++){
 				switch(map[y][x]){
 				
@@ -149,7 +149,7 @@ public class Tools {
 	}
 	
 	public static void printPathMap(int[][] map) {
-    	for(int i = 0 ; i < map.length; i++) {
+    	for(int i = map.length-1 ; i >=0; i++) {
         	for(int j = 0 ; j < map[0].length; j++) {
         		switch(map[i][j]){
         		case 0:
@@ -203,7 +203,7 @@ public class Tools {
 	
 	public static ArrayList<Node> getEmp(EnvironmentService env){
 		ArrayList<Node> emp = new ArrayList<Node>();
-		for(int y = 0 ; y < env.getHeight(); y++ ){
+		for(int y = env.getHeight()-1 ; y >= 0; y-- ){
 			for(int x = 0 ; x < env.getWidth() ; x++){
 				if(env.getCellNature(x,y) == Cell.EMP){
 					emp.add(new Node(x,y));
@@ -215,7 +215,7 @@ public class Tools {
 	
 	public static ArrayList<Node> getEmp(Cell[][] map){
 		ArrayList<Node> emp = new ArrayList<Node>();
-		for(int y = 0 ; y < map.length; y++ ){
+		for(int y = map.length-1 ; y >=0 ; y--){
 			for(int x = 0 ; x < map[0].length; x++){
 				if(map[y][x] == Cell.EMP){
 					emp.add(new Node(x,y));

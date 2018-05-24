@@ -208,17 +208,17 @@
 
         <HBox alignment="CENTER">
           <children>
-            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#strafeLeft" mnemonicParsing="false" id="strafeLeft"></Button>
+            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#left" mnemonicParsing="false" id="strafeLeft"></Button>
             <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#forward" mnemonicParsing="false" id="forward"></Button>
-            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#strafeRight" mnemonicParsing="false" id="strafeRight"></Button>
+            <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#right" mnemonicParsing="false" id="strafeRight"></Button>
           </children>
         </HBox>
 
       <HBox alignment="CENTER">
         <children>
-          <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#left" mnemonicParsing="false" id="left"></Button>
+          <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#strafeLeft" mnemonicParsing="false" id="left"></Button>
           <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#backward" mnemonicParsing="false" id="backward"></Button>
-          <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#right" mnemonicParsing="false" id="right"></Button>
+          <Button fx:id="recordBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#strafeRight" mnemonicParsing="false" id="right"></Button>
         </children>
       </HBox>
       </children>
