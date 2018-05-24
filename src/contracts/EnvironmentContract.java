@@ -63,9 +63,10 @@ public class EnvironmentContract extends EnvironmentDecorator{
 			throw new PreconditionError("cannot place mob in a wall or closed door.");
 		}
 		
-		if(getCellContent(x, y)!=null){
-			throw new PreconditionError("Cell is already occupied by a mob");
-		}
+
+//		if(getCellContent(x, y)!=null && mob!=null){
+//			throw new PreconditionError("Cell is already occupied by a mob");
+//		}
 		
 		//invariants
 		checkInvariants();
