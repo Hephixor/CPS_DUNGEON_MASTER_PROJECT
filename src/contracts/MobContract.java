@@ -38,8 +38,8 @@ public class MobContract extends MobDecorator{
 	@Override
 	public void init(EnvironmentService e, int x, int y, Dir d) {
 		//pre
-		if( !(0<=x && x<e.getWidth() && 0<=y && y<e.getHeight()) )
-			throw new PreconditionError("@pre 0 <= x < Environment::Width(E) and 0 <= y < Environment::Height(E)");
+		if( !(e.getCellNature(x, y) != Cell.IN && e.getCellContent(x, y) == null) )
+			throw new PreconditionError("@pre init mob: CellNature = IN or CellContent not null");
 		
 		//run
 		super.init(e, x, y, d);

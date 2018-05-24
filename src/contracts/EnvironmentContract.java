@@ -22,6 +22,18 @@ public class EnvironmentContract extends EnvironmentDecorator{
 
 	}
 
+	
+	
+	@Override
+	public MobService getCellContent(int x, int y) {
+		//pre
+		if( Arrays.asList(Cell.WLL, Cell.DNC, Cell.DWC).contains(getCellNature(x,y)) )
+			throw new PreconditionError("getCellContent d'une cellule WLL DNC ou DWC");
+		
+		//run
+		return super.getCellContent(x, y);
+	}
+
 	@Override
 	public void closeDoor(int x, int y) {
 		//pre
