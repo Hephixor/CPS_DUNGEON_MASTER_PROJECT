@@ -119,7 +119,7 @@ public class CowImpl implements CowService{
 		}
 
 		if(!(Arrays.asList(Cell.DNC,Cell.DWC,Cell.WLL).contains(env.getCellNature(xnew,ynew))) && env.getCellContent(xnew, ynew)==null){
-			System.out.println("Je suis " + entatpre +" je vais en x"+xnew+" y"+ynew+" et dans la case se trouve " + env.getCellContent(xnew, ynew));
+		//	System.out.println("Je suis " + entatpre +" je vais en x"+xnew+" y"+ynew+" et dans la case se trouve " + env.getCellContent(xnew, ynew));
 			env.setCellContent(xatpre, yatpre, null);
 			env.setCellContent(xnew, ynew, entatpre);
 			this.x=xnew;
@@ -292,6 +292,22 @@ public class CowImpl implements CowService{
 		this.y = y;
 		orientation = d;
 		this.hp = hp;
+	}
+
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void takeHit() {
+		System.out.println("CowImpl- I have "+hp+" HP");
+		hp--;
+		System.out.println("CowImpl- now "+hp+" HP");
+		if(hp==0) {
+			//retirer entité
+		}
 	}
 
 }

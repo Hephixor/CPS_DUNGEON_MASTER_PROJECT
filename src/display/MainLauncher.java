@@ -5,10 +5,12 @@ import java.net.URL;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -31,9 +33,9 @@ public class MainLauncher extends Application {
 		File img = new File("src/resources/images/chest.gif");
 		primaryStage.getIcons().add(new Image(img.toURI().toString()));
 		
-		Scene mainScene = new Scene(root,900, 700);
+		Scene mainScene = new Scene(root,900, 600);
 		mainScene.setRoot(root);
-		
+				
 		primaryStage.setResizable(true);
 		primaryStage.setScene(mainScene);
 		primaryStage.sizeToScene();

@@ -2,6 +2,8 @@ package impl;
 
 import java.util.Arrays;
 
+import contracts.CowContract;
+import contracts.EntityContract;
 import services.EnvironmentService;
 import services.MobService;
 import services.PlayerService;
@@ -34,27 +36,30 @@ public class PlayerImpl implements PlayerService{
 
 	@Override
 	public void step() {
-
-		switch(lastCom){
-		case FF:
-			forward();
-			break;
-		case BB:
-			backward();
-			break;
-		case RR:
-			strafeR();
-			break;
-		case LL:
-			strafeL();
-			break;
-		case TL:
-			turnL();
-			break;
-		case TR:
-			turnR();
-			break;
-
+		if(lastCom!=null) {
+			switch(lastCom){
+			case FF:
+				forward();
+				break;
+			case BB:
+				backward();
+				break;
+			case RR:
+				strafeR();
+				break;
+			case LL:
+				strafeL();
+				break;
+			case TL:
+				turnL();
+				break;
+			case TR:
+				turnR();
+				break;
+			case HIT:
+				hit();
+				break;
+			}
 		}
 
 		lastCom=null;
@@ -87,7 +92,118 @@ public class PlayerImpl implements PlayerService{
 		this.y=y;
 		orientation=d;
 		hp=10;
+	}
 
+	@Override
+	public void hit(){
+		System.out.println("Hit method");
+		switch(orientation) {
+		case N:
+			if(getEnv().getCellContent(this.x, this.y+1) instanceof EntityContract) {
+				System.out.println("Mob");
+				getEnv().getCellContent(this.x, this.y+1).takeHit();
+			}
+			else if(getEnv().getCellContent(this.x, this.y+1) instanceof CowContract) {
+				System.out.println("Cow");
+				getEnv().getCellContent(this.x, this.y+1).takeHit();
+			}
+			else if(getEnv().getCellNature(this.x, this.y+1) == Cell.DWC ) {
+				//player n'a pas accès a map, seule a pouvoir changer la porte
+				System.out.println("Closed W Door");
+				//getEnv().setCellNature(this.x, this.y+1, Cell.DWO);
+			}
+			else if(getEnv().getCellNature(this.x, this.y+1) == Cell.DNC) {
+				//player n'a pas accès a map, seule a pouvoir changer la porte
+				System.out.println("Closed N Door");
+				//getEnv().setCellNature(this.x, this.y+1, Cell.DWO);
+			}
+			else if(getEnv().getCellNature(this.x, this.y+1) == Cell.DWO ) {
+				System.out.println("Opened W Door");
+			}
+			else if(getEnv().getCellNature(this.x, this.y+1) == Cell.DNO) {
+				System.out.println("Opened N Door");
+			}
+			
+			else {
+				System.out.println("Empty cell");
+			}
+			break;
+		case S:
+			if(getEnv().getCellContent(this.x, this.y-1) instanceof EntityContract) {
+				System.out.println("Mob");
+				getEnv().getCellContent(this.x, this.y-1).takeHit();
+			}
+			else if(getEnv().getCellContent(this.x, this.y-1) instanceof CowContract) {
+				System.out.println("Cow");
+				getEnv().getCellContent(this.x, this.y-1).takeHit();
+			}
+			else if(getEnv().getCellNature(this.x, this.y-1) == Cell.DWC) {
+				System.out.println("Closed W Door");
+			}
+			else if( getEnv().getCellNature(this.x, this.y-1) == Cell.DNC) {
+				System.out.println("Closed N Door");
+			}
+			else if(getEnv().getCellNature(this.x, this.y-1) == Cell.DWO) {
+				System.out.println("Opened W Door");
+			}
+			else if(getEnv().getCellNature(this.x, this.y-1) == Cell.DNO) {
+				System.out.println("Opened N Door");
+			}
+			else {
+				System.out.println("Empty cell");
+			}
+			break;
+		case E:
+			if(getEnv().getCellContent(this.x+1, this.y) instanceof EntityContract) {
+				System.out.println("Mob");
+				getEnv().getCellContent(this.x+1, this.y).takeHit();
+			}
+			else if(getEnv().getCellContent(this.x+1, this.y) instanceof CowContract) {
+				System.out.println("Cow");
+				getEnv().getCellContent(this.x+1, this.y).takeHit();
+			}
+			else if(getEnv().getCellNature(this.x+1, this.y) == Cell.DWC) {
+				System.out.println("Closed W Door");
+			}
+			else if(getEnv().getCellNature(this.x+1, this.y) == Cell.DNC) {
+				System.out.println("Closed N Door");
+			}
+			else if(getEnv().getCellNature(this.x+1, this.y) == Cell.DWO ) {
+				System.out.println("Opened W Door");
+			}
+			else if(getEnv().getCellNature(this.x+1, this.y) == Cell.DNO) {
+				System.out.println("Opened N Door");
+			}
+			else {
+				System.out.println("Empty cell");
+			}
+			break;
+		case W:
+			if(getEnv().getCellContent(this.x-1, this.y) instanceof EntityContract) {
+				System.out.println("Mob");
+				getEnv().getCellContent(this.x-1, this.y).takeHit();
+			}
+			else if(getEnv().getCellContent(this.x-1, this.y) instanceof CowContract) {
+				System.out.println("Cow");
+				getEnv().getCellContent(this.x-1, this.y).takeHit();
+			}
+			else if(getEnv().getCellNature(this.x-1, this.y) == Cell.DWC ) {
+				System.out.println("Closed W Door");
+			}
+			else if(getEnv().getCellNature(this.x-1, this.y) == Cell.DNC) {
+				System.out.println("Closed N Door");
+			}
+			else if(getEnv().getCellNature(this.x-1, this.y) == Cell.DWO) {
+				System.out.println("Opened W Door");
+			}
+			else if(getEnv().getCellNature(this.x-1, this.y) == Cell.DNO) {
+				System.out.println("Opened N Door");
+			}
+			else {
+				System.out.println("Empty cell");
+			}
+			break;
+		}
 	}
 
 	@Override
@@ -121,12 +237,11 @@ public class PlayerImpl implements PlayerService{
 		}
 
 		if(!(Arrays.asList(Cell.DNC,Cell.DWC,Cell.WLL).contains(env.getCellNature(xnew,ynew))) && env.getCellContent(xnew, ynew)==null){
-			System.out.println("Je suis " + entatpre +" je vais en x"+xnew+" y"+ynew+" et dans la case se trouve " + env.getCellContent(xnew, ynew));
+			//System.out.println("Je suis " + entatpre +" je vais en x"+xnew+" y"+ynew+" et dans la case se trouve " + env.getCellContent(xnew, ynew));
 			env.setCellContent(xatpre, yatpre, null);
 			env.setCellContent(xnew, ynew, entatpre);
 			this.x=xnew;
 			this.y=ynew;
-			env.setCellContent(xatpre, yatpre, null);
 		}
 
 	}
@@ -165,14 +280,12 @@ public class PlayerImpl implements PlayerService{
 			env.setCellContent(xnew, ynew, entatpre);
 			this.x=xnew;
 			this.y=ynew;
-			env.setCellContent(xatpre, yatpre, null);
 		}
 
 	}
 
 	@Override
 	public void turnL() {
-
 		switch(orientation){
 		case N:
 			orientation = Dir.W;
@@ -187,7 +300,6 @@ public class PlayerImpl implements PlayerService{
 			orientation = Dir.S;
 			break;
 		}
-
 	}
 
 	@Override
@@ -244,7 +356,6 @@ public class PlayerImpl implements PlayerService{
 			env.setCellContent(xnew, ynew, entatpre);
 			this.x=xnew;
 			this.y=ynew;
-			env.setCellContent(xatpre, yatpre, null);
 		}
 	}
 
@@ -282,7 +393,6 @@ public class PlayerImpl implements PlayerService{
 			env.setCellContent(xnew, ynew, entatpre);
 			this.x=xnew;
 			this.y=ynew;
-			env.setCellContent(xatpre, yatpre, null);
 		}
 
 	}
@@ -294,64 +404,64 @@ public class PlayerImpl implements PlayerService{
 
 	@Override
 	public MobService getContent(int x, int y) {
-
-		return env.getCellContent(x, y);
+		return env.getCellContent(this.x, this.y);
 	}
 
 	@Override
 	public Cell getNature(int x, int y) {
-
 		return env.getCellNature(x, y);
 	}
 
 	@Override
 	public boolean getViewable(int x, int y) {
 		//TODO
-
-		if(x==0 && y<=0) return true;
-		else if(x<0 && y==0)return true;
-		else if(x>0 && y==0)return true;
-		
+		//X=0
+		if(x==0 && y==0) return true;
+		if(x==0 && y<0) return true;
 		else if(x==0 && y>0){
 			for(int i=1; i<y; i++){
-				if(env.getCellNature(this.x+x, this.y+y)==Cell.WLL){
+
+				if(Arrays.asList(Cell.DNC,Cell.DWC,Cell.WLL).contains(env.getCellNature(this.x+x, this.y+i))){
 					return false;
 				}
 			}
 			return true;
 		}
 
-		
+		//X<0
+		else if(x<0 && y==0)return true;
 		else if(x<0 && y<0){
 			if(getViewable(x,y+1) && getViewable(x+1,y)){
 				return true;
 			}
 		}
-		
 		else if(x<0 && y > 0){
 			for(int i = 1 ;i<y;i++){
-				if(env.getCellNature(this.x+x, this.y+i)==Cell.WLL){
+				if(Arrays.asList(Cell.DNC,Cell.DWC,Cell.WLL).contains(env.getCellNature(this.x+x, this.y+i))){
 					return false;
 				}
 			}
 			return true;
 		}
-		
+
+		//X>0
+		else if(x>0 && y==0)return true;
+
 		else if(x>0 && y<0){
 			if(getViewable(x-1,y) && getViewable(x,y+1)){
 				return true;
 			}
 		}
-		
+
 		else if(x>0 && y>0){
 			for(int i = 1 ;i<y;i++){
-				if(env.getCellNature(this.x+x, this.y+i)==Cell.WLL){
+				if(Arrays.asList(Cell.DNC,Cell.DWC,Cell.WLL).contains(env.getCellNature(this.x+x, this.y+i))){
 					return false;
 				}
 			}
 			return true;
 		}
-		
+
 		return false;
 
 	}
@@ -360,5 +470,17 @@ public class PlayerImpl implements PlayerService{
 	public void setLastCom(Command com){
 		this.lastCom = com ;
 	}
+
+	@Override
+	public void takeHit() {
+		System.out.println("PlayerImpl- I have "+hp+" HP");
+		hp--;
+		System.out.println("PlayerImpl- now "+hp+" HP");
+		if(hp==0) {
+			//retirer entité
+		}
+	}
+
+
 
 }

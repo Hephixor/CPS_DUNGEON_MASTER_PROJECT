@@ -102,8 +102,8 @@ public class GameInterface extends JFrame {
 		int currCellType;
 		int heigth = map.length;
 		int width = map[0].length;
-		for (int y=heigth-1;y>=0;y--) {
-			for (int x=0;x<width;x++) {
+		for (int y=0;y<heigth;y++) {
+			for (int x=width-1;x>=0;x--) {
 				switch(map[y][x]) {
 				case WLL:
 					currCellType = WLL;

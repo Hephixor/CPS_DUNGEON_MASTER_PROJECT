@@ -16,20 +16,17 @@ public class EnvironmentContract extends EnvironmentDecorator{
 		super(delegate);
 	}
 
-
 	//include et non refine donc on n'hérite pas des invariants de MapService, il faut refaire des tests.
 	public void checkInvariants() {
 
 	}
-
-	
 	
 	@Override
 	public MobService getCellContent(int x, int y) {
 		//pre
-		if( Arrays.asList(Cell.WLL, Cell.DNC, Cell.DWC).contains(getCellNature(x,y)) )
-			throw new PreconditionError("getCellContent d'une cellule WLL DNC ou DWC");
-		
+//		if(Arrays.asList(Cell.WLL, Cell.DNC, Cell.DWC).contains(getCellNature(x,y)) )
+//			throw new PreconditionError("getCellContent d'une cellule WLL DNC ou DWC");
+//		
 		//run
 		return super.getCellContent(x, y);
 	}

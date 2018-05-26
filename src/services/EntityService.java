@@ -18,5 +18,7 @@ public interface EntityService extends MobService, Cloneable{
 	/* Operators */
 	
 	public void step();
+	public void hit();
+	public void takeHit();
 
 }

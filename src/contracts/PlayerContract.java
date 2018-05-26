@@ -2,6 +2,8 @@ package contracts;
 
 import java.util.Objects;
 
+import com.sun.tools.javac.comp.Check;
+
 import services.MobService;
 import services.PlayerService;
 import utils.Cell;
@@ -20,8 +22,8 @@ public class PlayerContract extends PlayerDecorator {
 
 	public void CheckInvariants() {
 		Dir d = this.getFace();
-		int x = 1;
-		int y = 1;
+		int x = 0;
+		int y = 0;
 
 		/**
 		 * Face(P) = N implies Content(P,u,v) = Environment:CellContent(Envi(P),Col(P)+u,Row(P)+v)
@@ -34,58 +36,44 @@ public class PlayerContract extends PlayerDecorator {
 		 * Face(P) = W implies Nature(P,u,v) = Environment:CellNature(Envi(P),Col(P)-v,Row(P)+u)
 		 */
 		
-		//TODO compairaison avec null
+		//TODO 
 		switch(d) {
 		case N :
-			if(!(Objects.equals(getContent(x, y), this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y)))) {
-				System.out.println("getContent " + this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y));
-				System.out.println("getCellContent " + getContent(x, y));
+			if(!(Objects.equals(getContent(x, y), getEnv().getCellContent(getCol()+x, getRow()+y)))) {		
 				throw new InvariantError("Cell Content in fov error");
 			}
 			
 			if(!(Objects.equals(getNature(x, y), this.getEnv().getCellNature(this.getCol()+x, this.getRow()+y)))) {
-				System.out.println("getContent " + this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y));
-				System.out.println("getCellContent " + getContent(x, y));
+				System.out.println("Getting nature on x:"+x+" y:"+y +" :: "+getNature(x, y));
+				System.out.println("Getting Cell nature on x:"+(this.getCol()+x)+" y:"+ (this.getRow()+y)+" :: "+getNature(x, y));
 				throw new InvariantError("Cell nature in fov error");
 			}
 			break;
 
 		case S :
 			if(!(Objects.equals(getContent(x, y), this.getEnv().getCellContent(this.getCol()-x, this.getRow()-y)))) {
-				System.out.println("getContent " + this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y));
-				System.out.println("getCellContent " + getContent(x, y));
 				throw new InvariantError("Cell Content in fov error");
 			}
 			if(!(Objects.equals(getNature(x, y), this.getEnv().getCellNature(this.getCol()-x, this.getRow()-y)))) {
-				System.out.println("getContent " + this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y));
-				System.out.println("getCellContent " + getContent(x, y));
 				throw new InvariantError("Cell nature in fov error");
 			}
 			break;
 
 		case E :
 			if(!(Objects.equals(getContent(x, y), this.getEnv().getCellContent(this.getCol()+y, this.getRow()-x)))) {
-				System.out.println("getContent " + this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y));
-				System.out.println("getCellContent " + getContent(x, y));
 				throw new InvariantError("Cell Content in fov error");
 			}
 			if(!(Objects.equals(getNature(x, y), this.getEnv().getCellNature(this.getCol()+y, this.getRow()-x)))) {
-				System.out.println("getContent " + this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y));
-				System.out.println("getCellContent " + getContent(x, y));
 				throw new InvariantError("Cell nature in fov error");
 			}
 			break;
 
 		case W :
 			if(!(Objects.equals(getContent(x, y), this.getEnv().getCellContent(this.getCol()-y, this.getRow()+x)))) {
-				System.out.println("getContent " + this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y));
-				System.out.println("getCellContent " + getContent(x, y));
 				throw new InvariantError("Cell Content in fov error");
 			}
 
 			if(!(Objects.equals(getNature(x, y), this.getEnv().getCellNature(this.getCol()-y, this.getRow()+x)))) {
-				System.out.println("getContent " + this.getEnv().getCellContent(this.getCol()+x, this.getRow()+y));
-				System.out.println("getCellContent " + getContent(x, y));
 				throw new InvariantError("Cell nature in fov error");
 			}
 			break;
@@ -166,7 +154,7 @@ public class PlayerContract extends PlayerDecorator {
 	@Override
 	public void step() {
 		//pre
-
+//		System.out.println("orientation bf step " + getFace().toString());
 		//inv pre
 		CheckInvariants();
 
@@ -174,15 +162,16 @@ public class PlayerContract extends PlayerDecorator {
 		Dir currDir = getFace();
 		int posx = getCol();
 		int posy = getRow();
-		
+//		System.out.println("position bf step x:" + posx + " y:"+posy);
 		//run
 		super.step();
-
+//		System.out.println("position af step x:" + getCol() + " y:"+getRow());
 		//inv post
 	CheckInvariants();
-
+	System.out.println("");
 		//post
 		//TODO cas 1 er tour aps de lastcom ? 
+	if(getLastCom()!=null) {
 		switch(getLastCom()) {
 		case FF:
 			switch(getFace()) {
@@ -344,6 +333,7 @@ public class PlayerContract extends PlayerDecorator {
 
 		}
 	}
+	}
 	
 	@Override
 	public MobService getContent(int x, int y) {
@@ -380,7 +370,7 @@ public class PlayerContract extends PlayerDecorator {
 		//CheckInvariants();
 		
 		//run
-		return super.getNature(x, y);
+		return super.getNature(getCol()+x, getRow()+y);
 		
 	}
 
@@ -407,7 +397,36 @@ public class PlayerContract extends PlayerDecorator {
 	
 	@Override
 	public void setLastCom(Command com){
+		//pre
+		
+		//checkInv pre
+		CheckInvariants();
+		
+		//run
 		super.setLastCom(com);
+		
+		//inv post
+		CheckInvariants();
+		
+		//post
+	}
+	
+	@Override
+	public void takeHit() {
+		//pre
+		
+		//inv pre
+		CheckInvariants();
+		
+		//run
+		super.takeHit();
+		
+		//inv post
+		CheckInvariants();
+		
+		//post 
+		
+		
 	}
 
 }

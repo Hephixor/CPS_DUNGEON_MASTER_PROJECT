@@ -110,5 +110,15 @@ public class PlayerDecorator implements PlayerService{
 	public void setLastCom(Command com) {
 		delegate.setLastCom(com);
 	}
+
+	@Override
+	public void hit() {
+		delegate.hit();
+	}
+
+	@Override
+	public void takeHit() {
+		delegate.takeHit();
+	}
 	
 }

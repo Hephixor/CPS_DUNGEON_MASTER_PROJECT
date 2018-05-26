@@ -260,5 +260,7 @@ public interface MobService {
 	 * 			   and Col(Forward(M)) = Col(M)
 	 */
 	public void strafeR();
+
+	public void takeHit();
 	
 }

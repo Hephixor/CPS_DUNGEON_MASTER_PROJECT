@@ -482,5 +482,21 @@ public class MobContract extends MobDecorator{
 				break;
 		}
 	}
+	
+	@Override
+	public void takeHit() {
+		//pre
+		
+		//inv pre
+		checkInvariant();
+		
+		//run
+		super.takeHit();
+		
+		//inv post
+		checkInvariant();
+		
+		//post
+	}
 
 }

@@ -60,5 +60,26 @@ public class CowContract extends CowDecorator{
 			throw new PostconditionError("Error while moving row");
 		}
 	}
+	
+	@Override
+	public void hit() {
+	
+	}
+	
+	@Override
+	public void takeHit() {
+		//pre
+		
+		//inv pre
+		checkInvariants();
+		
+		//run
+		super.takeHit();
+		
+		//inv post
+		checkInvariants();
+		
+		//post
+	}
 
 }

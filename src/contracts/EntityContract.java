@@ -60,4 +60,38 @@ public class EntityContract extends EntityDecorator{
 		//post
 	}
 
+	@Override
+	public void hit() {
+		//pre
+		
+		//inv pre
+		checkInvariants();
+		
+		//run
+		super.hit();
+		
+		//inv post
+		checkInvariants();
+		
+		//post
+		//verifier que la cible à perdu des points de vie / porte ouverte/fermée ?
+		
+	}
+	
+	@Override
+	public void takeHit() {
+		//pre
+		
+		//inv pre
+		checkInvariants();
+		
+		//run
+		super.takeHit();
+		
+		//Inv post
+		checkInvariants();
+		
+		//post
+		//Verifier que la vie est descendue
+	}
 }

@@ -88,5 +88,15 @@ public class EntityDecorator implements EntityService{
 		delegate.step();
 	}
 
+	@Override
+	public void hit() {
+		delegate.hit();
+	}
+
+	@Override
+	public void takeHit() {
+		delegate.takeHit();
+	}
+
 
 }

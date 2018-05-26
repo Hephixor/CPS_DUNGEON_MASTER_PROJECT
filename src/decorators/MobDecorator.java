@@ -65,4 +65,9 @@ public class MobDecorator implements MobService {
 	public void strafeR() {
 		delegate.strafeR();
 	}
+
+	@Override
+	public void takeHit() {
+		delegate.takeHit();
+	}
 }

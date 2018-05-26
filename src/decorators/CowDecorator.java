@@ -83,6 +83,16 @@ public class CowDecorator implements CowService{
 	public void strafeR() {
 		delegate.strafeR();
 	}
+
+	@Override
+	public void hit() {
+		delegate.hit();
+	}
+
+	@Override
+	public void takeHit() {
+		delegate.takeHit();
+	}
 	
 	
 

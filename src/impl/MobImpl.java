@@ -66,4 +66,15 @@ public class MobImpl implements MobService{
 	public void strafeR() {
 	}
 
+	@Override
+	public void takeHit() {
+		System.out.println("MobImpl- I have "+hp+" HP");
+		hp--;
+		System.out.println("MobImpl- now "+hp+" HP");
+		if(hp==0) {
+			//retirer entité
+		}
+		
+	}
+
 }

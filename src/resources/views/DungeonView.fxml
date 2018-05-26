@@ -13,20 +13,18 @@
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
 
-<BorderPane fx:id="borderPane" maxHeight="1650.0" maxWidth="1450.0" prefHeight="1360.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="display.DisplayController" stylesheets="@../styles/ButtonStyle.css">
+<BorderPane fx:id="borderPane" maxHeight="1650.0" maxWidth="1450.0" prefHeight="1360.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="display.DisplayController" onKeyPressed="#handleKeyPressed" stylesheets="@../styles/ButtonStyle.css">
   <center>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #000000;" BorderPane.alignment="CENTER">
         <top>
-          <VBox>
+          <ImageView fitHeight="79.0" fitWidth="522.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <image>
+              <Image url="@../images/dm.png" />
+            </image>
             <BorderPane.margin>
-              <Insets top="10.0" bottom="25.0" left="25.0" right="25.0"/>
+              <Insets right="100.0" />
             </BorderPane.margin>
-            <HBox alignment="CENTER">
-              <children>
-                <Label fx:id="currentWord" id="title" text=""/>
-              </children>
-            </HBox>
-          </VBox>
+          </ImageView>
         </top>
         <center>
           <VBox fx:id="map" alignment="CENTER">
@@ -119,7 +117,6 @@
         </center>
         <bottom>
           <VBox>
-
             <children>
               <VBox alignment="CENTER">
                 <children>
@@ -155,7 +152,7 @@
       <center>
         <ImageView fitHeight="79.0" fitWidth="522.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
           <image>
-            <Image url="@../images/dm.png" />
+            <!-- <Image url="@../images/dm.png" /> -->
           </image>
           <BorderPane.margin>
             <Insets right="100.0" />

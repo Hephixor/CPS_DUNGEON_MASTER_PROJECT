@@ -23,11 +23,8 @@ public class DungeonMaster {
 	public void init() {
 		//initialisation d'une partie avec une carte vide de taille 10x10, 1 joueur, 2 monstres et 3 vaches
 
-
-
-
-		heigth = 30;
-		width = 20;
+		heigth = 20;
+		width = 10;
 
 		//Map & Env
 		EditMapContract mapc = new EditMapContract(new  EditMapImpl());
@@ -112,13 +109,17 @@ public class DungeonMaster {
 		return enginec.envi();
 	}
 	
+	public PlayerContract getPlayer() {
+		return (PlayerContract) enginec.getEntity(0);
+	}
+	
 	public void setPlayerCommand(Command com){
 		((PlayerContract) enginec.getEntity(0)).setLastCom(com);
 	}
 
 	public void step(){
 		enginec.step();
-		Tools.printEnv(enginec.envi());
+		//Tools.printEnv(enginec.envi());
 	}
 	
 	public Cell getCellNature(int x, int y) {

@@ -23,6 +23,7 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public Cell getCellNature(int x, int y) {
+		if(x>=map.getWidth()||y>=map.getHeight()) return null;
 		return map.getCellNature(x, y);
 		
 	}
@@ -33,7 +34,6 @@ public class EnvironmentImpl implements EnvironmentService{
 		this.mapmob= new MobService[map.getHeight()][map.getWidth()];
 		this.h=map.getHeight();
 		this.w=map.getWidth();
-
 	}
 
 	@Override
@@ -43,6 +43,7 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public MobService getCellContent(int x, int y) {
+		//System.out.println("Eimp-Getting content with env "+this.toString());
 		return mapmob[y][x];
 	}
 

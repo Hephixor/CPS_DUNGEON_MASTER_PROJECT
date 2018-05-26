@@ -65,7 +65,7 @@ public class EngineContract extends EngineDecorator{
 	public void removeEntity(int idx) {
 		//pre
 		if(idx<0 || idx >= getEntities().size()) {
-			throw new PreconditionError("Invalide entity index");
+			throw new PreconditionError("Invalid entity index");
 		}
 		
 		//inv
@@ -105,8 +105,12 @@ public class EngineContract extends EngineDecorator{
 		}
 		
 		//TODO moyen sûr
+		System.out.println("ents_atpre_aidx "+ents_atpre_aidx.length);
+		System.out.println("ents_atpre_bidx "+ents_atpre_bidx.length);
+		System.out.println("New size " + (getEntities().size()-2));
 		//forall k in [i,size(Entities(E))-2], getEntity(removeEntity(E,i),k)) = getEntity(E,k+1)
 		for(int k = idx ; k < getEntities().size()-2 ; k++) {
+
 			if((getEntity(k+1))!=ents_atpre_aidx[k]) {
 				throw new PostconditionError("Error removing entity removed another");
 			}
@@ -179,6 +183,12 @@ public class EngineContract extends EngineDecorator{
 		checkInvariants();
 		
 		//post
+		
+		for(int i = 0 ; i < getEntities().size() -1 ; i++) {
+			if(getEntity(i).getHP()==0) {
+				removeEntity(i);
+			}
+		}
 		
 		
 	}
