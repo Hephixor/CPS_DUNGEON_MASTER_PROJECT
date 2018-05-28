@@ -17,7 +17,7 @@ public class CowImpl implements CowService{
 	Dir orientation;
 	EnvironmentService env;
 	Random rnd = new Random();
-	
+
 	public CowImpl() {
 
 	}
@@ -35,27 +35,30 @@ public class CowImpl implements CowService{
 		 * turnL turnR strafeL strafeR
 		 */
 
-		int nombre = rnd.nextInt(6);
-				switch(nombre){
-				case 0:
-					forward();
-					break;
-				case 1:
-					backward();
-					break;
-				case 2:
-					turnL();
-					break;
-				case 3:
-					turnR();
-					break;
-				case 4:
-					strafeR();
-					break;
-				case 5:
-					strafeL();
-					break;
-				}
+		int nombre = rnd.nextInt(7);
+		switch(nombre){
+		case 0:
+			forward();
+			break;
+		case 1:
+			backward();
+			break;
+		case 2:
+			turnL();
+			break;
+		case 3:
+			turnR();
+			break;
+		case 4:
+			strafeR();
+			break;
+		case 5:
+			strafeL();
+			break;
+		case 6:
+			hit();
+			break;
+		}
 
 	}
 
@@ -119,7 +122,6 @@ public class CowImpl implements CowService{
 		}
 
 		if(!(Arrays.asList(Cell.DNC,Cell.DWC,Cell.WLL).contains(env.getCellNature(xnew,ynew))) && env.getCellContent(xnew, ynew)==null){
-		//	System.out.println("Je suis " + entatpre +" je vais en x"+xnew+" y"+ynew+" et dans la case se trouve " + env.getCellContent(xnew, ynew));
 			env.setCellContent(xatpre, yatpre, null);
 			env.setCellContent(xnew, ynew, entatpre);
 			this.x=xnew;
@@ -133,12 +135,12 @@ public class CowImpl implements CowService{
 	public void backward() {
 		int xatpre = this.x;
 		int yatpre = this.y;
-		
+
 		int xnew = -1;
 		int ynew = -1;
-		
+
 		MobService entatpre = getEnv().getCellContent(this.x, this.y);
-		
+
 		switch(orientation){
 		case N:
 			ynew=yatpre-1;
@@ -205,19 +207,19 @@ public class CowImpl implements CowService{
 			orientation = Dir.N;
 			break;
 		}
-	
+
 	}
 
 	@Override
 	public void strafeL() {
 		int xatpre = this.x;
 		int yatpre = this.y;
-		
+
 		int xnew = -1;
 		int ynew = -1;
-		
+
 		MobService entatpre = getEnv().getCellContent(this.x, this.y);
-		
+
 		switch(orientation){
 		case N:
 			ynew=yatpre;
@@ -250,12 +252,12 @@ public class CowImpl implements CowService{
 	public void strafeR() {
 		int xatpre = this.x;
 		int yatpre = this.y;
-		
+
 		int xnew = -1;
 		int ynew = -1;
-		
+
 		MobService entatpre = getEnv().getCellContent(this.x, this.y);
-		
+
 		switch(orientation){
 		case N:
 			ynew=yatpre;
@@ -296,18 +298,12 @@ public class CowImpl implements CowService{
 
 	@Override
 	public void hit() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Meeeeh");
 	}
 
 	@Override
 	public void takeHit() {
-		System.out.println("CowImpl- I have "+hp+" HP");
 		hp--;
-		System.out.println("CowImpl- now "+hp+" HP");
-		if(hp==0) {
-			//retirer entité
-		}
 	}
 
 }

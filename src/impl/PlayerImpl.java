@@ -96,111 +96,93 @@ public class PlayerImpl implements PlayerService{
 
 	@Override
 	public void hit(){
-		System.out.println("Hit method");
 		switch(orientation) {
 		case N:
-			if(getEnv().getCellContent(this.x, this.y+1) instanceof EntityContract) {
-				System.out.println("Mob");
+			if(getEnv().getCellContent(this.x, this.y+1) instanceof EntityContract) {;
 				getEnv().getCellContent(this.x, this.y+1).takeHit();
 			}
 			else if(getEnv().getCellContent(this.x, this.y+1) instanceof CowContract) {
-				System.out.println("Cow");
 				getEnv().getCellContent(this.x, this.y+1).takeHit();
 			}
 			else if(getEnv().getCellNature(this.x, this.y+1) == Cell.DWC ) {
-				//player n'a pas accès a map, seule a pouvoir changer la porte
-				System.out.println("Closed W Door");
-				//getEnv().setCellNature(this.x, this.y+1, Cell.DWO);
+				getEnv().openDoor(this.x, this.y+1);
 			}
 			else if(getEnv().getCellNature(this.x, this.y+1) == Cell.DNC) {
-				//player n'a pas accès a map, seule a pouvoir changer la porte
-				System.out.println("Closed N Door");
-				//getEnv().setCellNature(this.x, this.y+1, Cell.DWO);
+				getEnv().openDoor(this.x, this.y+1);
 			}
 			else if(getEnv().getCellNature(this.x, this.y+1) == Cell.DWO ) {
-				System.out.println("Opened W Door");
+				getEnv().closeDoor(this.x, this.y+1);
 			}
 			else if(getEnv().getCellNature(this.x, this.y+1) == Cell.DNO) {
-				System.out.println("Opened N Door");
+				getEnv().closeDoor(this.x, this.y+1);
 			}
-			
 			else {
-				System.out.println("Empty cell");
 			}
 			break;
 		case S:
 			if(getEnv().getCellContent(this.x, this.y-1) instanceof EntityContract) {
-				System.out.println("Mob");
 				getEnv().getCellContent(this.x, this.y-1).takeHit();
 			}
 			else if(getEnv().getCellContent(this.x, this.y-1) instanceof CowContract) {
-				System.out.println("Cow");
 				getEnv().getCellContent(this.x, this.y-1).takeHit();
 			}
 			else if(getEnv().getCellNature(this.x, this.y-1) == Cell.DWC) {
-				System.out.println("Closed W Door");
+				getEnv().openDoor(this.x, this.y-1);
 			}
 			else if( getEnv().getCellNature(this.x, this.y-1) == Cell.DNC) {
-				System.out.println("Closed N Door");
+				getEnv().openDoor(this.x, this.y-1);
 			}
 			else if(getEnv().getCellNature(this.x, this.y-1) == Cell.DWO) {
-				System.out.println("Opened W Door");
+				getEnv().closeDoor(this.x, this.y-1);
 			}
 			else if(getEnv().getCellNature(this.x, this.y-1) == Cell.DNO) {
-				System.out.println("Opened N Door");
+				getEnv().closeDoor(this.x, this.y-1);
 			}
 			else {
-				System.out.println("Empty cell");
 			}
 			break;
 		case E:
 			if(getEnv().getCellContent(this.x+1, this.y) instanceof EntityContract) {
-				System.out.println("Mob");
 				getEnv().getCellContent(this.x+1, this.y).takeHit();
 			}
 			else if(getEnv().getCellContent(this.x+1, this.y) instanceof CowContract) {
-				System.out.println("Cow");
 				getEnv().getCellContent(this.x+1, this.y).takeHit();
 			}
 			else if(getEnv().getCellNature(this.x+1, this.y) == Cell.DWC) {
-				System.out.println("Closed W Door");
+				getEnv().openDoor(this.x+1, this.y);
 			}
 			else if(getEnv().getCellNature(this.x+1, this.y) == Cell.DNC) {
-				System.out.println("Closed N Door");
+				getEnv().openDoor(this.x+1, this.y);
 			}
 			else if(getEnv().getCellNature(this.x+1, this.y) == Cell.DWO ) {
-				System.out.println("Opened W Door");
+				getEnv().closeDoor(this.x+1, this.y);
 			}
 			else if(getEnv().getCellNature(this.x+1, this.y) == Cell.DNO) {
-				System.out.println("Opened N Door");
+				getEnv().closeDoor(this.x+1, this.y);
 			}
 			else {
-				System.out.println("Empty cell");
 			}
 			break;
 		case W:
 			if(getEnv().getCellContent(this.x-1, this.y) instanceof EntityContract) {
-				System.out.println("Mob");
 				getEnv().getCellContent(this.x-1, this.y).takeHit();
 			}
 			else if(getEnv().getCellContent(this.x-1, this.y) instanceof CowContract) {
-				System.out.println("Cow");
 				getEnv().getCellContent(this.x-1, this.y).takeHit();
 			}
 			else if(getEnv().getCellNature(this.x-1, this.y) == Cell.DWC ) {
-				System.out.println("Closed W Door");
+				getEnv().openDoor(this.x-1, this.y);
 			}
 			else if(getEnv().getCellNature(this.x-1, this.y) == Cell.DNC) {
-				System.out.println("Closed N Door");
+				getEnv().openDoor(this.x-1, this.y);
 			}
 			else if(getEnv().getCellNature(this.x-1, this.y) == Cell.DWO) {
-				System.out.println("Opened W Door");
+				getEnv().closeDoor(this.x-1, this.y);
 			}
 			else if(getEnv().getCellNature(this.x-1, this.y) == Cell.DNO) {
-				System.out.println("Opened N Door");
+				getEnv().closeDoor(this.x-1, this.y);
 			}
 			else {
-				System.out.println("Empty cell");
 			}
 			break;
 		}
@@ -237,7 +219,6 @@ public class PlayerImpl implements PlayerService{
 		}
 
 		if(!(Arrays.asList(Cell.DNC,Cell.DWC,Cell.WLL).contains(env.getCellNature(xnew,ynew))) && env.getCellContent(xnew, ynew)==null){
-			//System.out.println("Je suis " + entatpre +" je vais en x"+xnew+" y"+ynew+" et dans la case se trouve " + env.getCellContent(xnew, ynew));
 			env.setCellContent(xatpre, yatpre, null);
 			env.setCellContent(xnew, ynew, entatpre);
 			this.x=xnew;
@@ -473,12 +454,9 @@ public class PlayerImpl implements PlayerService{
 
 	@Override
 	public void takeHit() {
-		System.out.println("PlayerImpl- I have "+hp+" HP");
+		System.out.println("AIE");
 		hp--;
-		System.out.println("PlayerImpl- now "+hp+" HP");
-		if(hp==0) {
-			//retirer entité
-		}
+		System.out.println("Maintenant j'ai " + hp + " HP");
 	}
 
 

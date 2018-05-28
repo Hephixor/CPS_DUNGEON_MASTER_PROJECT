@@ -15,12 +15,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import utils.Cell;
 import utils.Command;
 import utils.Node;
 
 public class DisplayController implements javafx.fxml.Initializable{
 	@FXML private BorderPane borderPane;
+	@FXML private VBox map;
+	@FXML private VBox gameover;
 	@FXML private ImageView a;
 	@FXML private ImageView b;
 	@FXML private ImageView c;
@@ -48,50 +51,40 @@ public class DisplayController implements javafx.fxml.Initializable{
 	public void strafeLeft() {
 		dm.setPlayerCommand(Command.LL);
 		step();
-		//	System.out.println("strafeL");
 	}
 
 	public void strafeRight() {
 		dm.setPlayerCommand(Command.RR);
 		step();
-		//	System.out.println("strafeR");
 	}
 
 	public void forward() {
 		dm.setPlayerCommand(Command.FF);
 		step();
-		//	System.out.println("forward");
 	}
 
 	public void right() {
 		dm.setPlayerCommand(Command.TR);
 		step();
-		//	System.out.println("right");
 	}
 
 	public void left() {
 		dm.setPlayerCommand(Command.TL);
 		step();
-		//	System.out.println("left");
 	}
 
 	public void backward() {
 		dm.setPlayerCommand(Command.BB);
 		step();
-		//	System.out.println("backward");
 	}
 
 	public void hit() {
 		dm.setPlayerCommand(Command.HIT);
 		step();
-		//	System.out.println("hit");
 	}
 
 	public void inventory() {
-		System.out.println("step ---------------------");
-
 		step();
-
 	}
 
 	public Cell getCellNature(int x, int y) {
@@ -228,8 +221,14 @@ public class DisplayController implements javafx.fxml.Initializable{
 
 	private void step(){
 		dm.step();
+		if(dm.getPlayer()==null) {
+			loadGameOver();
+			System.out.println("Game Over loaded");
+		}
+		
+		else {		
 		updateMap();
-
+		}
 	}
 
 
@@ -248,6 +247,16 @@ public class DisplayController implements javafx.fxml.Initializable{
 		}
 	}
 
+	@FXML
+	public void loadGameOver() {
+
+			map.setVisible(false);
+			map.setManaged(false);
+			gameover.setVisible(false);
+			gameover.setManaged(false);
+	
+	}
+	
 	@FXML
 	public void closeApplication() {
 		Platform.exit();
@@ -358,6 +367,12 @@ public class DisplayController implements javafx.fxml.Initializable{
 				break;
 			case DWC:
 				fp = "dwc.png";
+				break;
+			case DWO:
+				fp = "dwo.png";
+				break;
+			case DNO:
+				fp = "dno.png";
 				break;
 			default:
 				fp = "dice.png";

@@ -2,8 +2,8 @@ package contracts;
 
 import java.util.Arrays;
 
+import services.EditMapService;
 import services.EnvironmentService;
-import services.MapService;
 import services.MobService;
 import utils.Cell;
 import decorators.EnvironmentDecorator;
@@ -51,7 +51,7 @@ public class EnvironmentContract extends EnvironmentDecorator{
 
 	}
 
-	public void init(MapService map){
+	public void init(EditMapService map){
 		//pre
 
 		//run

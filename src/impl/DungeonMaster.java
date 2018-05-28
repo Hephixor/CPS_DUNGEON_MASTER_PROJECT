@@ -36,7 +36,7 @@ public class DungeonMaster {
 		//Entities
 		PlayerContract playerc = new PlayerContract(new PlayerImpl());
 
-		playerc.init(envc, Tools.getIn(envc).x, Tools.getIn(envc).y, Dir.N, 10);
+		playerc.init(envc, Tools.getIn(envc).x, Tools.getIn(envc).y, Dir.N, 1);
 
 		EntityService[] mobsc = new EntityService[2];
 		mobsc[0] = new EntityContract(new EntityImpl());
@@ -95,13 +95,7 @@ public class DungeonMaster {
 			enginec.addEntity(entityContract);
 		}
 
-//		System.out.println("Hello welcome to dungeon master"); 
-//		System.out.println("you're playing on a " + mapc.getHeight()+" x " + mapc.getWidth() + " map with");
-//		System.out.println(mobsc.length+" mobs and "+cowsc.length+" cows.");
-//		System.out.println();
-
 		Tools.printEnv(envc);
-
 
 	}
 	
@@ -110,15 +104,24 @@ public class DungeonMaster {
 	}
 	
 	public PlayerContract getPlayer() {
-		return (PlayerContract) enginec.getEntity(0);
+		if(enginec.getEntity(0) instanceof PlayerContract) {
+			return (PlayerContract) enginec.getEntity(0);
+		}
+		return null;
 	}
 	
 	public void setPlayerCommand(Command com){
-		((PlayerContract) enginec.getEntity(0)).setLastCom(com);
+		if(enginec.getEntity(0) instanceof PlayerContract) {
+			((PlayerContract) enginec.getEntity(0)).setLastCom(com);
+		}
 	}
 
 	public void step(){
 		enginec.step();
+		if(enginec.getEntity(0).getCol()==Tools.getOut(enginec.envi()).x 
+				&& enginec.getEntity(0).getRow()==Tools.getOut(enginec.envi()).y) {
+			this.init();
+		}
 		//Tools.printEnv(enginec.envi());
 	}
 	

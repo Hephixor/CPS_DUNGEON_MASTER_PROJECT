@@ -1,5 +1,6 @@
 package impl;
 
+import services.EditMapService;
 import services.EnvironmentService;
 import services.MapService;
 import services.MobService;
@@ -8,7 +9,7 @@ import utils.Cell;
 public class EnvironmentImpl implements EnvironmentService{
 	int h;
 	int w;
-	public MapService map;
+	public EditMapService map;
 	MobService[][] mapmob;
 
 	@Override
@@ -29,7 +30,7 @@ public class EnvironmentImpl implements EnvironmentService{
 	}
 
 
-	public void init(MapService map) {
+	public void init(EditMapService map) {
 		this.map = map;
 		this.mapmob= new MobService[map.getHeight()][map.getWidth()];
 		this.h=map.getHeight();
@@ -38,7 +39,15 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public void openDoor(int x, int y) {
-		return;
+		if(map.getCellNature(x, y)==Cell.DNC) {
+			map.setNature(x,y,Cell.DNO);
+		}
+		else if(map.getCellNature(x, y)==Cell.DWC) {
+			map.setNature(x,y,Cell.DWO);
+		}
+		else {
+			//impossible
+		}
 	}
 
 	@Override
@@ -49,7 +58,15 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public void closeDoor(int x, int y) {
-		return;
+		if(map.getCellNature(x, y)==Cell.DNO) {
+			map.setNature(x,y,Cell.DNC);
+		}
+		else if(map.getCellNature(x, y)==Cell.DWO) {
+			map.setNature(x,y,Cell.DWC);
+		}
+		else {
+			//impossible
+		}
 	}
 
 	@Override
@@ -60,8 +77,8 @@ public class EnvironmentImpl implements EnvironmentService{
 	@Override
 	public void setCellContent(int x, int y, MobService mob) {
 		mapmob[y][x] = mob;
-
 	}
+
 
 }
 

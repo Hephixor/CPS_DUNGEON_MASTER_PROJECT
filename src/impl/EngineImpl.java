@@ -2,6 +2,7 @@ package impl;
 
 import java.util.ArrayList;
 
+import contracts.PlayerContract;
 import services.EngineService;
 import services.EntityService;
 import services.EnvironmentService;
@@ -10,8 +11,8 @@ public class EngineImpl implements EngineService{
 
 	EnvironmentService env;
 	ArrayList<EntityService> ents;
-	
-	
+
+
 	@Override
 	public EnvironmentService envi() {
 		return env;
@@ -31,7 +32,6 @@ public class EngineImpl implements EngineService{
 	public void init(EnvironmentService env) {
 		this.env = env;
 		this.ents = new ArrayList<EntityService>();
-		//parametrer le nombre d'entities
 	}
 
 	@Override
@@ -47,10 +47,21 @@ public class EngineImpl implements EngineService{
 
 	@Override
 	public void step() {
-		
+		EntityService enttoremove=null;
 		for (EntityService entityService : ents) {
 			entityService.step();
 		}
+		for (EntityService entityService : ents) {
+
+			if(entityService.getHP()==0) {
+				System.out.println(entityService + " is dead");
+				enttoremove = entityService;
+				env.setCellContent(enttoremove.getCol(), enttoremove.getRow(), null);
+			}
+		}
+		if(enttoremove!=null)
+			ents.remove(enttoremove);		
+		
 	}
 
 }
