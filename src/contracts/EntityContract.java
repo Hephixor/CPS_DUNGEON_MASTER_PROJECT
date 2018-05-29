@@ -81,17 +81,26 @@ public class EntityContract extends EntityDecorator{
 	@Override
 	public void takeHit() {
 		//pre
-		
+		// takeHit(E) implies HP(E)>0
+		if(getHP()<=0){
+			throw new PreconditionError("Error cannot kill the dead");
+		}
+
 		//inv pre
 		checkInvariants();
 		
+		//capture
+		int hp_atpre = getHP();
 		//run
 		super.takeHit();
-		
-		//Inv post
+
+		//inv post
 		checkInvariants();
+
+		//post 
+		if(getHP()!=hp_atpre-1){
+			throw new PostconditionError("Error hit didn't inflict 1 damage");
+		}
 		
-		//post
-		//Verifier que la vie est descendue
 	}
 }

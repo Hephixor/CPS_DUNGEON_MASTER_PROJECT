@@ -48,6 +48,7 @@ public class EngineImpl implements EngineService{
 	@Override
 	public void step() {
 		EntityService enttoremove=null;
+		
 		for (EntityService entityService : ents) {
 			entityService.step();
 		}

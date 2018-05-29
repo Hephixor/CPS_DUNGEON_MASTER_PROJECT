@@ -19,4 +19,6 @@ public interface PlayerService extends EntityService{
 	
 	public void setLastCom(Command com);
 	
+	public void hit();
+	
 }

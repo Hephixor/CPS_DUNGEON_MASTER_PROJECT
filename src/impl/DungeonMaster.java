@@ -2,21 +2,15 @@ package impl;
 
 import java.util.ArrayList;
 
-import services.EntityService;
-import services.EnvironmentService;
+
 import utils.*;
-import contracts.EditMapContract;
-import contracts.EngineContract;
-import contracts.EntityContract;
-import contracts.EnvironmentContract;
-import contracts.PlayerContract;
-import contracts.CowContract;
-import services.CowService;
+import contracts.*;
+import services.*;
 
 public class DungeonMaster {
 	int heigth ;
 	int width ;
-	EngineContract enginec;
+	EngineService enginec;
 	public DungeonMaster() {
 	}
 
@@ -27,51 +21,51 @@ public class DungeonMaster {
 		width = 10;
 
 		//Map & Env
-		EditMapContract mapc = new EditMapContract(new  EditMapImpl());
-		mapc.init(width, heigth);
+		EditMapService maps = new EditMapContract(new  EditMapImpl());
+		maps.init(width, heigth);
 
-		EnvironmentContract envc = new EnvironmentContract(new EnvironmentImpl());
-		envc.init(mapc);
+		EnvironmentService envs = new EnvironmentContract(new EnvironmentImpl());
+		envs.init(maps);
 
 		//Entities
-		PlayerContract playerc = new PlayerContract(new PlayerImpl());
+		PlayerService players = new PlayerContract(new PlayerImpl());
 
-		playerc.init(envc, Tools.getIn(envc).x, Tools.getIn(envc).y, Dir.N, 1);
+		players.init(envs, Tools.getIn(envs).x, Tools.getIn(envs).y, Dir.N, 5);
 
-		EntityService[] mobsc = new EntityService[2];
-		mobsc[0] = new EntityContract(new EntityImpl());
-		mobsc[1] = new EntityContract(new EntityImpl());
+		EntityService[] mobss = new EntityService[2];
+		mobss[0] = new EntityContract(new EntityImpl());
+		mobss[1] = new EntityContract(new EntityImpl());
 
-		CowService[] cowsc = new CowService[3];
-		cowsc[0] = new CowContract(new CowImpl());
-		cowsc[1] = new CowContract(new CowImpl());
-		cowsc[2] = new CowContract(new CowImpl());
+		CowService[] cowss = new CowService[3];
+		cowss[0] = new CowContract(new CowImpl());
+		cowss[1] = new CowContract(new CowImpl());
+		cowss[2] = new CowContract(new CowImpl());
 
 
 		//Place entities
-		ArrayList<Node> emp = Tools.getEmp(envc);
+		ArrayList<Node> emp = Tools.getEmp(envs);
 
-		for (CowService cowContract : cowsc) {
+		for (CowService cowservice : cowss) {
 			Dir randDir = Tools.randomElement(Dir.values());
 			boolean placed = false;
 
 			do{
 				Node randNode = Tools.randomElement(emp);
-				if(envc.getCellContent(randNode.x, randNode.y)==null){
-					cowContract.init(envc, randNode.x, randNode.y, randDir);
+				if(envs.getCellContent(randNode.x, randNode.y)==null){
+					cowservice.init(envs, randNode.x, randNode.y, randDir);
 					placed=true;
 				}
 			}while(!placed);
 		}
 
-		for (EntityService entityContract : mobsc) {
+		for (EntityService entityservice : mobss) {
 			Dir randDir = Tools.randomElement(Dir.values());
 			boolean placed = false;
 
 			do{
 				Node randNode = Tools.randomElement(emp);
-				if(envc.getCellContent(randNode.x, randNode.y)==null){
-					entityContract.init(envc, randNode.x, randNode.y, randDir);
+				if(envs.getCellContent(randNode.x, randNode.y)==null){
+					entityservice.init(envs, randNode.x, randNode.y, randDir);
 					placed=true;
 				}
 			}while(!placed);
@@ -79,23 +73,25 @@ public class DungeonMaster {
 
 
 		enginec = new EngineContract(new EngineImpl());
-		enginec.init(envc);
+		enginec.init(envs);
 
 		//Add entities
+		
 		//Player
-		enginec.addEntity(playerc);
+		enginec.addEntity(players);
 
 		//Cows
-		for (CowService cowContract : cowsc) {
-			enginec.addEntity(cowContract);
+		for (CowService cowservice : cowss) {
+			enginec.addEntity(cowservice);
 		}
 
 		//Mobs
-		for (EntityService entityContract : mobsc) {
-			enginec.addEntity(entityContract);
+		for (EntityService entityservice : mobss) {
+			enginec.addEntity(entityservice);
 		}
 
-		Tools.printEnv(envc);
+		getPlayer();
+		Tools.printEnv(envs);
 
 	}
 	
@@ -113,6 +109,7 @@ public class DungeonMaster {
 	public void setPlayerCommand(Command com){
 		if(enginec.getEntity(0) instanceof PlayerContract) {
 			((PlayerContract) enginec.getEntity(0)).setLastCom(com);
+		//	System.out.println("Set last com " + com .toString() + " --" +  enginec.getEntity(0).toString());
 		}
 	}
 

@@ -127,7 +127,7 @@ public class GameInterface extends JFrame {
 					currCellType = WLL; 
 					break;
 				}
-				g.drawImage(tiles[currCellType],x*32,y*32,null);
+				g.drawImage(tiles[currCellType],x*32,(heigth-1-y)*32,null);
 			}
 		}
 

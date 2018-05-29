@@ -24,9 +24,7 @@ public class EnvironmentContract extends EnvironmentDecorator{
 	@Override
 	public MobService getCellContent(int x, int y) {
 		//pre
-//		if(Arrays.asList(Cell.WLL, Cell.DNC, Cell.DWC).contains(getCellNature(x,y)) )
-//			throw new PreconditionError("getCellContent d'une cellule WLL DNC ou DWC");
-//		
+
 		//run
 		return super.getCellContent(x, y);
 	}
@@ -67,15 +65,15 @@ public class EnvironmentContract extends EnvironmentDecorator{
 		//pre
 		
 		Cell nature = getCellNature(x, y);
-		//System.out.println("setCellContent "+nature);
+
 		if(Arrays.asList(Cell.WLL, Cell.DNC, Cell.DWC).contains(nature)){
 			throw new PreconditionError("cannot place mob in a wall or closed door.");
 		}
 		
 
-//		if(getCellContent(x, y)!=null && mob!=null){
-//			throw new PreconditionError("Cell is already occupied by a mob");
-//		}
+		if(getCellContent(x, y)!=null && mob!=null){
+			throw new PreconditionError("Cell is already occupied by a mob");
+		}
 		
 		//invariants
 		checkInvariants();
@@ -88,7 +86,6 @@ public class EnvironmentContract extends EnvironmentDecorator{
 					}
 				}
 
-		
 		//run
 		super.setCellContent(x, y, mob);
 		
@@ -101,7 +98,7 @@ public class EnvironmentContract extends EnvironmentDecorator{
 			throw new PostconditionError("Error placing mob");
 		}
 		
-		//forall u,v in int 2 , u 6 = x or v 6 = y implies CellContent(setCellContent(M,x,y),u,v) = CellContent(M,u,v)
+		//forall u,v in int^2 , u != x or v != y implies CellContent(setCellContent(M,x,y),u,v) = CellContent(M,u,v)
 				for(int i = 0 ; i < getWidth(); i++) {
 					for(int j = 0; j < getHeight(); j++) {
 						if(i!=x || j!=y) {

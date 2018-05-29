@@ -360,7 +360,46 @@ public class DisplayController implements javafx.fxml.Initializable{
 				}
 				break;
 			case OUT:
-				fp = "out.png";
+				if(dm.getEnv().getCellContent(n.x,n.y) instanceof PlayerContract) {
+					switch(dm.getEnv().getCellContent(n.x,n.y).getFace()) {
+					case N:
+						fp="out_player_n.png";
+						break;
+					case S:
+						fp="out_player_s.png";
+						break;
+					case E:
+						fp="out_player_e.png";
+						break;
+					case W:
+						fp="out_player_w.png";
+						break;
+					}
+
+				}
+				else if(dm.getEnv().getCellContent(n.x,n.y) instanceof EntityContract) {
+					switch(dm.getEnv().getCellContent(n.x,n.y).getFace()) {
+					case N:
+						fp="out_mob_e.png";
+						break;
+					case S:
+						fp="out_mob_w.png";
+						break;
+					case E:
+						fp="out_mob_e.png";
+						break;
+					case W:
+						fp="out_mob_w.png";
+						break;
+					}
+
+				}
+				else if(dm.getEnv().getCellContent(n.x,n.y) instanceof CowContract) {
+					fp="out_cow.png";
+				}
+				else{
+					fp = "out.png";
+				}
 				break;
 			case DNC:
 				fp = "dnc.png";

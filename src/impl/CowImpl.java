@@ -298,7 +298,7 @@ public class CowImpl implements CowService{
 
 	@Override
 	public void hit() {
-		System.out.println("Meeeeh");
+		
 	}
 
 	@Override
