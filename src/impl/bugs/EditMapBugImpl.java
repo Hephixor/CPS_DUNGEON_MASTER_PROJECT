@@ -1,6 +1,6 @@
 package impl.bugs;
 
-import impl.MapImpl;
+import impl.bugs.MapBugImpl;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import utils.Cell;
 import utils.Node;
 import utils.Pathfinder;
 
-public class EditMapBugImpl extends MapImpl implements EditMapService{
+public class EditMapBugImpl extends MapBugImpl implements EditMapService{
 	//List<Node> path;
 	
 	@Override
