@@ -2,4 +2,4 @@ bin/
 doc/
 build/
 .settings/
-./*.jar
+dungeon_master.jar
