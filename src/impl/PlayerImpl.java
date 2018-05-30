@@ -346,11 +346,9 @@ public class PlayerImpl implements PlayerService{
 	public void takeHit() {
 		System.out.println("AIE");
 		hp--;
-		System.out.println("Maintenant j'ai " + hp + " HP");
 	}
 	
 	public void hit(){
-		System.out.println("impl hit");
 		switch(orientation) {
 		case N:
 			if(getEnv().getCellContent(this.x, this.y+1) instanceof EntityContract) {;
