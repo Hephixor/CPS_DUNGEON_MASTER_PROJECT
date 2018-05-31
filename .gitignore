@@ -1,4 +1,5 @@
 doc/
+bin/
 build/
 .settings/
 dungeon_master.jar
