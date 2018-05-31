@@ -44,8 +44,6 @@ public class PlayerContract extends PlayerDecorator {
 			}
 
 			if(!(Objects.equals(getNature(x, y), this.getEnv().getCellNature(this.getCol()+x, this.getRow()+y)))) {
-				System.out.println("Getting nature on x:"+x+" y:"+y +" :: "+getNature(x, y));
-				System.out.println("Getting Cell nature on x:"+(this.getCol()+x)+" y:"+ (this.getRow()+y)+" :: "+getNature(x, y));
 				throw new InvariantError("Cell nature in fov error");
 			}
 			break;
@@ -257,7 +255,6 @@ public class PlayerContract extends PlayerDecorator {
 
 
 	public void hit(){
-		System.out.println("Hit contract");
 
 		//pre
 
@@ -472,7 +469,6 @@ public class PlayerContract extends PlayerDecorator {
 	
 	@Override
 	public void step() {
-		System.out.println("Step contract --");
 		//pre
 
 		//inv pre
@@ -551,7 +547,6 @@ public class PlayerContract extends PlayerDecorator {
 			}
 		
 		//run
-		System.out.println("pos face: x"+getCol()+" y"+getRow()+" "+getFace());
 		super.step();
 		
 		//		System.out.println("position af step x:" + getCol() + " y:"+getRow());
@@ -560,7 +555,6 @@ public class PlayerContract extends PlayerDecorator {
 		checkInvariants();
 		
 		//post
-		System.out.println(lastCom_atpre);
 		if(lastCom_atpre!=null) {
 			switch(lastCom_atpre) {
 			case FF:
@@ -829,7 +823,6 @@ public class PlayerContract extends PlayerDecorator {
 				
 			case HIT:
 				//post Hit
-				System.out.println("test");
 				//Si on a agit sur une case vide, on sort;
 				if(!(cell_atpre==null && mob_atpre==null)){
 					if(super.getFace()==Dir.N){
