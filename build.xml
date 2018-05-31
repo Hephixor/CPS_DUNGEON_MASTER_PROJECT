@@ -1,12 +1,71 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="create_run_jar" name="Create Runnable Jar for Project Dungeon Master">
-    <target name="create_jar">
-        <jar destfile="./dm.jar" filesetmanifest="mergewithoutmain">
-            <manifest>
+<!-- ant -lib jars/ant-junit-1.9.2.jar test1 -->
+
+<project name="dungeon" default="compile" basedir=".">
+    <description>
+       Fichier de construction pour Dungeon Master
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="jars" location="jars"/>
+  
+
+  <!-- METTRE ICI LE NOM DU BINOME -->
+  <property name="nom1" value="SERGEANT"/>
+  <property name="nom2" value="HAVINH"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac debug="true" classpath="${jars}/junit.jar" srcdir="${src}" excludes="" destdir="${build}" includeantruntime="false" />
+  </target>
+
+  <target name="test1" depends="compile" description="test of first implementation">
+    <echo>================ Run first test ================</echo>
+    <junit printsummary="yes">
+      <classpath>
+        <pathelement location="${build}"/>
+        <pathelement location="${jars}/junit.jar"/>
+        <pathelement location="${jars}/ant-junit-1.9.2.jar"/>
+         <fileset dir="${basedir}/jars"/>
+      </classpath>
+      <formatter type="plain"/>
+      <test name="tests.Map1Test" outfile="report1"/>
+    </junit>
+  </target>
+
+ 
+  <target name="dist" depends="init,clean"
+        description="Generer la distribution" >
+       
+    <!-- tout mettre dans l'archive -->
+    <jar basedir="." jarfile="./dm.jar"
+    includes="${src}/**/*">
+    
+     <manifest>
                 <attribute name="Main-Class" value="display.MainLauncher"/>
                 <attribute name="Class-Path" value="."/>
-            </manifest>
-            <fileset dir="./bin"/>
-        </jar>
-    </target>
+		</manifest>
+		 <fileset dir="./bin"/>
+</jar>
+  </target>
+
+  <target name="clean"
+        description="clean up" >	
+	<echo>================ Removing temporary files... ================</echo>
+        <delete verbose="true"> <!-- Remove all *~ files -->
+	   <fileset dir="${basedir}" defaultexcludes="no">
+             <include name="**/*~"/>
+           </fileset>
+        </delete>
+        <echo>================ Removing build directory ================</echo>    
+	<delete dir="${build}"/>
+  </target>
 </project>

@@ -1,8 +1,13 @@
 package tests;
 
-import contracts.MapContract;
+import static org.junit.Assert.*;
 import impl.EditMapImpl;
+
+import org.junit.Test;
+
 import services.EditMapService;
+import contracts.MapContract;
+
 
 public class Map1Test extends AbstractMapTest {
 	
@@ -15,5 +20,10 @@ public class Map1Test extends AbstractMapTest {
 		
 		//System.out.println(this.getEditMap().getClass());
 		//System.out.println(this.getMap().getClass());
+	}
+	
+	@Test
+	public void testInvoke(){
+	assertTrue(true);
 	}
 }

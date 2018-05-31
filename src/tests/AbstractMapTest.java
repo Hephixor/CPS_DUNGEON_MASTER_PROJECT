@@ -5,6 +5,8 @@ import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 
+import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +16,7 @@ import services.EditMapService;
 import services.MapService;
 import utils.Cell;
 
-public abstract class AbstractMapTest {
+public abstract class AbstractMapTest extends TestCase{
 	
 	private MapService map;
 	private EditMapService editmap;
@@ -57,7 +59,7 @@ public abstract class AbstractMapTest {
 	/*getCellNature*/
 	
 	@Test
-	public void preGetCellNaturePositif() {
+	public void testPreGetCellNaturePositif() {
 		//init
 		map.init(14, 35);
 		
