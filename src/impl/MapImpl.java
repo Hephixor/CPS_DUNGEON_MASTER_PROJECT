@@ -16,12 +16,12 @@ public class MapImpl implements MapService {
 	List<Node> path;
 	public Node in;
 	public Node out;
-	
+
 	//Debug
 	public Cell[][] getCells(){
 		return cells;
 	}
-	
+
 	@Override
 	public int getHeight() {
 		return h;
@@ -45,12 +45,10 @@ public class MapImpl implements MapService {
 		this.path=null;
 		MapGenerator mgen = new MapGenerator( w, h, ((w+h)), (w/4)+(h/4) );
 		cells = mgen.getMap();
-		
-		
-		
+
 		/* Commenter cette ligne pour désactiver la mini-carte */
 		GameInterface gi = new GameInterface(cells);
-		
+
 		for(int x=0; x<cells[0].length; x++){
 			for(int y=0; y<cells.length; y++){
 				if(cells[y][x] == Cell.IN){

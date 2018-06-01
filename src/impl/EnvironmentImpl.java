@@ -39,33 +39,20 @@ public class EnvironmentImpl implements EnvironmentService{
 
 	@Override
 	public void openDoor(int x, int y) {
-		if(map.getCellNature(x, y)==Cell.DNC) {
-			map.setNature(x,y,Cell.DNO);
-		}
-		else if(map.getCellNature(x, y)==Cell.DWC) {
-			map.setNature(x,y,Cell.DWO);
-		}
-		else {
-			//impossible
+		if(map.getCellNature(x, y)==Cell.DNC || map.getCellNature(x, y)==Cell.DWC) {
+			map.openDoor(x,y);
 		}
 	}
 
 	@Override
 	public MobService getCellContent(int x, int y) {
-		//System.out.println("Eimp-Getting content with env "+this.toString());
 		return mapmob[y][x];
 	}
 
 	@Override
 	public void closeDoor(int x, int y) {
-		if(map.getCellNature(x, y)==Cell.DNO) {
-			map.setNature(x,y,Cell.DNC);
-		}
-		else if(map.getCellNature(x, y)==Cell.DWO) {
-			map.setNature(x,y,Cell.DWC);
-		}
-		else {
-			//impossible
+		if(map.getCellNature(x, y)==Cell.DNO || map.getCellNature(x, y)==Cell.DWO) {
+			map.closeDoor(x,y);
 		}
 	}
 
