@@ -40,6 +40,7 @@ public class MainLauncher extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.sizeToScene();
 		primaryStage.centerOnScreen();
+		primaryStage.setFullScreen(false);
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(e -> Platform.exit());
 		

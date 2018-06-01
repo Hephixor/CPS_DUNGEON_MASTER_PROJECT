@@ -54,6 +54,7 @@ public class DungeonMaster {
 				if(envs.getCellContent(randNode.x, randNode.y)==null){
 					cowservice.init(envs, randNode.x, randNode.y, randDir);
 					placed=true;
+					emp.remove(randNode);
 				}
 			}while(!placed);
 		}
@@ -67,6 +68,7 @@ public class DungeonMaster {
 				if(envs.getCellContent(randNode.x, randNode.y)==null){
 					entityservice.init(envs, randNode.x, randNode.y, randDir);
 					placed=true;
+					emp.remove(randNode);
 				}
 			}while(!placed);
 		}
