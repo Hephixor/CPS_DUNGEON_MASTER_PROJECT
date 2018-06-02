@@ -71,7 +71,7 @@ public class Tools {
 
 	public static void printMap(MapService map){
 
-		for(int y = map.getHeight()-1 ; y >= 0 ; y++ ){
+		for(int y = map.getHeight()-1 ; y >= 0 ; y-- ){
 			for(int x = 0 ; x < map.getWidth() ; x++){
 				switch(map.getCellNature(x,y)){
 				
@@ -91,7 +91,25 @@ public class Tools {
 					System.out.print("  .");	
 					break;
 					
+				case DNC:
+					System.out.print("[n]");
+					break;
+					
+				case DWC:
+					System.out.print("[w]");
+					break;
+					
+				case DNO:
+					System.out.print("]n[");
+					break;
+					
+				case DWO:
+					System.out.print("]w[");
+					break;
+					
+				
 				default:
+					System.out.print("ERR");
 					break;
 					
 				}
@@ -135,7 +153,7 @@ public class Tools {
 					break;
 					
 				case DWO:
-					System.out.print("]w[.");
+					System.out.print("]w[");
 					break;
 					
 				default:
@@ -233,27 +251,5 @@ public class Tools {
 		Random numberGenerator = new Random();
 		return elements.get(numberGenerator.nextInt(elements.size()));
 	}
-
-	public static void main(String[] args) {
-		
-		Cell[][] mapF = {{Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP},
-						{Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP},
-						{Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP},
-						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
-						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
-						{Cell.EMP, Cell.WLL, Cell.WLL, Cell.WLL, Cell.EMP},
-						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
-						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
-						{Cell.EMP, Cell.WLL, Cell.EMP, Cell.EMP, Cell.EMP},
-						{Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP, Cell.EMP}};
-		
-		mapF[1][1] = Cell.IN;
-		mapF[2][1] = Cell.OUT; //NORTH ? non => SUD (axe Y inverse)
-		mapF[1][2] = Cell.OUT; //EAST ? oui 
-		mapF[1][0] = Cell.DNO; //WEST ? oui 
-		mapF[0][1] = Cell.DNC; //SOUTH ? non => NORTH
-		
-		
-		printMap(mapF);
-	}
+	
 }

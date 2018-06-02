@@ -34,7 +34,7 @@ public class MobContract extends MobDecorator{
 		if( Arrays.asList(Cell.WLL, Cell.DNC, Cell.DWC).contains(o) )
 			throw new InvariantError("@inv Environment::CellNature(Envi(M),Col(M),Row(M)) in {WLL, DNC, DWC}");
 	}
-
+	
 	@Override
 	public void init(EnvironmentService e, int x, int y, Dir d) {
 		//pre

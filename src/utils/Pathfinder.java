@@ -2,41 +2,40 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import services.MapService;
+
 public class Pathfinder {
 	
-	private Cell map[][];
-	/*au debut une map de boolean, ce sera finalement une map d'etats :
-	 * 0 : invisitable, 1:vide, 2:en cours, 3:deja visite, 4:chemin final
-	 */
+	/*attributs internes au fonctionnement du pathfinder*/
+	
+	private MapService map;
+	//etat cell, 0 : invisitable, 1:vide, 2:en cours, 3:deja visite, 4:chemin final
 	private int etat[][];
-	int largeur;
-	int hauteur;
-	private boolean fini;
-	private List<Node> chemin;
-	private boolean hasPath;
 	private Node in;
 	private Node out;
 	
-	public Pathfinder(Cell[][] map, int inx, int iny, int outx, int outy) {
+	/*attributs internes et externes (getters dessus) du pathfinder*/
+	private boolean fini;
+	private List<Node> chemin;
+	
+	public Pathfinder(MapService map, int inx, int iny, int outx, int outy) {
 		this.fini = false;
 		this.chemin = new ArrayList<Node>();
 		this.in = new Node(inx,iny);
 		this.out = new Node(outx,outy);
 		
-		this.map = map;
-		/*notation map[y][x] et visitable[y][x]*/
-		this.largeur = map[0].length;
-		this.hauteur = map.length;
-		this.etat = new int[hauteur][largeur];
+		this.map = map; 
+		this.etat = new int[map.getHeight()][map.getWidth()];
 		
+		this.path();
 	}
 	
 	
-	public List<Node> path(){
+	private List<Node> path(){
 		/*on initialise les cases visitables ou non par 0 ou 1*/
-		for(int y=0; y<hauteur; y++){
-			for(int x=0; x<largeur; x++){
-				if(map[y][x]==Cell.WLL)
+		for(int y=0; y<map.getHeight(); y++){
+			for(int x=0; x<map.getWidth(); x++){
+				if(map.getCellNature(x, y)==Cell.WLL)
 					etat[y][x] = 0;
 				else
 					etat[y][x] = 1;
@@ -59,11 +58,11 @@ public class Pathfinder {
 	}
 	
 	
-	public boolean rec(int x, int y){
+	private boolean rec(int x, int y){
 		//System.out.println("\nrec(("+x+","+y+"))...");
 		
 		/*noeud "invisitable"*/
-		if(x>=largeur || y>=hauteur || x<0 || y<0 || etat[y][x] == 0 ){
+		if(x>=map.getWidth() || y>=map.getHeight() || x<0 || y<0 || etat[y][x] == 0 ){
 		//	System.out.println("case invisitable");
 			return false;
 		}
@@ -86,7 +85,6 @@ public class Pathfinder {
 			//System.out.println("Found path !");
 			chemin.add(new Node(x,y));
 			fini = true;
-			hasPath=true;
 			/*on marque le noeud comme "chemin trouve"*/
 			etat[y][x] = 4;
 			return true;
@@ -123,11 +121,11 @@ public class Pathfinder {
 		return false;
 	}
 	
-	public int[][] getPath(){
-		return etat;
+	public List<Node> getPath(){
+		return chemin;
 	}
 	
 	public boolean hasPath() {
-		return hasPath;
+		return fini;
 	}
 }

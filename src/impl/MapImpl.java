@@ -62,8 +62,7 @@ public class MapImpl implements MapService {
 			}
 		}
 
-		Pathfinder pf = new Pathfinder(cells,in.x,in.y,out.x,out.y);
-		path = pf.path();
+		Pathfinder pf = new Pathfinder(this,in.x,in.y,out.x,out.y);
 	}
 
 	@Override

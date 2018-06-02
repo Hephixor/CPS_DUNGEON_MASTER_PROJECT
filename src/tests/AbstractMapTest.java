@@ -54,7 +54,7 @@ public abstract class AbstractMapTest{
 	/*getCellNature*/
 	
 	@Test
-	public void testPreGetCellNaturePositif() {
+	public void preGetCellNaturePositif() {
 		//init
 		map.init(14, 35);
 		
@@ -203,11 +203,11 @@ public abstract class AbstractMapTest{
 	
 	/* ========== COUVERTURE TRANSITIONS ========== */
 
+	/* init, openDoor, closeDoor */
+	
 	private void assertInv() {
 		assertTrue(true);
 	}
-	
-	//TODO
 	
 	/*init*/
 	

@@ -17,7 +17,7 @@ public class EditMapImpl extends MapImpl implements EditMapService{
 
 	@Override
 	public boolean isReachable(int px, int py, int ox, int oy) {
-		Pathfinder pf = new Pathfinder(cells,px,py,ox,oy);
+		Pathfinder pf = new Pathfinder(this,px,py,ox,oy);
 		return pf.hasPath();
 	}
 

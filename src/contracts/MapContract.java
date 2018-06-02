@@ -12,8 +12,10 @@ public class MapContract extends MapDecorator {
 		super(delegate);
 	}
 	
+	/*========== invariants ==========*/
+	
 	public void checkInvariant() {
-
+		//aucun
 	}
 
 	/*========== preconditions des operateurs ==========*/
