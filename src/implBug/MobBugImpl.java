@@ -1,4 +1,4 @@
-package impl.bugs;
+package implBug;
 
 import services.EnvironmentService;
 import services.MobService;

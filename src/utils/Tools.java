@@ -6,7 +6,6 @@ import java.util.Random;
 
 import services.EnvironmentService;
 import services.MapService;
-import services.PlayerService;
 import contracts.CowContract;
 import contracts.EntityContract;
 import contracts.PlayerContract;

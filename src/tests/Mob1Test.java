@@ -1,6 +1,5 @@
 package tests;
 
-import services.EditMapService;
 import contracts.EditMapContract;
 import contracts.EnvironmentContract;
 import contracts.MobContract;

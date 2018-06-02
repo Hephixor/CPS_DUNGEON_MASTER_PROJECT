@@ -1,4 +1,4 @@
-package impl.bugs;
+package implBug;
 
 import java.util.Arrays;
 

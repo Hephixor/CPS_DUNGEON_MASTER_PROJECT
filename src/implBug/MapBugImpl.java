@@ -1,8 +1,7 @@
-package impl.bugs;
+package implBug;
 
 import java.util.List;
 
-import display.GameInterface;
 import services.MapService;
 import utils.Cell;
 import utils.MapGenerator;

@@ -12,6 +12,6 @@ public interface EnvironmentService extends MapService {
 	
 	public void setCellContent(int x, int y, MobService mob);
 	
-	public void init(EditMapService map);
+	public void init(MapService map);
 	
 }

@@ -3,8 +3,6 @@ package impl;
 import java.util.Arrays;
 import java.util.Random;
 
-import contracts.CowContract;
-import contracts.EntityContract;
 import contracts.PlayerContract;
 import services.CowService;
 import services.EnvironmentService;

@@ -1,6 +1,5 @@
 package tests;
 
-import static org.junit.Assert.*;
 import impl.EditMapImpl;
 
 import org.junit.Test;

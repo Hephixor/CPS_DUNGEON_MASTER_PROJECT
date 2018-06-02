@@ -1,9 +1,8 @@
-package impl.bugs;
-
-import impl.bugs.MapBugImpl;
+package implBug;
 
 import java.util.List;
 
+import implBug.MapBugImpl;
 import services.EditMapService;
 import utils.Cell;
 import utils.Node;

@@ -1,15 +1,16 @@
-package impl.bugs;
+package implBug;
 
 import java.util.Arrays;
 import java.util.Random;
 
+import contracts.PlayerContract;
 import services.CowService;
 import services.EnvironmentService;
 import services.MobService;
 import utils.Cell;
 import utils.Dir;
 
-public class CowBugImpl implements CowService{
+public class EntityBugImpl implements CowService{
 	private 
 	int hp;
 	int x;
@@ -18,18 +19,17 @@ public class CowBugImpl implements CowService{
 	EnvironmentService env;
 	Random rnd = new Random();
 
-	public CowBugImpl() {
+	public EntityBugImpl() {
 
 	}
 
 	@Override
 	public int getHP() {
-		return hp;
+		return -1;
 	}
 
 	@Override
 	public void step() {
-		//Tools.randomElement(Dir.values());
 		/*TODO  ca appelle quelle méthode step() ? super ? cow.step() doit faire
 		 * aleatoirement une des 6 commandes possibles d'un mob (forward backward
 		 * turnL turnR strafeL strafeR
@@ -88,7 +88,7 @@ public class CowBugImpl implements CowService{
 		this.x = x;
 		this.y = y;
 		orientation = d;
-		hp = -1;
+		hp = 3;
 	}
 
 	@Override
@@ -122,6 +122,7 @@ public class CowBugImpl implements CowService{
 		}
 
 		if(!(Arrays.asList(Cell.DNC,Cell.DWC,Cell.WLL).contains(env.getCellNature(xnew,ynew))) && env.getCellContent(xnew, ynew)==null){
+			//	System.out.println("Je suis " + entatpre +" je vais en x"+xnew+" y"+ynew+" et dans la case se trouve " + env.getCellContent(xnew, ynew));
 			env.setCellContent(xatpre, yatpre, null);
 			env.setCellContent(xnew, ynew, entatpre);
 			this.x=xnew;
@@ -298,7 +299,24 @@ public class CowBugImpl implements CowService{
 
 	@Override
 	public void hit() {
-		
+		//Frappe circulaire
+
+		if(getEnv().getCellContent(this.x, this.y+1) instanceof PlayerContract) {;
+		getEnv().getCellContent(this.x, this.y+1).takeHit();
+		}
+
+		if(getEnv().getCellContent(this.x, this.y-1) instanceof PlayerContract) {
+			getEnv().getCellContent(this.x, this.y-1).takeHit();
+		}
+
+		if(getEnv().getCellContent(this.x+1, this.y) instanceof PlayerContract) {
+			getEnv().getCellContent(this.x+1, this.y).takeHit();
+		}
+
+		if(getEnv().getCellContent(this.x-1, this.y) instanceof PlayerContract) {
+			getEnv().getCellContent(this.x-1, this.y).takeHit();
+		}
+
 	}
 
 	@Override

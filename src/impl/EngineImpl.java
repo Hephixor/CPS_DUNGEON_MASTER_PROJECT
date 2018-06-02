@@ -2,7 +2,6 @@ package impl;
 
 import java.util.ArrayList;
 
-import contracts.PlayerContract;
 import services.EngineService;
 import services.EntityService;
 import services.EnvironmentService;

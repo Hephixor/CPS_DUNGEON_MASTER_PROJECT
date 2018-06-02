@@ -1,6 +1,5 @@
-package impl.bugs;
+package implBug;
 
-import services.EditMapService;
 import services.EnvironmentService;
 import services.MapService;
 import services.MobService;
@@ -9,7 +8,7 @@ import utils.Cell;
 public class EnvironmentBugImpl implements EnvironmentService{
 	int h;
 	int w;
-	public EditMapService map;
+	public MapService map;
 	MobService[][] mapmob;
 
 	@Override
@@ -30,7 +29,7 @@ public class EnvironmentBugImpl implements EnvironmentService{
 	}
 
 
-	public void init(EditMapService map) {
+	public void init(MapService map) {
 		this.map = map;
 		this.mapmob= new MobService[map.getHeight()][map.getWidth()];
 		this.h=map.getHeight();
@@ -39,15 +38,7 @@ public class EnvironmentBugImpl implements EnvironmentService{
 
 	@Override
 	public void openDoor(int x, int y) {
-		if(map.getCellNature(x, y)==Cell.DNC) {
-			map.setNature(x,y,Cell.DNO);
-		}
-		else if(map.getCellNature(x, y)==Cell.DWC) {
-			map.setNature(x,y,Cell.DWO);
-		}
-		else {
-			//impossible
-		}
+		map.openDoor(x, y);
 	}
 
 	@Override
@@ -58,15 +49,7 @@ public class EnvironmentBugImpl implements EnvironmentService{
 
 	@Override
 	public void closeDoor(int x, int y) {
-		if(map.getCellNature(x, y)==Cell.DNO) {
-			map.setNature(x,y,Cell.DNC);
-		}
-		else if(map.getCellNature(x, y)==Cell.DWO) {
-			map.setNature(x,y,Cell.DWC);
-		}
-		else {
-			//impossible
-		}
+		map.closeDoor(x, y);
 	}
 
 	@Override

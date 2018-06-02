@@ -1,6 +1,5 @@
 package decorators;
 
-import services.EditMapService;
 import services.EnvironmentService;
 import services.MapService;
 import services.MobService;
@@ -23,7 +22,7 @@ public class EnvironmentDecorator extends MapDecorator implements EnvironmentSer
 	}
 
 	@Override
-	public void init(EditMapService map) {
+	public void init(MapService map) {
 		delegate.init(map);
 	}
 

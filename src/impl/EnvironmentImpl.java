@@ -1,6 +1,5 @@
 package impl;
 
-import services.EditMapService;
 import services.EnvironmentService;
 import services.MapService;
 import services.MobService;
@@ -9,7 +8,7 @@ import utils.Cell;
 public class EnvironmentImpl implements EnvironmentService{
 	int h;
 	int w;
-	public EditMapService map;
+	public MapService map;
 	MobService[][] mapmob;
 
 	@Override
@@ -30,7 +29,7 @@ public class EnvironmentImpl implements EnvironmentService{
 	}
 
 
-	public void init(EditMapService map) {
+	public void init(MapService map) {
 		this.map = map;
 		this.mapmob= new MobService[map.getHeight()][map.getWidth()];
 		this.h=map.getHeight();
