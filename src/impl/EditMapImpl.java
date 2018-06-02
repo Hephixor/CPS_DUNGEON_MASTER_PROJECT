@@ -13,28 +13,6 @@ public class EditMapImpl extends MapImpl implements EditMapService{
 	@Override
 	public void init(int w, int h) {
 		super.init(w,h);
-//		this.path=null;
-//		MapGenerator mgen = new MapGenerator(w,h,150,20);
-//		cells = mgen.getMap();
-//		
-//		for(int x=0; x<cells[0].length; x++){
-//			for(int y=0; y<cells.length; y++){
-//				if(cells[y][x] == Cell.IN){
-//					in.x = x;
-//					in.y = y;
-//					//System.out.println("IN = ("+inx+","+iny+")");
-//				}
-//				if(cells[y][x] == Cell.OUT){
-//					out.x = x;
-//					out.y = y;
-//					//System.out.println("OUT = ("+outx+","+outy+")");
-//				}
-//			}
-//		}
-//
-//		Pathfinder pf = new Pathfinder(cells,in.x,in.y,out.x,out.y);
-//		path = pf.path();
-		
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package tests;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +11,7 @@ import services.EditMapService;
 import services.MapService;
 import utils.Cell;
 
-public abstract class AbstractMapTest extends TestCase{
+public abstract class AbstractMapTest{
 	
 	private MapService map;
 	private EditMapService editmap;
