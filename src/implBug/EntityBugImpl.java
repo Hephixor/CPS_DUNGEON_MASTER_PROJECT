@@ -25,7 +25,7 @@ public class EntityBugImpl implements CowService{
 
 	@Override
 	public int getHP() {
-		return -1;
+		return hp-10;
 	}
 
 	@Override
@@ -322,6 +322,7 @@ public class EntityBugImpl implements CowService{
 	@Override
 	public void takeHit() {
 		hp--;
+		
 	}
 
 }

@@ -173,14 +173,24 @@ public class MapGenerator {
 			//Choix aléatoire porte DN ou DW
 			int rand = numberGenerator.nextInt(2);
 			if(rand == 0) {
-				if(map[randNode.y][randNode.x-1]==Cell.WLL && map[randNode.y][randNode.x+1]==Cell.WLL) {
+				if(
+					map[randNode.y][randNode.x-1]==Cell.EMP && 
+					map[randNode.y][randNode.x+1]==Cell.EMP &&
+					map[randNode.y-1][randNode.x]==Cell.WLL && 
+					map[randNode.y+1][randNode.x]==Cell.WLL
+				) {
 					map[randNode.y][randNode.x]=Cell.DNC;
 			//		System.out.println("placing DNC at ["+randNode.y+","+randNode.x+"]");
 					nbDoors--;
 				}
 			}
 			else {
-				if(map[randNode.y-1][randNode.x]==Cell.WLL && map[randNode.y+1][randNode.x]==Cell.WLL) {
+				if(
+					map[randNode.y][randNode.x-1]==Cell.WLL && 
+					map[randNode.y][randNode.x+1]==Cell.WLL &&
+					map[randNode.y-1][randNode.x]==Cell.EMP && 
+					map[randNode.y+1][randNode.x]==Cell.EMP
+				) {
 					map[randNode.y][randNode.x]=Cell.DWC;
 			//		System.out.println("placing DWC at ["+randNode.y+","+randNode.x+"]");
 					nbDoors--;

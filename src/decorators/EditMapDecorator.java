@@ -1,10 +1,7 @@
 package decorators;
 
-import java.util.List;
-
 import services.EditMapService;
 import utils.Cell;
-import utils.Node;
 
 public class EditMapDecorator extends MapDecorator implements EditMapService{
 	private final EditMapService delegate;
@@ -28,11 +25,4 @@ public class EditMapDecorator extends MapDecorator implements EditMapService{
 	public EditMapService setNature(int x, int y, Cell c) {
 		return delegate.setNature(x, y, c);
 	}
-
-	@Override
-	public List<Node> getPath() {
-		return delegate.getPath();
-	}
-
-	
 }

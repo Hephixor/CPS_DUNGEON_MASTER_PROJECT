@@ -7,7 +7,6 @@ import services.MapService;
 import utils.Cell;
 import utils.MapGenerator;
 import utils.Node;
-import utils.Pathfinder;
 
 public class MapImpl implements MapService {
 	int h;
@@ -47,7 +46,7 @@ public class MapImpl implements MapService {
 		cells = mgen.getMap();
 
 		/* Commenter cette ligne pour désactiver la mini-carte */
-		GameInterface gi = new GameInterface(cells);
+		new GameInterface(cells);
 
 		for(int x=0; x<cells[0].length; x++){
 			for(int y=0; y<cells.length; y++){
@@ -61,8 +60,6 @@ public class MapImpl implements MapService {
 				}
 			}
 		}
-
-		Pathfinder pf = new Pathfinder(this,in.x,in.y,out.x,out.y);
 	}
 
 	@Override

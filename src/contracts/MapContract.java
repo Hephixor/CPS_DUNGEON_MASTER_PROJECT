@@ -18,7 +18,8 @@ public class MapContract extends MapDecorator {
 		//aucun
 	}
 
-	/*========== preconditions des operateurs ==========*/
+	
+	/*========== preconditions ==========*/
 	
 	public void preGetCellNature(int x, int y) {
 		if( !( 0<=x && x<getWidth() && 0<= y && y<getHeight() ) ) {
@@ -50,7 +51,7 @@ public class MapContract extends MapDecorator {
 	}
 	
 	
-	/*========== postconditions des operateurs ==========*/
+	/*========== postconditions ==========*/
 	
 	public void postInit(int w, int h) {
 		//Height(init(w,h)) = h
@@ -99,7 +100,7 @@ public class MapContract extends MapDecorator {
 	}
 	
 	
-	/*========== operateurs ==========*/
+	/*========== observateurs ==========*/
 	
 	@Override
 	public Cell getCellNature(int x, int y) {
@@ -109,15 +110,14 @@ public class MapContract extends MapDecorator {
 		//run
 		return super.getCellNature(x, y);
 	}
-
+	
+	
+	/*========== constructeurs ==========*/
+	
 	@Override
 	public void init(int w, int h) {
-		System.out.println("aa");
 		//pre
 		preInit(w, h);
-		
-		//inv pre
-		checkInvariant();
 		
 		//run
 		super.init(w,h);
@@ -128,6 +128,9 @@ public class MapContract extends MapDecorator {
 		//post
 		postInit(w, h);
 	}
+	
+	
+	/*========== operateurs ==========*/
 
 	@Override
 	public void openDoor(int x, int y) {

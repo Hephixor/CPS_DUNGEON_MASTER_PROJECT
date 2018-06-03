@@ -6,7 +6,6 @@ import services.MapService;
 import utils.Cell;
 import utils.MapGenerator;
 import utils.Node;
-import utils.Pathfinder;
 
 public class MapBugImpl implements MapService {
 	int h;
@@ -58,8 +57,6 @@ public class MapBugImpl implements MapService {
 				}
 			}
 		}
-
-		Pathfinder pf = new Pathfinder(this,in.x,in.y,out.x,out.y);
 	}
 
 	@Override

@@ -9,7 +9,6 @@ import org.junit.Test;
 import errors.PreconditionError;
 import services.EditMapService;
 import utils.Cell;
-import utils.Tools;
 
 public abstract class AbstractEditMapTest {
 
@@ -135,12 +134,6 @@ public abstract class AbstractEditMapTest {
 	public void scenario1() {
 		//init
 		editmap.init(14, 35);
-		
-		for(int i=0; i<14; i++) {
-			for(int j=0; j<35; j++) {
-				editmap.setNature(i, j, Cell.EMP);
-			}
-		}
 
 		for(int i=0; i<14; i++) {
 			for(int j=0; j<35; j++) {
@@ -159,20 +152,43 @@ public abstract class AbstractEditMapTest {
 				
 		
 		//operateurs
-
+		editmap.setNature(5, 4, Cell.EMP);
 		editmap.setNature(5, 5, Cell.IN);
 		editmap.setNature(5, 6, Cell.EMP);
 		editmap.setNature(6, 6, Cell.DNC);
-		editmap.setNature(7, 6, Cell.DNO);
-		editmap.setNature(8, 6, Cell.EMP);
-		editmap.setNature(8, 5, Cell.DWC);
-		editmap.setNature(8, 4, Cell.DWO);
-		editmap.setNature(8, 3, Cell.OUT);
-		editmap.setNature(9, 3, Cell.EMP);
+		editmap.setNature(7, 6, Cell.EMP);
+		editmap.setNature(8, 6, Cell.DNO);
+		editmap.setNature(9, 6, Cell.EMP);
+		editmap.setNature(9, 5, Cell.DWC);
+		editmap.setNature(9, 4, Cell.EMP);
+		editmap.setNature(9, 3, Cell.DWO);
+		editmap.setNature(9, 2, Cell.EMP);
+		editmap.setNature(9, 1, Cell.OUT);
+		editmap.setNature(10, 1, Cell.EMP);
 		
 		//oracle
-		Tools.printMap(editmap);
-		assertTrue(editmap.isReachable(5,5, 9,3) == true);
+		//Tools.printMap(editmap);
+		assertTrue(editmap.isReachable(5,4, 9,3) == true);
+		assertTrue(editmap.isReady() == true);
+		
+		for(int x=0; x<14; x++) {
+			for(int y=0; y<35; y++) {
+				if(x==5 && y==4) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
+				else if(x==5 && y==5) assertTrue(editmap.getCellNature(x, y)==Cell.IN);
+				else if(x==5 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
+				else if(x==6 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.DNC);
+				else if(x==7 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
+				else if(x==8 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.DNO);
+				else if(x==9 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
+				else if(x==9 && y==5) assertTrue(editmap.getCellNature(x, y)==Cell.DWC);
+				else if(x==9 && y==4) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
+				else if(x==9 && y==3) assertTrue(editmap.getCellNature(x, y)==Cell.DWO);
+				else if(x==9 && y==2) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
+				else if(x==9 && y==1) assertTrue(editmap.getCellNature(x, y)==Cell.OUT);
+				else if(x==10 && y==1) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
+				else assertTrue(editmap.getCellNature(x, y)==cells_atpre[y][x]);
+			}
+		}
 	}
 }
 

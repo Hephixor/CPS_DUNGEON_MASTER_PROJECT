@@ -1,6 +1,5 @@
 package contracts;
 
-import java.util.List;
 import java.util.Random;
 
 import decorators.EditMapDecorator;
@@ -9,7 +8,6 @@ import errors.PostconditionError;
 import errors.PreconditionError;
 import services.EditMapService;
 import utils.Cell;
-import utils.Node;
 import utils.Pathfinder;
 
 public class EditMapContract extends EditMapDecorator{
@@ -90,9 +88,7 @@ public class EditMapContract extends EditMapDecorator{
 		}
 
 
-		/**
-		 * isReady
-		 */
+		//isReady :
 
 		/*
 		 * CellNature(M,xi,yi) = IN and CellNature(M,xo,yo) = OUT
@@ -102,79 +98,68 @@ public class EditMapContract extends EditMapDecorator{
 		 * 
 		 */
 
+		//on cherche IN et OUT
+		boolean in=false;
+		boolean out=false;
+		int inX=0,inY=0,outX=0,outY=0;
+
+		for(int i = 0 ; i < getWidth(); i++) {
+			for(int j = 0; j < getHeight(); j++) {
+				if(getCellNature(i, j)==Cell.IN) {
+					in=true;
+					inX=i;
+					inY=j;
+				}
+
+				else if(getCellNature(i, j)==Cell.OUT) {
+					out=true;
+					outX=i;
+					outY=j;
+				}
+			}
+		}
+		
+		//on cherche des portes et on regarde leur cellules autour
+		boolean doorOK = true;
+		for(int i = 0 ; i < getWidth(); i++) {
+			for(int j = 0; j < getHeight(); j++) {
+				if(getCellNature(i, j)==Cell.DNO || getCellNature(i, j)==Cell.DNC) {
+					if(getCellNature(i+1, j)!=getCellNature(i-1, j)|| getCellNature(i+1, j)!=Cell.EMP)
+						doorOK = false;
+					if(getCellNature(i , j-1)!=getCellNature(i, j+1)|| getCellNature(i, j-1)!=Cell.WLL)
+						doorOK = false;
+				}
+				if(getCellNature(i, j)==Cell.DWO || getCellNature(i, j)==Cell.DWC) {
+					if(getCellNature(i+1, j)!=getCellNature(i-1, j)|| getCellNature(i+1, j)!=Cell.WLL)
+						doorOK = false;
+					if(getCellNature(i , j-1)!=getCellNature(i, j+1)|| getCellNature(i, j-1)!=Cell.EMP)
+						doorOK = false;
+				}
+				
+				if(doorOK == false) break;
+			}
+			if(doorOK == false) break;
+		}
+		
+		//garde implications isReady
 		if(isReady()){
-			boolean in=false;
-			boolean out=false;
-			int inX=0,inY=0,outX=0,outY=0;
-
-			for(int i = 0 ; i < getWidth(); i++) {
-				for(int j = 0; j < getHeight(); j++) {
-					if(getCellNature(i, j)==Cell.IN) {
-						in=true;
-						inX=i;
-						inY=j;
-					}
-
-					else if(getCellNature(i, j)==Cell.OUT) {
-						out=true;
-						outX=i;
-						outY=j;
-					}
-				}
-			}
-
-			if(!in) {
+			if(!in) 
 				throw new InvariantError("Error missing entry on map.");
-			}
-
-			if(!out) {
+			if(!out)
 				throw new InvariantError("Error missing exit on map.");
-			}
-
-			if(!isReachable(inX, inY, outX, outY)) {
+			if(!isReachable(inX, inY, outX, outY))
 				throw new InvariantError("Error no path from entry to exit.");
-			}
-
-			/*
-			 *   forall x,y in int, CellNature(M,x,y) ∈ { DNO, DNC} implies
-			 * 		CellNature(M,x+1,y) = CellNature(M,x-1,y) = EMP and
-			 * 		CellNature(M,x,y-1) = CellNature(M,x,y+1) = WLL
-			 * 	forall x,y in int, CellNature(M,x,y) ∈ { DWO, DWC} implies
-			 *		CellNature(M,x+1,y) = CellNature(M,x-1,y) = WLL and
-			 * 		CellNature(M,x,y-1) = CellNature(M,x,y+1) = EMP
-			 */
-
-			for(int i = 0 ; i < getWidth(); i++) {
-				for(int j = 0; j < getHeight(); j++) {
-
-					if(getCellNature(i, j)==Cell.DNO || getCellNature(i, j)==Cell.DNC) {
-
-						if(getCellNature(i+1, j)!=getCellNature(i-1, j)|| getCellNature(i+1, j)!=Cell.EMP) {
-							throw new InvariantError("Error door innaccessible.");
-						}
-
-						if(getCellNature(i , j-1)!=getCellNature(i, j+1)|| getCellNature(i, j-1)!=Cell.WLL) {
-							throw new InvariantError("Error door is not attached to a wall.");
-						}
-					}
-
-					if(getCellNature(i, j)==Cell.DWO || getCellNature(i, j)==Cell.DWC) {
-
-						if(getCellNature(i+1, j)!=getCellNature(i-1, j)|| getCellNature(i+1, j)!=Cell.WLL) {
-							throw new InvariantError("Error door is not attached to a wall.");
-						}
-
-						if(getCellNature(i , j-1)!=getCellNature(i, j+1)|| getCellNature(i, j-1)!=Cell.EMP) {
-							throw new InvariantError("Error door innaccessible.");
-						}
-					}
-				}
-			}
+			if(!doorOK)
+				throw new InvariantError("Error door not correctly surrounded.");
+		}
+		else {
+			if(in && out &&  isReachable(inX, inY, outX, outY) && doorOK)
+				throw new InvariantError("isReady == false but map is ready");
 		}
 	}
 	
 	
-	/*========== preconditions des operateurs ==========*/
+	/*========== preconditions ==========*/
 	
 	public void preIsReachable(int inX, int inY, int outX, int outY) {
 		//dependances
@@ -196,7 +181,7 @@ public class EditMapContract extends EditMapDecorator{
 	}
 	
 	
-	/*========== postconditions des operateurs ==========*/
+	/*========== postconditions ==========*/
 	
 	public void postSetNature(int x, int y, Cell c, Cell[][] map_atpre) {
 		//CellNature(SetNature(M,x,y,Na),x,y) = Na
@@ -216,8 +201,9 @@ public class EditMapContract extends EditMapDecorator{
 		}
 	}
 	
-	/*========== operateurs ==========*/
-
+	
+	/*========== observateurs ==========*/
+	
 	@Override
 	public boolean isReachable(int inX, int inY, int outX, int outY){
 		//pre
@@ -226,6 +212,27 @@ public class EditMapContract extends EditMapDecorator{
 		//run
 		return super.isReachable(inX, inY, outX, outY);
 	}
+	
+	
+	/*========== constructeurs ==========*/
+	
+	public void init(int w, int h) {
+		//pre
+		MapContract map = new MapContract(this);
+		map.preInit(w, h);
+		
+		//run
+		super.init(w, h);
+		
+		//inv post
+		checkInvariants();
+		
+		//post
+		map.postInit(w, h);
+		
+	}
+	
+	/*========== operateurs ==========*/
 
 	public EditMapService setNature(int x, int y, Cell c) {
 		//pre

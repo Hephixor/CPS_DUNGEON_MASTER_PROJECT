@@ -1,7 +1,5 @@
 package impl;
 
-import java.util.List;
-
 import services.EditMapService;
 import utils.Cell;
 import utils.Node;
@@ -23,18 +21,48 @@ public class EditMapImpl extends MapImpl implements EditMapService{
 
 	@Override
 	public boolean isReady() {
-		return false;
+		boolean inExists = false;
+		boolean outExists = false;
+		boolean doorOK = true;
+		int xin=-1, yin=-1, xout=-1, yout=-1;
+		
+		for(int i=0; i<getWidth(); i++) {
+			for(int j=0; j<getHeight(); j++) {
+				Cell na = getCellNature(i, j);
+				
+				if(na==Cell.IN) {
+					inExists = true;
+					xin = i;
+					yin = j;
+				}
+				if(na==Cell.OUT) {
+					outExists = true;
+					xout = i;
+					yout = j;
+				}
+				
+				if(na== Cell.DNC || na==Cell.DNO) {
+					if( getCellNature(i+1,j)!=Cell.EMP || getCellNature(i-1,j)!=Cell.EMP) doorOK = false;
+					if( getCellNature(i,j+1)!=Cell.WLL || getCellNature(i,j-1)!=Cell.WLL) doorOK = false;
+				}
+				
+				if(na== Cell.DWC || na==Cell.DWO) {
+					if( getCellNature(i+1,j)!=Cell.WLL || getCellNature(i-1,j)!=Cell.WLL) doorOK = false;
+					if( getCellNature(i,j+1)!=Cell.EMP || getCellNature(i,j-1)!=Cell.EMP) doorOK = false;
+				}
+				
+				if(!doorOK) break;
+			}
+		}
+		
+		Pathfinder pf = new Pathfinder(this, xin, yin, xout, yout);
+		return inExists && outExists && doorOK && pf.hasPath();
 	}
 
 	@Override
 	public EditMapService setNature(int x, int y, Cell c) {
 		cells[y][x]=c;
 		return this;
-	}
-
-	@Override
-	public List<Node> getPath() {
-		return path;
 	}
 	
 	public Node getIn(){

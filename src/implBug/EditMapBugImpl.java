@@ -1,7 +1,5 @@
 package implBug;
 
-import java.util.List;
-
 import implBug.MapBugImpl;
 import services.EditMapService;
 import utils.Cell;
@@ -55,11 +53,6 @@ public class EditMapBugImpl extends MapBugImpl implements EditMapService{
 		return this;
 	}
 
-	@Override
-	public List<Node> getPath() {
-		return path;
-	}
-	
 	public Node getIn(){
 		return in;
 	}
