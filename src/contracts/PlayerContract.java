@@ -20,6 +20,9 @@ public class PlayerContract extends PlayerDecorator {
 		super(delegate);
 	}
 
+	
+	/*========== invariants ==========*/
+	
 	public void checkInvariants() {
 		Dir d = this.getFace();
 		int x = 0;
@@ -149,6 +152,16 @@ public class PlayerContract extends PlayerDecorator {
 
 	}
 
+	/*========== preconditions ==========*/
+	
+	/*========== postconditions ==========*/
+	
+	/*========== observateurs ==========*/
+	
+	/*========== constructeurs ==========*/
+	
+	/*========== operateurs ==========*/
+	
 	@Override
 	public MobService getContent(int x, int y) {
 		//pre

@@ -13,18 +13,58 @@ public class EntityContract extends EntityDecorator{
 		super(delegate);
 	}
 	
+	
+	/*========== invariants ==========*/
+	
 	public void checkInvariants() {
-		
+		//dependances
+		MobContract mob = new MobContract(this);
+		mob.checkInvariant();
 	}
 	
-	/* Constructors */
+	
+	/*========== preconditions ==========*/
+	
+	public void preInit(EnvironmentService e, int x, int y, int hp) {
+		//dependances
+		MobContract mob = new MobContract(this);
+		mob.preInit(e, x, y);
+		
+		//pre
+		if(! (hp > 0) )
+			throw new PreconditionError("HP must be at least 1.");
+	}
+	
+	public void preTakeHit() {
+		if(getHP()<=0)
+			throw new PreconditionError("Error cannot kill the dead");
+	}
+	
+	/*========== postconditions ==========*/
+	
+	public void postInit(EnvironmentService e, int x, int y, Dir d, int hp) {
+		//dependances
+		MobContract mob = new MobContract(this);
+		mob.postInit(e, x, y, d);
+		
+		//post
+		if(getHP()!=hp)
+			throw new PostconditionError("Erro while initializing HP");
+	}
+	
+	public void postTakeHit(int hp_atpre) {
+		if(getHP()!=hp_atpre-1)
+			throw new PostconditionError("Error hit didn't inflict 1 damage");
+	}
+	
+	/*========== observateurs ==========*/
+	
+	/*========== constructeurs ==========*/
 	
 	@Override
 	public void init(EnvironmentService env, int x, int y, Dir d, int hp) {
 		//pre
-		if(! (hp > 0) ) {
-			throw new PreconditionError("HP must be at least 1.");
-		}
+		preInit(env, x, y, hp);
 		
 		//inv pre
 		checkInvariants();
@@ -36,11 +76,12 @@ public class EntityContract extends EntityDecorator{
 		checkInvariants();
 		
 		//post
-		//Hp(init(E,x,y,D,h)) = h
-		if(getHP()!=hp) {
-			throw new PostconditionError("Erro while initializing HP");
-		}	
+		postInit(env, x, y, d, hp);
 	}
+	
+	
+	/*========== operateurs ==========*/
+	
 	
 	/* Operators */
 	
@@ -73,18 +114,13 @@ public class EntityContract extends EntityDecorator{
 		//inv post
 		checkInvariants();
 		
-		//post
-		//verifier que la cible à perdu des points de vie / porte ouverte/fermée ?
-		
+		//post	
 	}
 	
 	@Override
 	public void takeHit() {
 		//pre
-		// takeHit(E) implies HP(E)>0
-		if(getHP()<=0){
-			throw new PreconditionError("Error cannot kill the dead");
-		}
+		preTakeHit();
 
 		//inv pre
 		checkInvariants();
@@ -98,9 +134,7 @@ public class EntityContract extends EntityDecorator{
 		checkInvariants();
 
 		//post 
-		if(getHP()!=hp_atpre-1){
-			throw new PostconditionError("Error hit didn't inflict 1 damage");
-		}
+		postTakeHit(hp_atpre);
 		
 	}
 }
