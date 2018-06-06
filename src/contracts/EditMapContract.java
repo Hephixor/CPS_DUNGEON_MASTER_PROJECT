@@ -183,6 +183,18 @@ public class EditMapContract extends EditMapDecorator{
 			throw new InvariantError("isReachable end cell is a wall.");
 	}
 
+	public void preOpenDoor(int x, int y) {
+		//dependances
+		MapContract map = new MapContract(this);
+		map.preOpenDoor(x, y);
+	}
+	
+	public void preCloseDoor(int x, int y) {
+		//dependances
+		MapContract map = new MapContract(this);
+		map.preCloseDoor(x, y);
+	}
+	
 	public void preSetNature(int x, int y) {
 		if(!(x>=0 && x<getWidth())|| !(y>=0 && y<getHeight())) {
 			throw new PreconditionError("Error illegal coordinates");
@@ -191,6 +203,20 @@ public class EditMapContract extends EditMapDecorator{
 	
 	
 	/*========== postconditions ==========*/
+	
+	public void postOpenDoor(int x, int y, Cell cell_atpre, 
+			Cell cellA_atpre, Cell cellB_atpre, Cell cellC_atpre, Cell cellD_atpre) {
+		//dependances
+		MapContract map = new MapContract(this);
+		map.postOpenDoor(x, y, cell_atpre, cellA_atpre, cellB_atpre, cellC_atpre, cellD_atpre);
+	}
+	
+	public void postCloseDoor(int x, int y, Cell cell_atpre, 
+			Cell cellA_atpre, Cell cellB_atpre, Cell cellC_atpre, Cell cellD_atpre) {
+		//dependances
+		MapContract map = new MapContract(this);
+		map.postCloseDoor(x, y, cell_atpre, cellA_atpre, cellB_atpre, cellC_atpre, cellD_atpre);
+	}
 	
 	public void postSetNature(int x, int y, Cell c, Cell[][] map_atpre) {
 		//CellNature(SetNature(M,x,y,Na),x,y) = Na
@@ -225,6 +251,7 @@ public class EditMapContract extends EditMapDecorator{
 	
 	/*========== constructeurs ==========*/
 	
+	@Override
 	public void init(int w, int h) {
 		//pre
 		MapContract map = new MapContract(this);
@@ -243,10 +270,10 @@ public class EditMapContract extends EditMapDecorator{
 	
 	/*========== operateurs ==========*/
 
+	@Override
 	public void openDoor(int x, int y) {
 		//pre
-		MapContract map = new MapContract(this);
-		map.preOpenDoor(x, y);
+		preOpenDoor(x, y);
 		
 		//inv pre
 		checkInvariants();
@@ -270,13 +297,13 @@ public class EditMapContract extends EditMapDecorator{
 		checkInvariants();
 		
 		//post
-		map.postOpenDoor(x, y, cell_atpre, cellA_atpre, cellB_atpre, cellC_atpre, cellD_atpre);
+		postOpenDoor(x, y, cell_atpre, cellA_atpre, cellB_atpre, cellC_atpre, cellD_atpre);
 	}
 	
+	@Override
 	public void closeDoor(int x, int y) {
 		//pre
-		MapContract map = new MapContract(this);
-		map.preCloseDoor(x, y);
+		preCloseDoor(x, y);
 		
 		//inv pre
 		checkInvariants();
@@ -300,9 +327,10 @@ public class EditMapContract extends EditMapDecorator{
 		checkInvariants();
 		
 		//post
-		map.postCloseDoor(x, y, cell_atpre, cellA_atpre, cellB_atpre, cellC_atpre, cellD_atpre);
+		postCloseDoor(x, y, cell_atpre, cellA_atpre, cellB_atpre, cellC_atpre, cellD_atpre);
 	}
 	
+	@Override
 	public EditMapService setNature(int x, int y, Cell c) {
 		//pre
 		preSetNature(x, y);

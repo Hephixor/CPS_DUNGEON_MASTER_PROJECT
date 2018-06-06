@@ -165,6 +165,8 @@ public abstract class AbstractEditMapTest {
 		editmap.setNature(9, 2, Cell.EMP);
 		editmap.setNature(9, 1, Cell.OUT);
 		editmap.setNature(10, 1, Cell.EMP);
+		editmap.openDoor(9, 5);
+		editmap.closeDoor(8, 6);
 		
 		//oracle
 		//Tools.printMap(editmap);
@@ -178,9 +180,9 @@ public abstract class AbstractEditMapTest {
 				else if(x==5 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
 				else if(x==6 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.DNC);
 				else if(x==7 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
-				else if(x==8 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.DNO);
+				else if(x==8 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.DNC);
 				else if(x==9 && y==6) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
-				else if(x==9 && y==5) assertTrue(editmap.getCellNature(x, y)==Cell.DWC);
+				else if(x==9 && y==5) assertTrue(editmap.getCellNature(x, y)==Cell.DWO);
 				else if(x==9 && y==4) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
 				else if(x==9 && y==3) assertTrue(editmap.getCellNature(x, y)==Cell.DWO);
 				else if(x==9 && y==2) assertTrue(editmap.getCellNature(x, y)==Cell.EMP);
