@@ -5,6 +5,8 @@ import errors.PostconditionError;
 import errors.PreconditionError;
 import services.EntityService;
 import services.EnvironmentService;
+import services.MobService;
+import utils.Cell;
 import utils.Dir;
 
 public class EntityContract extends EntityDecorator{
@@ -137,4 +139,210 @@ public class EntityContract extends EntityDecorator{
 		postTakeHit(hp_atpre);
 		
 	}
+
+	public void  forward() {
+		MobContract mob = new MobContract(this);
+		
+		//pre
+		
+		//inv pre
+		checkInvariants();
+		
+		//capture
+		Dir face_atpre = getFace();
+		int row_atpre = getRow();
+		int col_atpre = getCol();
+		
+		int envHeight = getEnv().getHeight();
+		int envWidth = getEnv().getWidth();
+		
+		/*ci-dessous, les cases_atpre au Nord de la case_atpre du Mob,
+		 * a l'Est, au Sud, a l'Ouest.
+		 */
+		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
+		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
+		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
+		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
+		
+		//run
+		super.forward();
+		
+		//inv post
+		checkInvariants();
+		
+		//post
+		mob.postForward(face_atpre, col_atpre, row_atpre, envWidth, envHeight, 
+				cellnatN, cellcontN, cellnatS, cellcontS, cellnatW, cellcontW, cellnatE, cellcontE);
+				
+	}
+
+	@Override
+	public void backward() {
+		MobContract mob = new MobContract(this);
+		
+		//pre
+
+		//inv pre
+		checkInvariants();
+		
+		//capture
+		Dir face_atpre = getFace();
+		int row_atpre = getRow();
+		int col_atpre = getCol();
+		
+		int envHeight = getEnv().getHeight();
+		int envWidth = getEnv().getWidth();
+		
+		/*ci-dessous, les cases_atpre au Nord de la case_atpre du Mob,
+		 * a l'Est, au Sud, a l'Ouest.
+		 */
+		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
+		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
+		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
+		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
+		
+		//run
+		super.backward();
+		
+		//inv post
+		checkInvariants();
+		
+		//post
+		mob.postBackward(face_atpre, col_atpre, row_atpre, envWidth, envHeight, 
+				cellnatN, cellcontN, cellnatS, cellcontS, cellnatW, cellcontW, cellnatE, cellcontE);
+	}
+
+	@Override
+	public void strafeL() {
+		MobContract mob = new MobContract(this);
+		
+		//pre
+
+		//inv pre
+		checkInvariants();
+		
+		//capture
+		Dir face_atpre = getFace();
+		int row_atpre = getRow();
+		int col_atpre = getCol();
+		
+		int envHeight = getEnv().getHeight();
+		int envWidth = getEnv().getWidth();
+		
+		/*ci-dessous, les cases_atpre au Nord de la case_atpre du Mob,
+		 * a l'Est, au Sud, a l'Ouest.
+		 */
+		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
+		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
+		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
+		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
+		
+		//run
+		super.strafeL();
+		
+		//inv post
+		checkInvariants();
+		
+		//post
+		mob.postStrafeL(face_atpre, col_atpre, row_atpre, envWidth, envHeight, 
+				cellnatN, cellcontN, cellnatS, cellcontS, cellnatW, cellcontW, cellnatE, cellcontE);
+	}
+
+	@Override
+	public void strafeR() {
+		MobContract mob = new MobContract(this);
+		
+		//pre
+
+		//inv pre
+		checkInvariants();
+		
+		//capture
+		Dir face_atpre = getFace();
+		int row_atpre = getRow();
+		int col_atpre = getCol();
+		
+		int envHeight = getEnv().getHeight();
+		int envWidth = getEnv().getWidth();
+		
+		/*ci-dessous, les cases_atpre au Nord de la case_atpre du Mob,
+		 * a l'Est, au Sud, a l'Ouest.
+		 */
+		Cell cellnatN = getEnv().getCellNature(col_atpre, row_atpre+1);
+		MobService cellcontN = getEnv().getCellContent(col_atpre, row_atpre+1);
+		Cell cellnatE = getEnv().getCellNature(col_atpre+1, row_atpre);
+		MobService cellcontE = getEnv().getCellContent(col_atpre+1, row_atpre);
+		Cell cellnatS = getEnv().getCellNature(col_atpre, row_atpre-1);
+		MobService cellcontS = getEnv().getCellContent(col_atpre, row_atpre-1);
+		Cell cellnatW = getEnv().getCellNature(col_atpre-1, row_atpre);
+		MobService cellcontW = getEnv().getCellContent(col_atpre-1, row_atpre);
+		
+		//run
+		super.strafeR();
+		
+		//inv post
+		checkInvariants();
+		
+		//post
+		mob.postStrafeR(face_atpre, col_atpre, row_atpre, envWidth, envHeight, 
+				cellnatN, cellcontN, cellnatS, cellcontS, cellnatW, cellcontW, cellnatE, cellcontE);
+	}
+	
+	@Override
+	public void turnL() {
+		MobContract mob = new MobContract(this);
+		
+		//pre
+		
+		//inv pre
+		checkInvariants();
+		
+		//capture
+		Dir face_atpre = getFace();
+		
+		//run
+		super.turnL();
+		
+		//inv post
+		checkInvariants();
+		
+		//post
+		mob.postTurnL(face_atpre);
+	}
+
+	@Override
+	public void turnR() {
+		MobContract mob = new MobContract(this);
+		
+		//pre
+
+		//inv pre
+		checkInvariants();
+		
+		//capture
+		Dir face_atpre = getFace();
+		
+		//run
+		super.turnR();
+		
+		//inv post
+		checkInvariants();
+		
+		//post
+		mob.postTurnR(face_atpre);
+	}
+
+
 }
