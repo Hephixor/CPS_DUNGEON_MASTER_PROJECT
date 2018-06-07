@@ -576,7 +576,7 @@ public class PlayerContract extends PlayerDecorator {
 				
 					case N :
 						if(row_atpre+1 < envHeight
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatN)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatN)
 						&& cellcontN == null) {
 							if(!( getRow()==row_atpre+1 && getCol()==col_atpre ))
 								throw new PostconditionError("incorrectly Moved Forward while looking at North.");
@@ -588,7 +588,7 @@ public class PlayerContract extends PlayerDecorator {
 						
 					case E : 
 						if(col_atpre+1 < envWidth
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatE)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatE)
 						&& cellcontE == null) {
 							if(!( getRow()==row_atpre && getCol()==col_atpre+1 ))
 								throw new PostconditionError("incorrectly Moved Forward while looking at East.");
@@ -600,7 +600,7 @@ public class PlayerContract extends PlayerDecorator {
 							
 					case S :
 						if(row_atpre-1 >= 0
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatS)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatS)
 						&& cellcontS == null) {
 							if(!( getRow()==row_atpre-1 && getCol()==col_atpre ))
 								throw new PostconditionError("incorrectly Moved Forward while looking at South.");
@@ -612,7 +612,7 @@ public class PlayerContract extends PlayerDecorator {
 						
 					case W : 
 						if(col_atpre-1 >= 0
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatW)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatW)
 						&& cellcontW == null) {
 							if(!( getRow()==row_atpre && getCol()==col_atpre-1 ))
 								throw new PostconditionError("incorrectly Moved Forward while looking at West.");
@@ -631,7 +631,7 @@ public class PlayerContract extends PlayerDecorator {
 				
 					case S :
 						if(row_atpre+1 < envHeight
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatN)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatN)
 						&& cellcontN == null) {
 							if(!( getRow()==row_atpre+1 && getCol()==col_atpre ))
 								throw new PostconditionError("incorrectly Moved Backward while looking at South.");
@@ -643,7 +643,7 @@ public class PlayerContract extends PlayerDecorator {
 						
 					case W : 
 						if(col_atpre+1 < envWidth
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatE)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatE)
 						&& cellcontE == null) {
 							if(!( getRow()==row_atpre && getCol()==col_atpre+1 ))
 								throw new PostconditionError("incorrectly Moved Backward while looking at West.");
@@ -655,7 +655,7 @@ public class PlayerContract extends PlayerDecorator {
 							
 					case N :
 						if(row_atpre-1 >= 0
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatS)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatS)
 						&& cellcontS == null) {
 							if(!( getRow()==row_atpre-1 && getCol()==col_atpre ))
 								throw new PostconditionError("incorrectly Moved Backward while looking at North.");
@@ -667,7 +667,7 @@ public class PlayerContract extends PlayerDecorator {
 						
 					case E : 
 						if(col_atpre-1 >= 0
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatW)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatW)
 						&& cellcontW == null) {
 							if(!( getRow()==row_atpre && getCol()==col_atpre-1 ))
 								throw new PostconditionError("incorrectly Moved Backward while looking at East.");
@@ -686,7 +686,7 @@ public class PlayerContract extends PlayerDecorator {
 				
 					case E :
 						if(row_atpre+1 < envHeight
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatN)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatN)
 						&& cellcontN == null) {
 							if(!( getRow()==row_atpre+1 && getCol()==col_atpre ))
 								throw new PostconditionError("incorrectly Strafed Left while looking at East.");
@@ -698,7 +698,7 @@ public class PlayerContract extends PlayerDecorator {
 						
 					case S : 
 						if(col_atpre+1 < envWidth
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatE)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatE)
 						&& cellcontE == null) {
 							if(!( getRow()==row_atpre && getCol()==col_atpre+1 ))
 								throw new PostconditionError("incorrectly Strafed Left while looking at South.");
@@ -710,7 +710,7 @@ public class PlayerContract extends PlayerDecorator {
 							
 					case W :
 						if(row_atpre-1 >= 0
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatS)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatS)
 						&& cellcontS == null) {
 							if(!( getRow()==row_atpre-1 && getCol()==col_atpre ))
 								throw new PostconditionError("incorrectly Strafed Left while looking at West.");
@@ -722,7 +722,7 @@ public class PlayerContract extends PlayerDecorator {
 						
 					case N : 
 						if(col_atpre-1 >= 0
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatW)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatW)
 						&& cellcontW == null) {
 							if(!( getRow()==row_atpre && getCol()==col_atpre-1 ))
 								throw new PostconditionError("incorrectly Strafed Left while looking at North.");
@@ -742,7 +742,7 @@ public class PlayerContract extends PlayerDecorator {
 				
 					case W :
 						if(row_atpre+1 < envHeight
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatN)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatN)
 						&& cellcontN == null) {
 							if(!( getRow()==row_atpre+1 && getCol()==col_atpre ))
 								throw new PostconditionError("incorrectly Strafed Right while looking at West.");
@@ -754,7 +754,7 @@ public class PlayerContract extends PlayerDecorator {
 						
 					case N : 
 						if(col_atpre+1 < envWidth
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatE)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatE)
 						&& cellcontE == null) {
 							if(!( getRow()==row_atpre && getCol()==col_atpre+1 ))
 								throw new PostconditionError("incorrectly Strafed Right while looking at North.");
@@ -766,7 +766,7 @@ public class PlayerContract extends PlayerDecorator {
 							
 					case E :
 						if(row_atpre-1 >= 0
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatS)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatS)
 						&& cellcontS == null) {
 							if(!( getRow()==row_atpre-1 && getCol()==col_atpre ))
 								throw new PostconditionError("incorrectly Strafed Right while looking at East.");
@@ -778,7 +778,7 @@ public class PlayerContract extends PlayerDecorator {
 						
 					case S : 
 						if(col_atpre-1 >= 0
-						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DWO).contains(cellnatW)
+						&& Arrays.asList(Cell.IN, Cell.OUT, Cell.EMP, Cell.DNO).contains(cellnatW)
 						&& cellcontW == null) {
 							if(!( getRow()==row_atpre && getCol()==col_atpre-1 ))
 								throw new PostconditionError("incorrectly Strafed Right while looking at South.");

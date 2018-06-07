@@ -68,9 +68,6 @@ public class EntityContract extends EntityDecorator{
 		//pre
 		preInit(env, x, y, hp);
 		
-		//inv pre
-		checkInvariants();
-		
 		//run
 		super.init(env, x, y, d, hp);
 		
@@ -140,7 +137,7 @@ public class EntityContract extends EntityDecorator{
 		
 	}
 
-	public void  forward() {
+	public void forward() {
 		MobContract mob = new MobContract(this);
 		
 		//pre

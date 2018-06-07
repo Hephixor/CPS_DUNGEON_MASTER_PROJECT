@@ -92,9 +92,9 @@ public class DungeonMaster {
 			enginec.addEntity(entityservice);
 		}
 
-		getPlayer();
 		Tools.printEnv(envs);
 
+		
 	}
 	
 	public EnvironmentService getEnv(){
