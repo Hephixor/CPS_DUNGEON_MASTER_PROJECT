@@ -9,6 +9,7 @@ import org.junit.Test;
 import errors.PreconditionError;
 import services.EditMapService;
 import utils.Cell;
+import utils.Tools;
 
 public abstract class AbstractEditMapTest {
 
@@ -168,6 +169,7 @@ public abstract class AbstractEditMapTest {
 		editmap.openDoor(9, 5);
 		editmap.closeDoor(8, 6);
 		
+		Tools.printMap(editmap);
 		//oracle
 		//Tools.printMap(editmap);
 		assertTrue(editmap.isReachable(5,4, 9,3) == true);

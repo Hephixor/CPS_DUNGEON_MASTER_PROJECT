@@ -86,7 +86,7 @@ public abstract class AbstractMobTest {
 	public void preInitNegatif() {
 		//init
 		editmap.init(14,35);
-		editmap.setNature(7, 23, Cell.DNC);
+		editmap.setNature(7, 23, Cell.IN);
 		env.init(editmap);
 		
 		//operation
